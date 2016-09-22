@@ -1,0 +1,27 @@
+{
+  "code": 200,
+  "data": {
+    "user": {
+      "id": 1,
+      "name": "weck",
+      "token": "356a192b7913b04c54574d18c28d46e6395428ab",
+      "isSuperAdmin": "",
+      "county": {
+        "id": 1,
+        "isDelete": 0,
+        "name": "nankang",
+        "location": null
+      },
+      "roles": {
+        "id": 1,
+          "name": "admin",
+          "isActive": 1
+      },
+      "phone": null,
+      "isActive": 1,
+      "email": null,
+      "realName": "weck"
+    }
+  },
+  "error": null
+}

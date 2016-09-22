@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>管滴灌基本情况查询</title>
+    <link href="../../../vendor/css/bootstrap.min.css-v=3.3.5.css" rel="stylesheet">
+    <!-- Morris -->
+    <link href="../../../vendor/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
+
+    <link href="../../../vendor/css/animate.min.css" rel="stylesheet">
+    <link href="../../../vendor/css/style.min.css-v=4.0.0.css" rel="stylesheet">
+    <link type="text/css" href="../../../vendor/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <style>
+        .panel-body .row{margin-bottom: 2px;}
+        #detail th{background-color:#1cc09f; color: #fff;}
+    </style>
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><span id="type">管滴灌</span>基本情况查询</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" role="form" id="search">
+                <div class="row">
+                    <div class="form-group-sm">
+                        <label for="beginTime" class="col-sm-2 control-label">查询起始时间: </label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" name="beginTime" id="beginTime">
+                        </div>
+
+                        <label for="endTime" class="col-sm-2 control-label">查询终止时间: </label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" name="endTime" id="endTime">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group-sm">
+                        <label for="code" class="col-sm-2 control-label">编码查询: </label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="code" name="code">
+                        </div>
+                        <label for="name" class="col-sm-2 control-label">名称查询: </label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="name" name="name">
+                        </div>
+                        <label for="kind" class="col-sm-2 control-label">类别查询: </label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="kind" name="kind">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group-sm">
+                        <label for="town" class="col-sm-2 control-label">乡镇查询: </label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="town" name="town">
+                        </div>
+                        <label for="village" class="col-sm-2 control-label">村庄查询: </label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="village" name="village">
+                        </div>
+                        <label for="group" class="col-sm-2 control-label">组查询: </label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="group" name="group">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group-sm">
+                        <label for="management" class="col-sm-2 control-label">管理模式查询: </label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="management" name="management">
+                        </div>
+                        <label for="situation" class="col-sm-2 control-label">完好程度查询: </label>
+                        <div class="col-sm-1">
+                            <input type="text" class="form-control" id="situation" name="situation">
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="form-group form-group-sm">
+                    <label for="type" class="col-sm-2 control-label">类型: </label>
+                    <div class="col-sm-10">
+                        &lt;!&ndash;<input type="text" class="form-control" id="type">&ndash;&gt;
+                        <select name="type" id="type" class="form-control">
+                            <option value="0">不限</option>
+                            <option value="1">涵洞</option>
+                            <option value="2">桥梁</option>
+                            <option value="3">涵洞</option>
+                            <option value="4">漕洞</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="town" class="col-sm-2 control-label">乡镇: </label>
+                    <div class="col-sm-10">
+                        <select name="type" id="town" class="form-control">
+                            <option value="0">不限</option>
+                            <option value="1">憨里1号</option>
+                            <option value="2">憨里2号</option>
+                            <option value="3">憨里3号</option>
+                            <option value="4">憨里4号</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group form-group-sm">
+                    <label for="name" class="col-sm-2 control-label">名称: </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="name">
+                    </div>
+                </div>-->
+                <div class="form-group-sm">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default btn-sm">查询</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-bordered" id="detail">
+        <thead>
+        <tr>
+            <th class="t_head" nowrap="true">选择</th>
+            <th class="t_head" nowrap="true">编码</th>
+            <th class="t_head" nowrap="true">乡/镇</th>
+            <th class="t_head" nowrap="true">村</th>
+            <th class="t_head" nowrap="true">组</th>
+            <th class="t_head" nowrap="true">管滴灌名称</th>
+            <th class="t_head" nowrap="true">建站/改造时间</th>
+            <th class="t_head" nowrap="true">建设/改造单位</th>
+            <th class="t_head" nowrap="true">灌溉面积</th>
+            <th class="t_head" nowrap="true">取水方式</th>
+            <th class="t_head" nowrap="true">水源</th>
+            <th class="t_head" nowrap="true">合计长</th>
+            <th class="t_head" nowrap="true">合计直径</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--template-->
+        </tbody>
+    </table>
+    <nav>
+        <ul class="pager">
+            <li><a href="#" id="prev">上一页</a></li>
+            <li><form id="pageNav" style="display: inline;"><input type="text" style="width: 45px;text-align: center" id="page" placeholder="1" /></form></li>
+            <li><a href="#" id="next">下一页</a></li>
+        </ul>
+    </nav>
+</div>
+<script src="../../../vendor/js/jquery.min.js-v=2.1.4.js"></script>
+<script>
+    var getUserInfo = function () {
+//        TODO : getUserInfo OK
+        var info = {
+            userId: window.sessionStorage.getItem('userId') || -1,
+            userName: window.sessionStorage.getItem('userName') || null,
+            token: window.sessionStorage.getItem('token') || 0,
+            rolesId: window.sessionStorage.getItem('rolesId') || -1,
+            rolesName: window.sessionStorage.getItem('rolesName') || -1,
+        };
+        return info;
+    }
+    var render = function (contents) {
+        if (!contents && contents.length < 0) {
+            console.log("render situation failed, caused by empty content provided.");
+            return;
+        }
+        var container = $("#detail").find('tbody');
+        var html = '';
+        contents.map(function(content){
+            html  += '<tr class="rows"> ' +
+                    '<td class="t_td" nowrap="true" align="center" style="width: 5px;"> ' +
+                    '<input type="checkbox" name="select" id="select" value="4895"> ' +
+                    '</td> ' +
+                    '<td class="t_td" nowrap="true"> ' +
+                    '<a href="../conditionsDetails/guandi.html?projectId='+ content.code +'">' + content.code +  '</a>' +var type = $("#type").html();
+                    '</td> ' +
+                    '<td class="t_td" nowrap="true">' + content.town.name + '</td>' +
+                    '<td class="t_td" nowrap="true">' + content.village.name + '</td> ' +
+                    '<td class="t_td" nowrap="true">' + content.group.name + '</td> ' +
+                    '<td class="t_td" nowrap="true">' + content.name + '</td> ' +
+                    '<td class="t_td" nowrap="true">' + content.constructTime + '</td> ' +
+                    '<td class="t_td" nowrap="true">' + content.constructUnit + '</td> ' +
+                    '<td class="t_td" nowrap="true">' + content.projectMark.dripIrrigationPipe.irrigateArea + '</td> ' +
+                    '<td class="t_td" nowrap="true">' + content.projectMark.dripIrrigationPipe.intakeWay + '</td> ' +
+                    '<td class="t_td" nowrap="true">' + content.projectMark.dripIrrigationPipe.waterResource + '</td> ' +
+                    '<td class="t_td" nowrap="true">' + content.projectMark.dripIrrigationPipe.sumLength + '</td> ' +
+                    '<td class="t_td" nowrap="true">' + content.projectMark.dripIrrigationPipe.sumDiameter + '</td> ' +
+                    '</tr> ';
+        });
+        container.html(html);
+
+    }
+    var init = function (url, type, page) {
+        page = page || 1;
+        var userInfo = getUserInfo();
+        var data = {
+            userId: userInfo.userId,
+            token: userInfo.token,
+            category: type,
+            size: 10,
+            page: page
+        };
+        $.post(url, data, function (res) {
+            if (typeof res == 'string') res = JSON.parse(res);
+            if (res.code == 200) {
+                var content = res.data.conservations.content;
+                window.pageLength = res.data.conservations.totalPages;
+                $("#page").attr("placeholder", page+"/"+window.pageLength);
+                render(content);
+            } else {
+                alert("数据加载失败,请重试！");
+            }
+        });
+    };
+    var refresh = function (type, page) {
+        init('/project/getConservations',type, page);
+    }
+    $(function () {
+        var type = $("#type").html();
+        var page = 1;
+        var fromSearch = false;
+        var search = function (e) {
+            e.preventDefault();
+
+            if (this == e.target) {page = 1;}
+            var params = $("#search").serialize();
+
+            params = params ? JSON.parse('{"' + params.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
+                    function (key, value) { return key===""?value:decodeURIComponent(value) })
+                    : {};
+            $.each(params, function (key, val) {
+                if (!val) delete params[key];
+            });
+            if ($.isEmptyObject(params)) {
+                alert("请填写至少一项内容!");
+                return;
+            }
+            params.category = type;
+            params.size = 10;
+            params.page = page;
+            $.post("/project/getConservations", params, function (res) {
+                if (typeof res == 'string') {
+                    res = JSON.parse(res);
+                }
+                if (res.code == 200) {
+                    console.info(res);
+                    fromSearch = true;
+                    window.pageLength = res.data.conservations.totalPages;
+                    console.log(window.pageLength, "legth");
+                    $("#page").attr("placeholder", page+"/"+window.pageLength);
+                    render(res.data.conservations.content);
+                } else {
+                    alert("出错了!");
+                }
+            })
+        };
+
+        $("#search").on("submit", search);
+
+        /*分页*/
+        var $next = $("#next");
+        var $prev = $("#prev");
+        $next.on("click", function (e) {
+            e.preventDefault();
+            console.log("before next clicked: ",page);
+            console.log("pageLength: ", window.pageLength);
+            page += 1;
+            if (page > window.pageLength) {
+                $(this).parent("li").addClass("disabled");
+                page -= 1;
+                return;
+            }else {
+                $prev.parent("li").removeClass("disabled");
+            }
+            if (fromSearch) search(e);
+            else refresh(type, page);
+            console.log("after next clicked: ",page);
+        });
+        $prev.on("click", function (e) {
+            e.preventDefault();
+            console.log("before prev clicked: ",page);
+            page -= 1;
+            if (page < 1) {
+                $(this).parent("li").addClass("disabled");
+                page += 1;
+                return;
+            }else {
+                $next.parent("li").removeClass("disabled");
+            }
+            if (fromSearch) search(e);
+            else refresh(type, page);
+            console.log("after prev clicked: ",page);
+        })
+
+        init('/project/getConservations',type);
+    })
+</script>
+</body>
+</html>

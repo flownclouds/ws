@@ -1,0 +1,70 @@
+{
+  "code": 200,
+  "msg": {
+    "projectCategories": [
+      {
+        "id": 1,
+        "createTime": "2016-08-15 10:37:12",
+        "updateTime": "2016-08-15 10:37:11",
+        "isDelete": 0,
+        "name": "泵站"
+      },
+      {
+        "id": 2,
+        "createTime": "2016-08-15 10:37:11",
+        "updateTime": "2016-08-15 10:37:11",
+        "isDelete": 0,
+        "name": "渡槽"
+      },
+      {
+        "id": 3,
+        "createTime": "2016-08-15 10:37:11",
+        "updateTime": "2016-08-15 10:37:11",
+        "isDelete": 0,
+        "name": "河道"
+      }
+    ],
+   "user": {
+      "id": 1,
+      "createTime": "2016-08-15 10:37:11",
+      "updateTime": "2016-09-02 09:48:20",
+      "isDelete": 0,
+      "name": "weck",
+      "password": "AJakUTAHq+04GQOEqBCR/Zz8sFAQyX1u1iL4GRBE5qd4YFEc+A7dB9hUuWpZHm/l3vjicEVb4s5zJd9EjmPDRxM=",
+      "salt": "ADftHJvI/VIGgUIlTER7SqAvDvCazQopk2oELqgj0Ao=",
+      "token": "c2b349b42ebf429d8bc2b90ced7b1dcc",
+     "county": {
+        "id": 1,
+        "createTime": "2016-08-15 10:37:11",
+        "updateTime": "2016-08-15 10:37:11",
+        "isDelete": 0,
+        "name": "nankang",
+        "isActive": 1,
+        "location": null
+      },
+     "roles": [
+        {
+          "id": 1,
+          "createTime": "2016-08-15 10:37:11",
+          "updateTime": "2016-08-15 10:37:11",
+          "isDelete": 0,
+          "name": "admin",
+          "isActive": 1
+        },
+        {
+          "id": 2,
+          "createTime": "2016-08-15 10:37:11",
+          "updateTime": "2016-08-15 10:37:11",
+          "isDelete": 0,
+          "name": "guest",
+          "isActive": 1
+        }
+      ],
+      "phone": null,
+      "isActive": 1,
+      "email": null,
+      "realName": "weck"
+    }
+  },
+  "hasError": false
+}

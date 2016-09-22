@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>连云港农村水利信息系统 - 主页</title>
+    <link href="../../vendor/css/bootstrap.min.css-v=3.3.5.css" rel="stylesheet">
+    <!-- Morris -->
+    <link href="../../vendor/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
+
+    <link href="../../vendor/css/animate.min.css" rel="stylesheet">
+    <link href="../../vendor/css/style.min.css-v=4.0.0.css" rel="stylesheet">
+    <link type="text/css" href="../../vendor/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
+
+    <style>
+        .text-center{text-align: center}
+        table td{border-spacing: 0;}
+    </style>
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row">
+    <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>系统公告</h5>
+            </div>
+            <div class="ibox-content">
+
+                <div class="row">
+                    <div class="col-sm-10">
+                        <table class="table table-hover margin bottom" id="news">
+                            <thead style="background-color: #30cca0; color: #fff;">
+                            <tr>
+                                <th style="width: 5%" class="text-center">序号</th>
+                                <th style="width: 80%;text-align: left">标题</th>
+                                <th class="text-center">日期</th>
+                            </tr>
+                            </thead>
+                            <tbody id="newsBody">
+                            <!--template-->
+                            </tbody>
+                        </table>
+                        <nav>
+                            <ul class="pager">
+                                <li><a href="#" id="prev">上一页</a></li>
+                                <li><form id="pageNav" style="display: inline;"><input type="text" style="width: 45px;text-align: center" id="page" placeholder="1" /></form></li>
+                                <li><a href="#" id="next">下一页</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-sm-2">
+                        <div id="world-map" style="height: 300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="../../vendor/js/jquery.min.js-v=2.1.4.js"></script>
+
+<script>
+    window.homeNewsPage = 1;
+    var pageNav = function () {
+        if (window.homeNewsPage <= 1) {
+            $("#prev").parent("li").addClass("disabled");
+            window.homeNewsPage=1;
+        } else {
+            $("#prev").parent("li").removeClass("disabled");
+        }
+
+        $("#pageNav").on("submit", function (e) {
+            e.preventDefault();
+            if (!/^[1-9]\d*$/.test($("#page").val())){
+                alert("请输入数字");
+                $("#page").val("");
+            } else {
+                $("#page").attr("placeholder", $("#page").val() + "/" + window.totalHomeNews);
+                $("#page").val( $("#page").val() + "/" + window.totalHomeNews );
+                $("#page").blur();
+                saveNews('/notification/countyNotifications2',renderNews);
+            }
+
+            if (window.homeNewsPage <= 1) {
+                $("#prev").parent("li").addClass("disabled");
+                window.homeNewsPage=1;
+            } else $("#prev").parent("li").removeClass("disabled");
+
+            if (window.homeNewsPage >= window.totalHomeNews ) {
+                $("#next").parent("li").addClass("disabled");
+                window.homeNewsPage=window.totalHomeNews;
+            } else $("#next").parent("li").removeClass("disabled");
+        });
+        $("#page").on("click", function (e) {
+            e.stopPropagation();
+            $(this).attr("placeholder", $(this).val());
+            $(this).val("");
+        });
+        $("#prev").on("click", function (e) {
+            e.stopPropagation();
+            if (window.homeNewsPage > 1) {
+                $("#next").parent("li").removeClass("disabled");
+                saveNews('/notification/countyNotifications',renderNews,--window.homeNewsPage);
+            } else {
+                $("#prev").parent("li").addClass("disabled");
+            }
+        });
+        $("#next").on("click", function (e) {
+            e.stopPropagation();
+            if (window.homeNewsPage < window.totalHomeNews){
+                $("#prev").parent("li").removeClass("disabled");
+                saveNews('/notification/countyNotifications',renderNews,++window.homeNewsPage);
+            } else {
+                $("#next").parent("li").addClass("disabled");
+            }
+        });
+    }
+    var renderNews = function (content) {
+        console.log('render homepage news');
+        if (content.length > 0){
+            var container = $("#newsBody");
+            var html = '';
+            for (var item in content) {
+                console.log(content[item].title)
+                html += "<tr> " +
+                            "<td class='text-center'>" +
+                                content[item].id +
+                            "</td> " +
+                            "<td style='width: 80%' >" +
+                                "<a href='../newsDetail.html?pageId=" + content[item].id + "'>" +
+                                    content[item].title +
+                                "</a>" +
+                            "</td> " +
+                            "<td class='text-center small'>" +
+                                content[item].createTime +
+                            "</td>" +
+                            "</td>" +
+                        "</tr>";
+
+            }
+            container.html(html);
+        } else {
+            console.log("empty news");
+        }
+    }
+    var getUserInfo = function () {
+//        TODO : getUserInfo
+        var info = {
+            userId: window.sessionStorage.getItem('userId') || -1,
+            userName: window.sessionStorage.getItem('userName') || null,
+            token: window.sessionStorage.getItem('token') || 0,
+            rolesId: window.sessionStorage.getItem('rolesId') || -1,
+            rolesName: window.sessionStorage.getItem('rolesName') || -1,
+        };
+        return info;
+    }
+    var saveNews = function (url, callback, page) {
+        var userInfo = getUserInfo();
+        var data = {
+            userId: userInfo.userId,
+            token: userInfo.token,
+            page: page || 1,
+            size: 5
+        };
+
+        $.ajax({
+            url: url,
+            data: data,
+            success: function (res) {
+                console.log("homepage news load success!");
+                if (typeof res == 'string'){
+                    res = JSON.parse(res);
+                }
+                if(res.code == 200){
+                    var contents = res.data.notifications.content;
+                    var totalPage  = res.data.notifications.totalPages;
+                    console.info(window.homeNewsPage);
+
+                    window.totalHomeNews = totalPage;
+                    $("#page").attr("placeholder", data.page + "/" + totalPage);
+                    if (contents.length > 0){
+                        for (var item in contents) {
+                            sessionStorage.setItem(contents[item].id, JSON.stringify(contents[item]));
+                        }
+                        callback(contents);
+                    }
+
+                } else {
+                    console.error('get news error with error code : ', res.code);
+                }
+            },
+            fail: function (err) {
+                console.error("cannot connect to server",err.responseText);
+            }
+        })
+    }
+    $(function () {
+        pageNav();
+        saveNews('/notification/countyNotifications',renderNews);
+        console.log("homepage");
+    })
+</script>
+</body>
+
+</html>

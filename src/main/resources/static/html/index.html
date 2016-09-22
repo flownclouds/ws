@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>连云港农村水利信息系统 - 登录</title>
+
+
+    <link href="../vendor/css/font-awesome.min.css-v=4.4.0.css" rel="stylesheet">
+    <link href="../vendor/css/bootstrap.min.css-v=3.3.5.css" rel="stylesheet">
+    <link href="../vendor/css/animate.min.css" rel="stylesheet">
+    <link href="../vendor/css/style.min.css-v=4.0.0.css" rel="stylesheet">
+
+    <link href="../vendor/css/style.min.css" rel="stylesheet">
+    <link href="../vendor/css/login.min.css" rel="stylesheet">
+    <!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>
+        if(window.top!==window.self){window.top.location=window.location};
+    </script>
+    <script src="../vendor/js/jquery.min.js-v=2.1.4.js"></script>
+    <script src="../js/sha1.js"></script>
+    <style>
+        .news{color: #fff;}
+        .news:hover{color: #ccc;}
+    </style>
+</head>
+
+<body class="signin">
+<div class="signinpanel">
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="signin-info">
+                <div class="logopanel m-b">
+                    <h1>连云港农村水利信息管理系统</h1>
+                </div>
+                <div class="m-b"></div>
+                <h4>通知公告</h4>
+                <ul class="m-b" id="newsList">
+                    <!--template-->
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <form id="login">
+                <h4 class="no-margins">登录：</h4>
+                <p class="m-t-md">登录到连云港农村水利信息管理系统</p>
+                <input type="text" name="userName" class="form-control uname" id="uname" placeholder="用户名" />
+                <input type="password" name="password" class="form-control pword m-b" id="pword" placeholder="密码" />
+                <button class="btn btn-success btn-block">登录</button>
+            </form>
+        </div>
+    </div>
+    <div class="signup-footer">
+        <div class="pull-left">
+            &copy; 2016 All Rights Reserved izayl & weck.
+        </div>
+    </div>
+</div>
+<script>
+    var renderNews = function (content) {
+        console.log('render');
+        if (content.length > 0){
+            var container = $("#newsList");
+            var html = '';
+            for (var item in content) {
+                console.log(content[item].title)
+                html += "<li>" +
+                            "<a href='./newsDetail.html?pageId=" +
+                                content[item].id +
+                            "' class='news'>" +
+                                "<i class='fa fa-arrow-circle-o-right m-r-xs'></i>" +
+                                content[item].title +
+                            "</a>" +
+                        "</li>";
+
+            }
+            console.log(html)
+            container.html(html);
+        } else {
+            console.log("empty news");
+        }
+    }
+    var saveNews = function (url,callback) {
+        var data = {
+            page: 1,
+            size: 5
+        };
+        $.get(url,data,function (res) {
+            console.log("getNews success");
+            if (typeof res == 'string'){
+                res = JSON.parse(res);
+                console.log(res)
+            }
+            if(res.code == 200){
+                var contents = res.data.notifications.content;
+                if (contents.length > 0){
+                    for (var item in contents) {
+                        sessionStorage.setItem(contents[item].id, JSON.stringify(contents[item]));
+                    }
+                    callback(contents);
+                }
+
+            } else {
+                console.error('get news error with error code : ', res.code);
+            }
+        },"text").fail(function (err) {
+                console.error("cannot connect to server",err.responseText);
+            })
+
+    }
+    var saveUserInfo = function (userInfo) {
+        window.sessionStorage.setItem("userId", userInfo.id);
+        window.sessionStorage.setItem("userName", userInfo.name);
+        window.sessionStorage.setItem("token", userInfo.token);
+        window.sessionStorage.setItem("rolesId", userInfo.role.id);
+        window.sessionStorage.setItem("rolesName", userInfo.role.name);
+
+    }
+    var login = function (url, form) {
+        var $form = $(form);
+        var u = $form.find('#uname').val();
+        var p = $form.find('#pword').val();
+        if (!u || p.trim().length < 1) {
+            alert("用户名和密码不能为空!");
+            return;
+        }
+        var data = {
+            userName: u,
+            password: hex_sha1(p)
+        };
+        $.post(url, data, function (res) {
+            console.log("success");
+            if (typeof res === "string") {
+                res = JSON.parse(res);
+            }
+            console.log(res);
+            if (res.code == 200) {
+//                TODO : 检测用户数据并保存(token&userId), 跳转页面
+                if (res.data.user.token && res.data.user.name) {
+                    saveUserInfo(res.data.user, res.data.role);
+                    window.location.href = './home.html';
+                }
+            } else {
+                console.log(res.code);
+                alert("密码错误!");
+                $form.find("#uname").val("").focus();
+                $form.find("#pword").val("");
+            }
+        })
+    }
+    $(function () {
+        saveNews('/notification/indexNotifications', renderNews);
+        $("#login").on("submit", function (e) {
+            e.preventDefault();
+            login('/user/login', "#login");
+        });
+    })
+</script>
+</body>
+
+</html>

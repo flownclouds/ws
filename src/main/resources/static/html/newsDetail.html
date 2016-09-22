@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>公告详情</title>
+  <script src="../vendor/js/jquery.min.js-v=2.1.4.js"></script>
+  <style>
+    .return:hover { color: #1cc09f; cursor: pointer; }
+    .content { width: 100% }
+    h1, p { text-align: center }
+    .detail { background-color: rgb(243, 243, 244); width: 100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; min-height: 800px; padding:10px; }
+  </style>
+</head>
+
+<body>
+  <a class="return" onclick="window.history.back()">&lt&lt返回上一页</a>
+  <div class="content">
+    <!--<h1>收工拉</h1>
+    <p>作者: <span></span> 时间: <span></span></p>
+    <div class="detail">
+
+    </div>-->
+  </div>
+  <script>
+    $.getQuery = function() {
+      var search = window.location.search;
+      var queryObj = {};
+      if (search.indexOf('?') != -1) {
+        var queryString = search.substr(1);
+        var query = queryString.split('&');
+        for (var item in query) {
+          queryObj[query[item].split('=')[0]] = query[item].split('=')[1];
+        }
+      }
+      return queryObj;
+    }
+    var renderNewsDetail = function(content) {
+      var container = $('.content');
+      var html = '<h1>'+ content.title +'</h1>' +
+        '<p>作者: ' + content.user.name +'<span></span> 时间: '+ content.updateTime +'<span></span></p>' +
+        '<div class="detail"> ' + content.content + '</div>';
+      container.html(html);
+    }
+    $(function() {
+      var pageId = $.getQuery().pageId;
+      var content = JSON.parse(sessionStorage.getItem(pageId));
+      renderNewsDetail(content);
+    })
+  </script>
+</body>
+
+</html>

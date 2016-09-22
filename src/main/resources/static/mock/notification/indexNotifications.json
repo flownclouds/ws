@@ -1,0 +1,103 @@
+{
+  "code": 200,
+  "data": {
+    "notifications": {
+      "content": [ {
+        "id": 3,
+        "createTime": "1970-01-18 01:07:14",
+        "updateTime": "2016-09-02 17:01:15",
+        "isDelete": 0,
+        "title": "收工啦",
+        "county": null,
+        "content": "红红火火恍恍惚惚哈哈哈",
+        "category": 1,
+        "user": {
+          "id": 1,
+          "createTime": "2016-08-15 10:37:11",
+          "updateTime": "2016-09-03 14:39:15",
+          "isDelete": 0,
+          "name": "weck",
+          "password": "",
+          "salt": "",
+          "token": "",
+          "county": {
+            "id": 1,
+            "createTime": "",
+            "updateTime": "",
+            "isDelete": 0,
+            "name": "nankang",
+            "isActive": 1,
+            "location": null
+          },
+          "roles": [ {
+            "id": 1,
+            "createTime": "",
+            "updateTime": "",
+            "isDelete": 0,
+            "name": "admin",
+            "isActive": 1
+          } ],
+          "phone": null,
+          "isActive": 1,
+          "email": null,
+          "realName": "weck"
+        }
+      }, {
+        "id": 4,
+        "createTime": "1970-01-18 01:07:14",
+        "updateTime": "2016-09-02 17:01:15",
+        "isDelete": 0,
+        "title": "开工啦",
+        "county": null,
+        "content": "哼哼哈哈嘿嘿呼呼",
+        "category": 1,
+        "user": {
+          "id": 1,
+          "createTime": "2016-08-15 10:37:11",
+          "updateTime": "2016-09-03 14:39:15",
+          "isDelete": 0,
+          "name": "izayl",
+          "password": "",
+          "salt": "",
+          "token": "",
+          "county": {
+            "id": 1,
+            "createTime": "",
+            "updateTime": "",
+            "isDelete": 0,
+            "name": "nankang",
+            "isActive": 1,
+            "location": null
+          },
+          "roles": [ {
+            "id": 1,
+            "createTime": "",
+            "updateTime": "",
+            "isDelete": 0,
+            "name": "admin",
+            "isActive": 1
+          } ],
+          "phone": null,
+          "isActive": 1,
+          "email": null,
+          "realName": "weck"
+        }
+      } ],
+      "last": true,
+      "totalPages": 1,
+      "totalElements": 2,
+      "size": 2,
+      "number": 0,
+      "sort": [ {
+        "direction": "DESC",
+        "property": "updateTime",
+        "ignoreCase": false,
+        "nullHandling": "NATIVE",
+        "ascending": false
+      } ],
+      "first": true,
+      "numberOfElements": 2
+    }
+  },
+  "error": null
+}
