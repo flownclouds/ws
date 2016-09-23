@@ -1499,7 +1499,7 @@
             $.post("/project/getProject", data, function(res) {
                 if (typeof res == 'string') res = JSON.parse(res);
                 if (res.code == 200) {
-                    var content = res.data;
+                    var content = res.data.project;
                     var pumpStation = content.projectMark.pumpStation;
                     var data = {
                         name: content.name, // 名字
