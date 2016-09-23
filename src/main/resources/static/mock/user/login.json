@@ -12,7 +12,7 @@
         "name": "nankang",
         "location": null
       },
-      "roles": {
+      "role": {
         "id": 1,
           "name": "admin",
           "isActive": 1
