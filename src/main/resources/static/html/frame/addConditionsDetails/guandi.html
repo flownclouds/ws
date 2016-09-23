@@ -840,7 +840,7 @@
         }
         
         table.sheet0 col.col0 {
-            width: 69.13333254pt
+            width: 67.777777pt
         }
         
         table.sheet0 col.col1 {
@@ -908,67 +908,67 @@
         }
         
         table.sheet0 tr.row6 {
-            height: 20.1pt
+            height: 27.75pt
         }
         
         table.sheet0 tr.row7 {
-            height: 20.1pt
+            height: 27.75pt
         }
         
         table.sheet0 tr.row8 {
-            height: 20.1pt
+            height: 27.75pt
         }
         
         table.sheet0 tr.row9 {
-            height: 20.1pt
+            height: 27.75pt
         }
         
         table.sheet0 tr.row10 {
-            height: 20.1pt
+            height: 27.75pt
         }
         
         table.sheet0 tr.row11 {
-            height: 20.1pt
+            height: 27.75pt
         }
         
         table.sheet0 tr.row12 {
-            height: 20.1pt
+            height: 27.75pt
         }
         
         table.sheet0 tr.row13 {
-            height: 20.1pt
+            height: 27.75pt
         }
         
         table.sheet0 tr.row14 {
-            height: 20.1pt
+            height: 27.75pt
         }
         
         table.sheet0 tr.row15 {
-            height: 20.1pt
+            height: 27.75pt
         }
         
         table.sheet0 tr.row16 {
-            height: 20.1pt
-        }
-        
-        table.sheet0 tr.row17 {
-            height: 20.1pt
-        }
-        
-        table.sheet0 tr.row18 {
-            height: 20.1pt
-        }
-        
-        table.sheet0 tr.row19 {
-            height: 20.1pt
-        }
-        
-        table.sheet0 tr.row20 {
             height: 236.25pt
         }
         
-        table.sheet0 tr.row21 {
+        table.sheet0 tr.row17 {
             height: 22.5pt
+        }
+        
+        table.sheet0 tr.row19 {
+            height: 14.25pt
+        }
+        
+        table.sheet0 tr.row20 {
+            height: 14.25pt
+        }
+        
+        table.sheet0 tr.row21 {
+            height: 14.25pt
+        }
+        
+        table.sheet0 tr.row22 {
+            height: 14.25pt
         }
         
         table.sheet0 tr.row23 {
@@ -1148,22 +1148,6 @@
         }
         
         table.sheet0 tr.row67 {
-            height: 14.25pt
-        }
-        
-        table.sheet0 tr.row68 {
-            height: 14.25pt
-        }
-        
-        table.sheet0 tr.row69 {
-            height: 14.25pt
-        }
-        
-        table.sheet0 tr.row70 {
-            height: 14.25pt
-        }
-        
-        table.sheet0 tr.row71 {
             height: 10.5pt
         }
     </style>
@@ -1202,184 +1186,311 @@
                 <tr class="row0">
                     <td class="column0 style8 s style40" colspan="9">编码：{{=it.code}}
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <span style="color:#000000; font-size:12pt">县</span>
-                        <span style="color:#1cc09f; font-size:12pt">{{=it.county}}</span>
-                        <span style="color:#000000; font-size:12pt">街道/乡/镇</span>
-                        <span style="color:#1cc09f; font-size:12pt">{{=it.town}}</span>
-                        <span style="color:#000000; font-size:12pt">村</span>
-                        <span style="color:#1cc09f; font-size:12pt">{{=it.village}}</span>
-                        <span style="color:#000000; font-size:12pt">组</span>
-                        <span style="color:#1cc09f; font-size:12pt">{{=it.group}}</span>
+                        <span style="color:#000000; font-family:'仿宋'; font-size:12pt">县</span>
+                        <span style="color:#1cc09f; font-family:'仿宋'; font-size:12pt">{{=it.county}}</span>
+                        <span style="color:#000000; font-family:'仿宋'; font-size:12pt">街道/乡/镇</span>
+                        <span style="color:#1cc09f; font-family:'仿宋'; font-size:12pt">{{=it.town}}</span>
+                        <span style="color:#000000; font-family:'仿宋'; font-size:12pt">村</span>
+                        <span style="color:#1cc09f; font-family:'仿宋'; font-size:12pt">{{=it.village}}</span>
+                        <span style="color:#000000; font-family:'仿宋'; font-size:12pt">组</span>
+                        <span style="color:#1cc09f; font-family:'仿宋'; font-size:12pt">{{=it.group}}</span>
                     </td>
                 </tr>
                 <tr class="row1">
-                    <td class="column0 style20 s style20" colspan="6">渠 道 基 本 情 况 表</td>
+                    <td class="column0 style20 s style20" colspan="6">管/滴 灌 基 本 情 况 表</td>
                 </tr>
                 <tr class="row2">
-                    <td class="column0 style4 s">渠首/取水泵站</td>
-                    <td class="column1 style4 null">{{=it.headOrPumpStation}}</td>
-                    <td class="column2 style3 s">建筑物
-                        <br /> 配套率（%)
+                    <td class="column0 style4 s">取水方式</td>
+                    <td class="column1 style4 null">
+                        {{=it.intakeWay}}
                     </td>
-                    <td class="column3 style1 null">{{=it.buildingMatchRate}}</td>
-                    <td class="column4 style3 s">建设/维修
-                        <br /> 单位
+                    <td class="column2 style3 s">水源</td>
+                    <td class="column3 style1 null">
+                        {{=it.waterResource}}
                     </td>
-                    <td class="column5 style4 null">{{=it.constructUnit}}</td>
-                </tr>
-                <tr class="row3">
-                    <td class="column0 style3 s">渠道总长
+                    <td class="column4 style3 s">管道总长
                         <br /> （KM）
                     </td>
-                    <td class="column1 style4 null">{{=it.length}}</td>
-                    <td class="column2 style3 s">渠道及建筑
-                        <br /> 完好率（%)
+                    <td class="column5 style4 null">
+                        {{=it.sumLength}}
                     </td>
-                    <td class="column3 style1 s">{{=it.goodConditionRate}}</td>
+                </tr>
+                <tr class="row3">
+                    <td class="column0 style3 s">灌溉面积
+                        <br /> （亩）
+                    </td>
+                    <td class="column1 style4 null">
+                        {{=it.irrigateArea}}
+                    </td>
+                    <td class="column2 style3 s">建设/维修
+                        <br /> 单位 </td>
+                    <td class="column3 style5 null">
+                        {{=it.constructTime}}
+                    </td>
                     <td class="column4 style3 s">建设/维修
                         <br /> 时间
                     </td>
-                    <td class="column5 style4 null">{{=it.constructTime}}</td>
+                    <td class="column5 style4 null">
+                        {{=it.constructUnit}}
+                    </td>
                 </tr>
                 <tr class="row4">
                     <td class="column0 style3 s">产权人、联系人及联系人电话</td>
-                    <td class="column1 style1 null">{{=it.propertyOwner}}</td>
+                    <td class="column1 style1 null">
+                        {{=it.propertyOwner}}
+                    </td>
                     <td class="column2 style3 s">管理模式</td>
-                    <td class="column3 style1 null">{{=it.manageModel}}</td>
+                    <td class="column3 style1 null">
+                        {{=it.manageModel}}
+                    </td>
                     <td class="column4 style3 s">管理人、联系人及联系人电话</td>
-                    <td class="column5 style1 null">{{=it.manager}}</td>
+                    <td class="column5 style1 null">
+                        {{=it.manager}}
+                    </td>
                 </tr>
                 <tr class="row5">
                     <td class="column0 style4 s">类别 </td>
                     <td class="column1 style4 s">长度
                         <br /> (KM)
                     </td>
-                    <td class="column2 style4 s">断面
-                        <br /> 尺寸
+                    <td class="column2 style3 s">管道直径
+                        <br /> （mm）
                     </td>
-                    <td class="column3 style5 s">其中防渗
-                        <br /> 渠长度(KM)
-                    </td>
-                    <td class="column4 style3 s">衬砌断面尺寸</td>
-                    <td class="column5 style3 s">衬砌材质</td>
+                    <td class="column3 style3 s">管道材质</td>
+                    <td class="column4 style3 null"></td>
+                    <td class="column5 style3 null"></td>
                 </tr>
                 <tr class="row6">
-                    <td class="column0 style4 s">干渠1</td>
-                    <td class="column1 style6 null">{{=it.canalLength1}}</td>
-                    <td class="column2 style6 null">{{=it.canalSectionsize1}}</td>
-                    <td class="column3 style1 null">{{=it.canalSeepageLength1}}</td>
-                    <td class="column4 style4 s">{{=it.canalLiningSectionSize1}}</td>
-                    <td class="column5 style4 s">{{=it.canalLiningMaterial1}}</td>
+                    <td class="column0 style4 s">主管1</td>
+                    <td class="column1 style6 null">{{=it.pipeLength1}}</td>
+                    <td class="column2 style6 null">{{=it.pipeDiameter1}}</td>
+                    <td class="column3 style1 null">{{=it.pipeMaterial1}}</td>
+                    <td class="column4 style4 s">&nbsp;</td>
+                    <td class="column5 style4 s">&nbsp;</td>
                 </tr>
                 <tr class="row7">
-                    <td class="column0 style4 s">干渠2</td>
-                    <td class="column1 style6 null">{{=it.canalLength2}}</td>
-                    <td class="column2 style6 null">{{=it.canalSectionsize2}}</td>
-                    <td class="column3 style1 null">{{=it.canalSeepageLength2}}</td>
-                    <td class="column4 style4 s">{{=it.canalLiningSectionSize2}}</td>
-                    <td class="column5 style4 s">{{=it.canalLiningMaterial2}}</td>
+                    <td class="column0 style4 s">主管2</td>
+                    <td class="column1 style6 null">{{=it.pipeLength2}}</td>
+                    <td class="column2 style6 null">{{=it.pipeDiameter2}}</td>
+                    <td class="column3 style1 null">{{=it.pipeMaterial2}}</td>
+                    <td class="column4 style4 s">&nbsp;</td>
+                    <td class="column5 style4 s">&nbsp;</td>
                 </tr>
                 <tr class="row8">
                     <td class="column0 style4 s">.</td>
                     <td class="column1 style6 null"></td>
                     <td class="column2 style6 null"></td>
-                    <td class="column3 style1 null"></td>
-                    <td class="column4 style4 null"></td>
-                    <td class="column5 style4 null"></td>
+                    <td class="column3 style1 s">&nbsp;</td>
+                    <td class="column4 style4 s">&nbsp;</td>
+                    <td class="column5 style4 s">&nbsp;</td>
                 </tr>
                 <tr class="row9">
-                    <td class="column0 style4 s">支渠1</td>
-                    <td class="column1 style6 null">{{=it.canalLength3}}</td>
-                    <td class="column2 style6 null">{{=it.canalSectionsize3}}</td>
-                    <td class="column3 style1 null">{{=it.canalSeepageLength3}}</td>
-                    <td class="column4 style4 s">{{=it.canalLiningSectionSize3}}</td>
-                    <td class="column5 style4 s">{{=it.canalLiningMaterial3}}</td>
+                    <td class="column0 style4 s">支管1</td>
+                    <td class="column1 style6 null">{{=it.pipeLength3}}</td>
+                    <td class="column2 style6 null">{{=it.pipeDiameter3}}</td>
+                    <td class="column3 style1 null">{{=it.pipeMaterial3}}</td>
+                    <td class="column4 style4 s">&nbsp;</td>
+                    <td class="column5 style4 s">&nbsp;</td>
                 </tr>
                 <tr class="row10">
-                    <td class="column0 style4 s">支渠2</td>
-                    <td class="column1 style6 null">{{=it.canalLength4}}</td>
-                    <td class="column2 style6 null">{{=it.canalSectionsize4}}</td>
-                    <td class="column3 style1 null">{{=it.canalSeepageLength4}}</td>
-                    <td class="column4 style4 s">{{=it.canalLiningSectionSize4}}</td>
-                    <td class="column5 style4 s">{{=it.canalLiningMaterial4}}</td>
+                    <td class="column0 style4 s">支管2</td>
+                    <td class="column1 style6 null">{{=it.pipeLength4}}</td>
+                    <td class="column2 style6 null">{{=it.pipeDiameter4}}</td>
+                    <td class="column3 style1 null">{{=it.pipeMaterial4}}</td>
+                    <td class="column4 style4 s">&nbsp;</td>
+                    <td class="column5 style4 s">&nbsp;</td>
                 </tr>
                 <tr class="row11">
                     <td class="column0 style4 s">.</td>
                     <td class="column1 style6 null"></td>
                     <td class="column2 style6 null"></td>
                     <td class="column3 style1 null"></td>
-                    <td class="column4 style4 null"></td>
-                    <td class="column5 style4 null"></td>
+                    <td class="column4 style4 s">&nbsp;</td>
+                    <td class="column5 style4 s">&nbsp;</td>
                 </tr>
                 <tr class="row12">
-                    <td class="column0 style4 s">斗渠1</td>
-                    <td class="column1 style6 null">{{=it.canalLength5}}</td>
-                    <td class="column2 style6 null">{{=it.canalSectionsize5}}</td>
-                    <td class="column3 style1 null">{{=it.canalSeepageLength5}}</td>
-                    <td class="column4 style4 s">{{=it.canalLiningSectionSize5}}</td>
-                    <td class="column5 style4 s">{{=it.canalLiningMaterial5}}</td>
+                    <td class="column0 style4 s">毛管1</td>
+                    <td class="column1 style6 null">{{=it.pipeLength5}}</td>
+                    <td class="column2 style6 null">{{=it.pipeDiameter5}}</td>
+                    <td class="column3 style1 null">{{=it.pipeMaterial5}}</td>
+                    <td class="column4 style4 s">&nbsp;</td>
+                    <td class="column5 style4 s">&nbsp;</td>
                 </tr>
                 <tr class="row13">
-                    <td class="column0 style4 s">斗渠2</td>
-                    <td class="column1 style6 null">{{=it.canalLength6}}</td>
-                    <td class="column2 style6 null">{{=it.canalSectionsize6}}</td>
-                    <td class="column3 style1 null">{{=it.canalSeepageLength6}}</td>
-                    <td class="column4 style4 s">{{=it.canalLiningSectionSize6}}</td>
-                    <td class="column5 style4 s">{{=it.canalLiningMaterial6}}</td>
+                    <td class="column0 style4 s">毛管2</td>
+                    <td class="column1 style6 null">{{=it.pipeLength6}}</td>
+                    <td class="column2 style6 null">{{=it.pipeDiameter6}}</td>
+                    <td class="column3 style1 null">{{=it.pipeMaterial6}}</td>
+                    <td class="column4 style4 s">&nbsp;</td>
+                    <td class="column5 style4 s">&nbsp;</td>
                 </tr>
                 <tr class="row14">
-                    <td class="column0 style4 s">.</td>
-                    <td class="column1 style6 null"></td>
-                    <td class="column2 style6 null"></td>
-                    <td class="column3 style1 null"></td>
-                    <td class="column4 style4 s">&nbsp;</td>
-                    <td class="column5 style4 s">&nbsp;</td>
-                </tr>
-                <tr class="row15">
-                    <td class="column0 style4 s">农渠1</td>
-                    <td class="column1 style6 null">{{=it.canalLength7}}</td>
-                    <td class="column2 style6 null">{{=it.canalSectionsize7}}</td>
-                    <td class="column3 style1 null">{{=it.canalSeepageLength7}}</td>
-                    <td class="column4 style4 s">{{=it.canalLiningSectionSize7}}</td>
-                    <td class="column5 style4 s">{{=it.canalLiningMaterial7}}</td>
-                </tr>
-                <tr class="row16">
-                    <td class="column0 style4 s">农渠2</td>
-                    <td class="column1 style6 null">{{=it.canalLength8}}</td>
-                    <td class="column2 style6 null">{{=it.canalSectionsize8}}</td>
-                    <td class="column3 style1 null">{{=it.canalSeepageLength8}}</td>
-                    <td class="column4 style4 s">{{=it.canalLiningSectionSize8}}</td>
-                    <td class="column5 style4 s">{{=it.canalLiningMaterial8}}</td>
-                </tr>
-                <tr class="row17">
-                    <td class="column0 style4 s">.</td>
-                    <td class="column1 style4 null"></td>
-                    <td class="column2 style1 s">&nbsp;</td>
-                    <td class="column3 style1 null"></td>
-                    <td class="column4 style4 s">&nbsp;</td>
-                    <td class="column5 style4 s">&nbsp;</td>
-                </tr>
-                <tr class="row18">
                     <td class="column0 style4 s">合计</td>
                     <td class="column1 style6 null">{{=it.sumLength}}</td>
-                    <td class="column2 style6 null">{{=it.sumSectionSize}}</td>
-                    <td class="column3 style1 null">{{=it.sumSeepageCanalLength}}</td>
-                    <td class="column4 style4 s">{{=it.sumLiningSectionSize}}</td>
-                    <td class="column5 style4 s"></td>
+                    <td class="column2 style6 null">{{=it.sumDiameter}}</td>
+                    <td class="column3 style1 null">&nbsp;</td>
+                    <td class="column4 style2 null"></td>
+                    <td class="column5 style2 null"></td>
                 </tr>
-                <tr class="row19">
+                <tr class="row15">
                     <td class="column0 style4 s">备注</td>
                     <td class="column1 style21 null style23" colspan="5">{{=it.remark}}</td>
                 </tr>
-                <tr class="row20">
-                    <td class="column0 style27 s style28" colspan="3">&nbsp;渠系平面草图:
+                <tr class="row16">
+                    <td class="column0 style24 s style26" colspan="3">&nbsp;管/滴灌平面草图:
                         <img src="{{=it.image}}" alt="">
                     </td>
-                    <td class="column3 style24 s style26" colspan="3">照片粘贴处（提供电子照片）：
-
-                    </td>
+                    <td class="column3 style24 s style26" colspan="3">照片粘贴处（提供电子照片）：</td>
                 </tr>
-
+                <tr class="row17">
+                    <td class="column0 style18 s style19" colspan="6">填表人（签字）：<span style="text-decoration:underline; color:#000000; font-family:'仿宋'; font-size:12pt">      </span><span style="color:#000000; font-family:'仿宋'; font-size:12pt">审核人（签字盖章）:</span><span style="text-decoration:underline; color:#000000; font-family:'仿宋'; font-size:12pt">       </span><span style="color:#000000; font-family:'仿宋'; font-size:12pt">     填表日期</span><span style="text-decoration:underline; color:#000000; font-family:'仿宋'; font-size:12pt">    </span><span style="color:#000000; font-family:'仿宋'; font-size:12pt">年</span><span style="text-decoration:underline; color:#000000; font-family:'仿宋'; font-size:12pt">    </span><span style="color:#000000; font-family:'仿宋'; font-size:12pt">月</span><span style="text-decoration:underline; color:#000000; font-family:'仿宋'; font-size:12pt">    </span><span style="color:#000000; font-family:'仿宋'; font-size:12pt">日</span><span style="text-decoration:underline; color:#000000; font-family:'仿宋'; font-size:12pt">                                    </span></td>
+                </tr>
+                <tr class="row18">
+                    <td class="column0">&nbsp;</td>
+                    <td class="column1">&nbsp;</td>
+                    <td class="column2">&nbsp;</td>
+                    <td class="column3">&nbsp;</td>
+                    <td class="column4">&nbsp;</td>
+                    <td class="column5">&nbsp;</td>
+                </tr>
+                <tr class="row19">
+                    <td class="column0 style8 s style16" colspan="6">
+                        填表须知：
+                        <br /> 1.编码：编码原则,用11位字母和数字的组合码分别表示县、街道/乡镇、类别及序列号。
+                        <br /> 代码格式：CCDDDEEEGGG
+                        <br /> 说明：
+                        <br /> CC：用2位数字表示，即该工程所在县的编码。
+                        <br /> DDD:用3位数字表示，即该工程所在街道/乡镇的编码。
+                        <br /> EEE:用2位字母表示，即该工程类别名称的第一位大写字母 GDG 。
+                        <br /> GGG:用3位数字表示，即该工程在类别中的序列号。
+                        <br /> 名称代码 CCDDD
+                        <br /> 牛山街道 22100
+                        <br /> 白塔埠镇 22101
+                        <br /> 黄川镇 22103
+                        <br /> 石梁河镇 22104
+                        <br /> 青湖镇 22105
+                        <br /> 石榴街道 22106
+                        <br /> 温泉镇 22107
+                        <br /> 双店镇 22108
+                        <br /> 桃林镇 22109
+                        <br /> 洪庄镇 22110
+                        <br /> 安峰镇 22111
+                        <br /> 房山镇 22112
+                        <br /> 平明镇 22113
+                        <br /> 驼峰乡 22200
+                        <br /> 李埝乡 22203
+                        <br /> 山左口乡 22204
+                        <br /> 石湖乡 22205
+                        <br /> 曲阳乡 22206
+                        <br /> 张湾乡 22207
+                        <br /> 东海经济开发区 22401
+                        <br /> 2.取水方式：自流、泵站、深水井、其他。
+                        <br /> 3.水源：地表水（具体到水库、河道等）、地下水。
+                        <br /> 4.维修单位及时间：填写最后一次维修情况。
+                        <br /> 5.管理模式分为：自管、承包、委托管理等。
+                        <br /> 6.照片：要具有代表性。
+                        <br /> 7.干管1、干管2
+                        <span style="color:#000000; font-family:'宋体'; font-size:12pt">…，支管</span><span style="color:#000000; font-family:'仿宋'; font-size:12pt">1、支管2…表示，不同规格、不同方向的管道，要分开填写，并在平面草图中标注在对应的管道旁。</span></td>
+                </tr>
+                <tr class="row20">
+                </tr>
+                <tr class="row21">
+                </tr>
+                <tr class="row22">
+                </tr>
+                <tr class="row23">
+                </tr>
+                <tr class="row24">
+                </tr>
+                <tr class="row25">
+                </tr>
+                <tr class="row26">
+                </tr>
+                <tr class="row27">
+                </tr>
+                <tr class="row28">
+                </tr>
+                <tr class="row29">
+                </tr>
+                <tr class="row30">
+                </tr>
+                <tr class="row31">
+                </tr>
+                <tr class="row32">
+                </tr>
+                <tr class="row33">
+                </tr>
+                <tr class="row34">
+                </tr>
+                <tr class="row35">
+                </tr>
+                <tr class="row36">
+                </tr>
+                <tr class="row37">
+                </tr>
+                <tr class="row38">
+                </tr>
+                <tr class="row39">
+                </tr>
+                <tr class="row40">
+                </tr>
+                <tr class="row41">
+                </tr>
+                <tr class="row42">
+                </tr>
+                <tr class="row43">
+                </tr>
+                <tr class="row44">
+                </tr>
+                <tr class="row45">
+                </tr>
+                <tr class="row46">
+                </tr>
+                <tr class="row47">
+                </tr>
+                <tr class="row48">
+                </tr>
+                <tr class="row49">
+                </tr>
+                <tr class="row50">
+                </tr>
+                <tr class="row51">
+                </tr>
+                <tr class="row52">
+                </tr>
+                <tr class="row53">
+                </tr>
+                <tr class="row54">
+                </tr>
+                <tr class="row55">
+                </tr>
+                <tr class="row56">
+                </tr>
+                <tr class="row57">
+                </tr>
+                <tr class="row58">
+                </tr>
+                <tr class="row59">
+                </tr>
+                <tr class="row60">
+                </tr>
+                <tr class="row61">
+                </tr>
+                <tr class="row62">
+                </tr>
+                <tr class="row63">
+                </tr>
+                <tr class="row64">
+                </tr>
+                <tr class="row65">
+                </tr>
+                <tr class="row66">
+                </tr>
+                <tr class="row67">
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
     </script>
@@ -1422,9 +1533,8 @@
                 if (typeof res == 'string') res = JSON.parse(res);
                 if (res.code == 200) {
                     var content = res.data.project;
-                    var channel = content.projectMark.channel;
+                    var dripIrrigationPipe = content.projectMark.dripIrrigationPipe;
                     var data = {
-
                         name: content.name || "", // 名字
                         code: content.code || "",
                         county: content.county.name || "",
@@ -1438,66 +1548,36 @@
                         propertyOwner: content.propertyOwner || "", // 包括产权人，联系人，联系电话
                         manager: content.manager || "", // 包括管理人，联系人，联系电话
                         manageModel: content.manageModel || "", // 管理模式
-                        situation: content.situation || "",
+                        image: dripIrrigationPipe.image || "",
+                        remark: dripIrrigationPipe.remark || "",
+                        intakeWay: dripIrrigationPipe.intakeWay || "",
+                        waterResource: dripIrrigationPipe.waterResource || "",
+                        sumLength: dripIrrigationPipe.sumLength || "",
+                        sumDiameter: dripIrrigationPipe.sumDiameter || "",
+                        irrigateArea: dripIrrigationPipe.irrigateArea || "",
+                        pipeLength1: dripIrrigationPipe.pipeLength1 || "",
+                        pipeDiameter1: dripIrrigationPipe.pipeDiameter1 || "",
+                        pipeMaterial1: dripIrrigationPipe.pipeMaterial1 || "",
 
-                        image: channel.image || "",
-                        remark: channel.remark || "",
-                        sumLength: channel.sumLength || "",
-                        canalLength1: channel.canalLength1 || "",
-                        canalLiningMaterial1: channel.canalLiningMaterial1 || "",
-                        canalLiningSectionSize1: channel.canalLiningSectionSize1 || "",
-                        canalModel1: channel.canalModel1 || "",
-                        canalSeepageLength1: channel.canalSeepageLength1 || "",
-                        canalLength2: channel.canalLength2 || "",
-                        canalLiningMaterial2: channel.canalLiningMaterial2 || "",
-                        canalLiningSectionSize2: channel.canalLiningSectionSize2 || "",
-                        canalModel2: channel.canalModel2 || "",
-                        canalSeepageLength2: channel.canalSeepageLength2 || "",
-                        canalLength3: channel.canalLength3 || "",
-                        canalLiningMaterial3: channel.canalLiningMaterial3 || "",
-                        canalLiningSectionSize3: channel.canalLiningSectionSize3 || "",
-                        canalModel3: channel.canalModel3 || "",
-                        canalSeepageLength3: channel.canalSeepageLength3 || "",
-                        canalLength4: channel.canalLength4 || "",
-                        canalLiningMaterial4: channel.canalLiningMaterial4 || "",
-                        canalLiningSectionSize4: channel.canalLiningSectionSize4 || "",
-                        canalModel4: channel.canalModel4 || "",
-                        canalSeepageLength4: channel.canalSeepageLength4 || "",
-                        canalLength5: channel.canalLength5 || "",
-                        canalLiningMaterial5: channel.canalLiningMaterial5 || "",
-                        canalLiningSectionSize5: channel.canalLiningSectionSize5 || "",
-                        canalModel5: channel.canalModel5 || "",
-                        canalSeepageLength5: channel.canalSeepageLength5 || "",
-                        canalLength6: channel.canalLength6 || "",
-                        canalLiningMaterial6: channel.canalLiningMaterial6 || "",
-                        canalLiningSectionSize6: channel.canalLiningSectionSize6 || "",
-                        canalModel6: channel.canalModel6 || "",
-                        canalSeepageLength6: channel.canalSeepageLength6 || "",
-                        canalLength7: channel.canalLength7 || "",
-                        canalLiningMaterial7: channel.canalLiningMaterial7 || "",
-                        canalLiningSectionSize7: channel.canalLiningSectionSize7 || "",
-                        canalModel7: channel.canalModel7 || "",
-                        canalSeepageLength7: channel.canalSeepageLength7 || "",
-                        canalLength8: channel.canalLength8 || "",
-                        canalLiningMaterial8: channel.canalLiningMaterial8 || "",
-                        canalLiningSectionSize8: channel.canalLiningSectionSize8 || "",
-                        canalModel8: channel.canalModel8 || "",
-                        canalSeepageLength8: channel.canalSeepageLength8 || "",
-                        canalSectionsize1: channel.canalSectionsize1 || "",
-                        canalSectionsize2: channel.canalSectionsize2 || "",
-                        canalSectionsize3: channel.canalSectionsize3 || "",
-                        canalSectionsize4: channel.canalSectionsize4 || "",
-                        canalSectionsize5: channel.canalSectionsize5 || "",
-                        canalSectionsize6: channel.canalSectionsize6 || "",
-                        canalSectionsize7: channel.canalSectionsize7 || "",
-                        canalSectionsize8: channel.canalSectionsize8 || "",
-                        sumLiningSectionSize: channel.sumLiningSectionSize || "",
-                        sumSeepageCanalLength: channel.sumSeepageCanalLength || "",
-                        sumSectionSize: channel.sumSectionSize || "",
-                        headOrPumpStation: channel.headOrPumpStation || "",
-                        buildingMatchRate: channel.buildingMatchRate || "",
-                        length: channel.length || "",
-                        goodConditionRate: channel.goodConditionRate || "",
+                        pipeLength2: dripIrrigationPipe.pipeLength2 || "",
+                        pipeDiameter2: dripIrrigationPipe.pipeDiameter2 || "",
+                        pipeMaterial2: dripIrrigationPipe.pipeMaterial2 || "",
+
+                        pipeLength3: dripIrrigationPipe.pipeLength3 || "",
+                        pipeDiameter3: dripIrrigationPipe.pipeDiameter3 || "",
+                        pipeMaterial3: dripIrrigationPipe.pipeMaterial3 || "",
+
+                        pipeLength4: dripIrrigationPipe.pipeLength4 || "",
+                        pipeDiameter4: dripIrrigationPipe.pipeDiameter4 || "",
+                        pipeMaterial4: dripIrrigationPipe.pipeMaterial4 || "",
+
+                        pipeLength5: dripIrrigationPipe.pipeLength5 || "",
+                        pipeDiameter5: dripIrrigationPipe.pipeDiameter5 || "",
+                        pipeMaterial5: dripIrrigationPipe.pipeMaterial5 || "",
+
+                        pipeLength6: dripIrrigationPipe.pipeLength6 || "",
+                        pipeDiameter6: dripIrrigationPipe.pipeDiameter6 || "",
+                        pipeMaterial6: dripIrrigationPipe.pipeMaterial6 || "",
                     }
                     var html = $("#tpl").html();
                     var tpl = doT.template(html);

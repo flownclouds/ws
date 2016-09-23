@@ -21,6 +21,12 @@ public class TestMain {
                 + "encodedPassword:" + encodedPassword + "\n" + "verify:" + v + "\n");
         System.out.println(System.currentTimeMillis());
 
+        String s = "1.23456";
+        String string = "2.345667";
+        Double d1 = Double.valueOf(s);
+        Double d2 = Double.valueOf(string);
+        System.out.println(d1+d2);
+
 //        Double longitudeDegree, longitudeMinute, longitudeSecond, latitudeDegree, latitudeMinute, latitudeSecond;
 //        Scanner scanner = new Scanner(System.in);
 //        longitudeDegree = scanner.nextDouble();
