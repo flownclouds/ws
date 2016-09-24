@@ -8,12 +8,14 @@ import com.saltyfish.domain.repository.unit.TownRepository;
 import com.saltyfish.framework.service.AuthService;
 import com.saltyfish.framework.service.FileService;
 import com.saltyfish.framework.service.ResponseService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -64,5 +66,12 @@ public class TestController {
             e.printStackTrace();
             return responseService.serverError(response);
         }
+    }
+
+    @RequestMapping("/testMap")
+    public Response testMap(HttpServletRequest httpServletRequest){
+        JSONObject data = new JSONObject(httpServletRequest.getParameterMap());
+        System.out.println(data.toString());
+        return responseService.success(new Response());
     }
 }
