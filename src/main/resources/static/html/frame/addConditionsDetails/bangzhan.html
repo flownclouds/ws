@@ -1601,7 +1601,7 @@
                 <col class="col13">
                 <tbody>
                     <tr>
-                        <input type="submit" id="submit" name="submit" value="提交">
+                        <button>提交</button>
                     </tr>
                     <tr class="row0">
                         <td class="column0 style8 s style40" colspan="9">
@@ -1793,11 +1793,12 @@
                         </td>
                         <td class="column6 style31 s style36" colspan="2" rowspan="7">泵房内照片
                             <br/> 照片粘贴处（提供电子照片）:
-                            <br/>
+
+                            <br/><input type="file" name="internalImage" id="internalImage">
                         </td>
                         <td class="column8 style37 s style39" rowspan="7">泵房外照片
                             <br/> 照片粘贴处（提供电子照片）:
-                            <br/>
+                            <br/> <input type="file" name="externalImage" id="externalImage">
                         </td>
                     </tr>
                     <tr class="row14">
@@ -2100,34 +2101,40 @@
                 initChainSelect();
             }
             var initFormUpload = function(userInfo) {
-                $("#submit").on("click", function(e) {
-                    console.log("click");
-                    e.preventDefault();
-                    var data = $("#form").serialize();
-                    data = JSON.parse('{"' + data.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
-                        function(key, value) {
-                            return key === "" ? value : decodeURIComponent(value)
-                        });
-                    $.extend(data, userInfo);
-                    data.timeStamp = +new Date();
-                    data.category = "泵站";
-                    data.manager = data.manager1 + data.manager2 + data.manager3;
-                    data.propertyOwner = data.propertyOwner1 + data.propertyOwner2 + data.propertyOwner3;
-                    delete data.manager1;
-                    delete data.manager2;
-                    delete data.manager3;
-                    delete data.propertyOwner1;
-                    delete data.propertyOwner2;
-                    delete data.propertyOwner3;
-                    console.log(data);
+                $("form#form").submit(function(e) {
+                    console.log("submit");
+                    var formData = new FormData($(this)[0]);
+
+                    /*合并字段*/
+                    var manager = formData.get("manager1") + formData.get("manager2") + formData.get("manager3");
+                    var propertyOwner = formData.get("propertyOwner1") + formData.get("propertyOwner2") + formData.get("propertyOwner3");
+                    formData.append('manager', manager);
+                    formData.append('propertyOwner', propertyOwner);
+                    formData.delete('manager1');
+                    formData.delete('manager2');
+                    formData.delete('manager3');
+                    formData.delete('propertyOwner1');
+                    formData.delete('propertyOwner2');
+                    formData.delete('propertyOwner3');
+                    /*other*/
+                    formData.append('timeStamp', +new Date());
+                    formData.append('category', "泵站");
+                    formData.append('userId', userInfo.userId);
+                    formData.append('token', userInfo.token);
+
                     $.ajax({
                         method: "POST",
                         url: "/project/addConservation",
-                        data: data,
+                        data: formData,
                         success: function(res) {
                             console.log(res);
-                        }
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
                     });
+
+                    return false;
                 })
             }
 

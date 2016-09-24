@@ -15,6 +15,19 @@
 
   <link type="text/css" href="../vendor/css/animate.min.css" rel="stylesheet">
   <link type="text/css" href="../vendor/css/style.min.css-v=4.0.0.css" rel="stylesheet">
+  <script>
+    function formatDate(date) {
+      var d = new Date(date),
+              month = '' + (d.getMonth() + 1),
+              day = '' + d.getDate(),
+              year = d.getFullYear();
+
+      if (month.length < 2) month = '0' + month;
+      if (day.length < 2) day = '0' + day;
+
+      return [year, month, day].join('-');
+    }
+  </script>
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
@@ -156,7 +169,7 @@
             <a href="#"><i class="fa fa-key"></i> <span class="nav-label">管理</span><span class="fa arrow"></span></a>
             <ul class="nav nav-second-level">
               <li>
-                <a class="J_menuItem" href="form_basic.html" >公告管理</a>
+                <a class="J_menuItem" href="./frame/manage/news.html" >公告管理</a>
               </li>
               <li>
                 <a class="J_menuItem" href="form_validate.html" >乡/镇村管理</a>
@@ -181,7 +194,10 @@
     <div id="page-wrapper" class="gray-bg dashbard-1">
       <div class="row border-bottom">
         <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-          <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a> </div>
+          <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary">当前时间: <span><script>document.write(formatDate(new Date()))</script></span></a>
+          </div>
         </nav>
       </div>
       <div class="row content-tabs">

@@ -587,6 +587,7 @@ public class ProjectService {
         pumpStationEntity.setElectricMotors(electricMotors);
         pumpStationEntity.setPumps(pumps);
         pumpStationRepository.save(pumpStationEntity);
+        return;
     }
 
     /**

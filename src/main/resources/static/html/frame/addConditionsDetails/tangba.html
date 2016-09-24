@@ -1077,10 +1077,14 @@
                 margin-bottom: 0.78740157480315in;
             }
         </style>
+        <form id="form" enctype="multipart/form-data">
         <table border="0" cellpadding="0" cellspacing="0" id="sheet0" class="sheet0 gridlines">
             <col class="col0">
             <col class="col1">
             <tbody>
+            <tr>
+                <button>提交</button>
+            </tr>
                 <tr class="row0">
                     <td class="column0 style8 s style8" colspan="2">编码:<span style="text-decoration:underline; color:#000000; font-family:'宋体'; font-size:12pt">         </span><span style="color:#000000; font-family:'宋体'; font-size:12pt">                            </span><span style="text-decoration:underline; color:#000000; font-family:'宋体'; font-size:12pt">       </span><span style="color:#000000; font-family:'宋体'; font-size:12pt">街道/乡/镇</span><span style="text-decoration:underline; color:#000000; font-family:'宋体'; font-size:12pt">      </span><span style="color:#000000; font-family:'宋体'; font-size:12pt">村</span><span style="text-decoration:underline; color:#000000; font-family:'宋体'; font-size:12pt">      </span><span style="color:#000000; font-family:'宋体'; font-size:12pt">组</span></td>
                 </tr>
@@ -1276,87 +1280,144 @@
                 </tr>
             </tbody>
         </table>
+        </form>
     </script>
     <script src="../../../vendor/js/jquery.min.js-v=2.1.4.js"></script>
     <script src="../../../js/doT.min.js"></script>
     <script>
+        var getUserInfo = function() {
+            var info = {
+                userId: window.sessionStorage.getItem('userId') || -1,
+                userName: window.sessionStorage.getItem('userName') || null,
+                token: window.sessionStorage.getItem('token') || 0,
+                roleId: window.sessionStorage.getItem('roleId') || -1,
+                roleName: window.sessionStorage.getItem('roleName') || -1,
+            };
+            return info;
+        }
         $(function() {
-            var data = null;
-            var getUserInfo = function() {
-                var info = {
-                    userId: window.sessionStorage.getItem('userId') || -1,
-                    userName: window.sessionStorage.getItem('userName') || null,
-                    token: window.sessionStorage.getItem('token') || 0,
-                    roleId: window.sessionStorage.getItem('roleId') || -1,
-                    roleName: window.sessionStorage.getItem('roleName') || -1,
-                };
-                return info;
-            }
-            var getQuery = function() {
-                var search = window.location.search;
-                var queryObj = {};
-                if (search.indexOf('?') != -1) {
-                    var queryString = search.substr(1);
-                    var query = queryString.split('&');
-                    for (var item in query) {
-                        queryObj[query[item].split('=')[0]] = query[item].split('=')[1];
-                    }
-                }
-                return queryObj;
-            };
-            var query = getQuery();
-            var userInfo = getUserInfo();
-            var category = query.category;
-            data = {
-                userId: userInfo.userId,
-                token: userInfo.token,
-                projectId: query.projectId
-            };
-            $.post("/project/getProject", data, function(res) {
-                if (typeof res == 'string') res = JSON.parse(res);
-                if (res.code == 200) {
-                    var content = res.data.project;
-                    var dam = content.projectMark.dam;
-                    var data = {
-                        name: content.name || "", // 名字
-                        code: content.code || "",
-                        county: content.county.name || "",
-                        town: content.town.name || "",
-                        village: content.village.name || "",
-                        group: content.group.name || "",
-                        lat: content.location.latitude || "", // 纬度
-                        lon: content.location.longitude || "", // 经度
-                        constructTime: content.constructTime || "", //建站/改造时间
-                        constructUnit: content.constructUnit || "", //建站/改造单位
-                        propertyOwner: content.propertyOwner || "", // 包括产权人，联系人，联系电话
-                        manager: content.manager || "", // 包括管理人，联系人，联系电话
-                        manageModel: content.manageModel || "", // 管理模式
-                        situation: content.situation || "",
+            var html = $("#tpl").html();
+            var tpl = doT.template(html);
+            var result = tpl();
+            console.log(tpl);
+            $("#content").html(result);
 
-                        remark: dam.remark || "",
-                        image: dam.image || "",
-                        isRegistered: dam.isRegistered || "",
-                        features: dam.features || "",
-                        mainFunction: dam.mainFunction || "",
-                        isAccountability: dam.isAccountability || "",
-                        feeResources: dam.feeResources || "",
-                        maintainPersonFee: dam.maintainPersonFee || "",
-                        isCerificated: dam.isCerificated || "",
-                        development: dam.development || "",
-                        manageRageLine: dam.manageRageLine || "",
-                        pondDamManageLine: dam.pondDamManageLine || "",
-                        protectGround: dam.protectGround || "",
-                        twoLinesBuilding: dam.twoLinesBuilding || "",
-                        specifiedManage: dam.specifiedManage || "",
-                        protectRageManagement: dam.protectRageManagement || "",
+            var userInfo = getUserInfo();
+            userInfo = {
+                userId: userInfo.userId,
+                token: userInfo.token
+            }
+            var renderOptions = function(List, el) {
+                var html = "";
+                List.map(function(item) {
+                    html += '<option value="' + item.id + '">' + item.name + '</option>';
+                })
+                $(el).append(html);
+            }
+
+            var initCounty = function(userInfo) {
+                $.post("/unit/getCounties", userInfo, function(res) {
+                    if (typeof res == 'string') res = JSON.parse(res);
+                    if (res.code == 200) {
+                        renderOptions(res.data.counties, "#countyId");
+                    } else {
+                        console.error("error with code: ", res.code);
                     }
-                    var html = $("#tpl").html();
-                    var tpl = doT.template(html);
-                    var result = tpl(data);
-                    console.log(tpl);
-                    $("#content").html(result);
-                }
-            })
+                })
+            }
+
+            var initTown = function(userInfo) {
+                $.post("/unit/getAccessedTowns", userInfo, function(res) {
+                    if (typeof res == 'string') res = JSON.parse(res);
+                    if (res.code == 200) {
+                        renderOptions(res.data.towns, "#townId");
+                    } else {
+                        console.error("error with code", res.code);
+                    }
+                })
+            }
+
+            var getVillage = function(userInfo, town) {
+                town = {
+                    townId: town
+                };
+                $.extend(userInfo, town);
+                $.post("/unit/getVillagesByTown", userInfo, function(res) {
+                    if (typeof res == 'string') res = JSON.parse(res);
+                    if (res.code == 200) {
+                        renderOptions(res.data.villages, "#villageId");
+                    } else {
+                        console.error("error with code", code);
+                    }
+                })
+            }
+            var getGroup = function(userInfo, village) {
+                village = {
+                    villageId: village
+                };
+                $.extend(userInfo, village);
+                $.post("/unit/getGroupsByVillage", userInfo, function(res) {
+                    if (typeof res == 'string') res = JSON.parse(res);
+                    if (res.code == 200) {
+                        renderOptions(res.data.groups, "#groupId");
+                    } else {
+                        console.error("error with code", code);
+                    }
+                })
+            }
+            var initChainSelect = function() {
+                $("#townId").on("change", function(e) {
+                    getVillage(userInfo, $(this).val());
+                });
+                $("#villageId").on("change", function(e) {
+                    getGroup(userInfo, $(this).val());
+                })
+            }
+            var initLocation = function() {
+                initCounty(userInfo);
+                initTown(userInfo);
+                initChainSelect();
+            }
+            var initFormUpload = function(userInfo) {
+                $("form#form").submit(function(e) {
+                    console.log("submit");
+                    var formData = new FormData($(this)[0]);
+
+                    /*合并字段*/
+                    var manager = formData.get("manager1") + formData.get("manager2") + formData.get("manager3");
+                    var propertyOwner = formData.get("propertyOwner1") + formData.get("propertyOwner2") + formData.get("propertyOwner3");
+                    formData.append('manager', manager);
+                    formData.append('propertyOwner', propertyOwner);
+                    formData.delete('manager1');
+                    formData.delete('manager2');
+                    formData.delete('manager3');
+                    formData.delete('propertyOwner1');
+                    formData.delete('propertyOwner2');
+                    formData.delete('propertyOwner3');
+                    /*other*/
+                    formData.append('timeStamp', +new Date());
+                    formData.append('category', "塘坝");
+                    formData.append('userId', userInfo.userId);
+                    formData.append('token', userInfo.token);
+
+                    $.ajax({
+                        method: "POST",
+                        url: "/project/addConservation",
+                        data: formData,
+                        success: function(res) {
+                            console.log(res);
+                        },
+                        cache: false,
+                        contentType: false,
+                        processData: false
+                    });
+
+                    return false;
+                })
+            }
+
+            initLocation();
+            initFormUpload(userInfo);
         })
     </script>
 </body>

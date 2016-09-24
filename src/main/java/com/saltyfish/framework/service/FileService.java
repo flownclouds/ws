@@ -28,7 +28,10 @@ public class FileService {
         InputStream inputStream = file.getInputStream();
         String aliases = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         saveFileStream("fs", inputStream, file.getContentType(), aliases, file.getOriginalFilename(), timeStamp);
-        return "/file/" + aliases;
+        if (!aliases.equals("")){
+            return "/file/" + aliases;
+        }
+        return "";
     }
 
     public void saveFileStream(String collectionName, InputStream inputStream, String contentType, String aliases, String originalName, Long timeStamp) {

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title>公告详情</title>
+  <script src="../../vendor/js/jquery.min.js-v=2.1.4.js"></script>
+  <style>
+    .return:hover { color: #1cc09f; cursor: pointer; }
+    .content { width: 100% }
+    h1, p { text-align: center }
+    .detail { background-color: rgb(243, 243, 244); width: 100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; min-height: 800px; padding:10px; }
+  </style>
+</head>
+
+<body>
+  <a class="return" onclick="window.history.back()">&lt&lt返回上一页</a>
+  <button class="btn btn-primary" id="save">保存</button>
+  <div class="content">
+    <h1 contenteditable="true" id="title">请输入公告标题</h1>
+    <p>作者: <span contenteditable="true" id="author">请输入作者名</span> 时间: <span contenteditable="false" id="time">时间将会自动生成</span></p>
+    <p id="category">请输入公告类别</p>
+    <div class="detail" contenteditable="true" id="content">
+      请输入公告正文
+    </div>
+  </div>
+  <script>
+
+    var getUserInfo = function() {
+      //        TODO : getUserInfo
+      var info = {
+        userId: window.sessionStorage.getItem('userId') || -1,
+        userName: window.sessionStorage.getItem('userName') || null,
+        token: window.sessionStorage.getItem('token') || 0,
+        roleId: window.sessionStorage.getItem('roleId') || -1,
+        roleName: window.sessionStorage.getItem('roleName') || -1,
+      };
+      return info;
+    }
+    $(function() {
+      var userInfo = getUserInfo();
+      $("#save").on("click", function (e) {
+        e.preventDefault();
+        var data = {
+          content: $("#content").html(),
+          title: $("#title").html(),
+          timeStamp: +new Date(),
+          category : $("#category").html(),
+          token: userInfo.token,
+          userId: userInfo.userId
+        };
+        $.post("/notification/addNotification", data, function (res) {
+          if (typeof res == 'string') res = JSON.parse(res);
+          if (res.code == 200) {
+              alert("保存成功");
+            window.history.back();
+          } else {
+              console.error("error with code", res.code);
+          }
+        })
+      })
+    })
+  </script>
+</body>
+
+</html>

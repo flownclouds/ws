@@ -1119,28 +1119,28 @@ public class ProjectController {
             String startImagePath = "";
             String middleImagePath = "";
             String endImagePath = "";
-            if (image != null) {
+            if (image != null&&!image.isEmpty()) {
                 imagePath = fileService.saveFile(image, timeStamp);
             }
-            if (planeSketch != null) {
+            if (planeSketch != null&&!planeSketch.isEmpty()) {
                 planeSketchPath = fileService.saveFile(planeSketch, timeStamp);
             }
-            if (sectionImage != null) {
+            if (sectionImage != null&&!sectionImage.isEmpty()) {
                 sectionImagePath = fileService.saveFile(sectionImage, timeStamp);
             }
-            if (startImage != null) {
+            if (startImage != null&&!startImage.isEmpty()) {
                 startImagePath = fileService.saveFile(startImage, timeStamp);
             }
-            if (middleImage != null) {
+            if (middleImage != null&&!middleImage.isEmpty()) {
                 middleImagePath = fileService.saveFile(middleImage, timeStamp);
             }
-            if (endImage != null) {
+            if (endImage != null&&!endImage.isEmpty()) {
                 endImagePath = fileService.saveFile(endImage, timeStamp);
             }
-            if (internalImage != null) {
+            if (internalImage != null&&!internalImage.isEmpty()) {
                 internalImagePath = fileService.saveFile(internalImage, timeStamp);
             }
-            if (externalImage != null) {
+            if (externalImage != null&&!externalImage.isEmpty()) {
                 externalImagePath = fileService.saveFile(externalImage, timeStamp);
             }
             switch (category) {
