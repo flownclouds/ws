@@ -1,0 +1,30 @@
+{
+  "code": 200,
+  "data": {
+    "counties": [
+      { "id": 1,
+        "createTime": "2016-09-09 16:00:00",
+        "updateTime": "2016-09-09 16:00:00",
+        "isDelete": 0,
+        "name": "东海县",
+        "isActive": 1,
+        "location": {
+          "longitude": 123,
+          "latitude": 123
+        }
+      },
+      { "id": 2,
+        "createTime": "2016-09-09 16:00:00",
+        "updateTime": "2016-09-09 16:00:00",
+        "isDelete": 0,
+        "name": "南昌县",
+        "isActive": 1,
+        "location": {
+          "longitude": 123,
+          "latitude": 123
+        }
+      }
+    ]
+  },
+  "error": null
+}

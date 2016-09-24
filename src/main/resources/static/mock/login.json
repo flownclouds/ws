@@ -42,7 +42,7 @@
         "isActive": 1,
         "location": null
       },
-     "role": [
+     "roles": [
         {
           "id": 1,
           "createTime": "2016-08-15 10:37:11",

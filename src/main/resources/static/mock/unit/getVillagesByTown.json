@@ -1,0 +1,42 @@
+{
+  "code": 200,
+  "data": {
+    "villages": [
+      {
+        "id": 1,
+        "createTime": "2016-09-08 04:00:00",
+        "updateTime": "2016-09-08 04:00:00",
+        "isDelete": 0,
+        "name": "闹鬼村",
+        "isActive": 1,
+        "town": {
+          "id": 1,
+          "createTime": "2016-09-09 16:00:00",
+          "updateTime": "2016-09-09 16:00:00",
+          "isDelete": 0,
+          "name": "五毛镇",
+          "isActive": 1,
+          "county": {
+            "id": 1,
+            "createTime": "2016-09-09 16:00:00",
+            "updateTime": "2016-09-09 16:00:00",
+            "isDelete": 0,
+            "name": "东海县",
+            "isActive": 1,
+            "location": null
+          }
+        },
+        "county": {
+          "id": 1,
+          "createTime": "2016-09-09 16:00:00",
+          "updateTime": "2016-09-09 16:00:00",
+          "isDelete": 0,
+          "name": "东海县",
+          "isActive": 1,
+          "location": null
+        }
+      }
+    ]
+  },
+  "error": null
+}

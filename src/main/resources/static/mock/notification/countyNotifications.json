@@ -38,7 +38,7 @@
               "isActive": 1,
               "location": null
             },
-            "role": [
+            "roles": [
               {
                 "id": 1,
                 "createTime": "",
@@ -89,7 +89,7 @@
               "isActive": 1,
               "location": null
             },
-            "role": [
+            "roles": [
               {
                 "id": 1,
                 "createTime": "",
@@ -140,7 +140,7 @@
               "isActive": 1,
               "location": null
             },
-            "role": [
+            "roles": [
               {
                 "id": 1,
                 "createTime": "",
@@ -191,7 +191,7 @@
               "isActive": 1,
               "location": null
             },
-            "role": [
+            "roles": [
               {
                 "id": 1,
                 "createTime": "",
@@ -241,7 +241,7 @@
               "isActive": 1,
               "location": null
             },
-            "role": [
+            "roles": [
               {
                 "id": 1,
                 "createTime": "",

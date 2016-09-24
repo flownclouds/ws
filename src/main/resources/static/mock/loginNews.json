@@ -29,7 +29,7 @@
             "isActive": 1,
             "location": null
           },
-          "role": [ {
+          "roles": [ {
             "id": 1,
             "createTime": "",
             "updateTime": "",
@@ -69,7 +69,7 @@
             "isActive": 1,
             "location": null
           },
-          "role": [ {
+          "roles": [ {
             "id": 1,
             "createTime": "",
             "updateTime": "",
