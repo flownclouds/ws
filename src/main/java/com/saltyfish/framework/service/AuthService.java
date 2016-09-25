@@ -152,4 +152,5 @@ public class AuthService {
         ConservationEntity project = conservationRepository.findById(projectId);
         return unitService.getAccessedTownIds(userId).contains(project.getTownEntity().getId());
     }
+
 }

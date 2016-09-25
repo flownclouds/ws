@@ -16,10 +16,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by weck on 16/9/24.
@@ -83,6 +88,12 @@ public class ProjectService {
 
     @Autowired
     private ConservationRepository conservationRepository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    @Autowired
+    private UnitService unitService;
 
 
     public void setCommonProperty(ConservationEntity wc, Integer userId, String category, String remark, String name, String code, String manageModel, Integer townId, Integer villageId, Integer groupId, String situation, String constructTime, String constructUnit, String propertyOwner, String manager, String longitude, String latitude, Long timeStamp) {
@@ -675,5 +686,62 @@ public class ProjectService {
 
     public List<WaterWorksEntity> getWaterWorks(Integer userId) {
         return waterworksRepository.findByIsDeleteAndTownEntityIn(0,userRepository.findById(userId).getTowns());
+    }
+
+    public Map<String, Object> queryConservations(Integer userId,String category, Integer page, Integer size, String name, String code,
+                                                  Long startTime,Long endTime,String manageModel,Integer townId,
+                                                  Integer villageId,Integer groupId) {
+        Query query = new Query();
+//        query.limit(size);
+//        query.skip((page-1)*size);
+        Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
+        Pageable pageable = new PageRequest(page - 1, size, sort);
+        query.with(pageable);
+        query.addCriteria(Criteria.where("townEntity").in(unitService.getAccessedTowns(userId)));
+        if (category!=null){
+            query.addCriteria(Criteria.where("category").regex(category));
+        }
+        if (name!=null){
+            query.addCriteria(Criteria.where("name").regex(name));
+        }
+        if (code!=null){
+            query.addCriteria(Criteria.where("code").regex(code));
+        }
+        if (manageModel!=null){
+            query.addCriteria(Criteria.where("manageModel").regex(manageModel));
+        }
+        if (startTime!=null&&endTime!=null){
+            query.addCriteria(Criteria.where("createTime").gte(startTime));
+            query.addCriteria(Criteria.where("createTime").lte(endTime));
+        }
+        if (townId!=null){
+            query.addCriteria(Criteria.where("townEntity").is(townRepository.findById(townId)));
+        }
+        if (villageId!=null){
+            query.addCriteria(Criteria.where("villageEntity").is(villageRepository.findById(villageId)));
+        }
+        if (groupId!=null){
+            query.addCriteria(Criteria.where("groupEntity").is(groupRepository.findById(groupId)));
+        }
+
+        long totalElements = mongoTemplate.count(query,ConservationEntity.class);
+        int totalPages = (int) (totalElements/size+1);
+        Boolean first = true;
+        Boolean last = true;
+        if (page!=1){
+            first = false;
+        }
+        if (page!=totalPages){
+            last=false;
+        }
+        Map<String,Object> conservations = new HashMap<>();
+        conservations.put("content",mongoTemplate.find(query,ConservationEntity.class));
+        conservations.put("last",last);
+        conservations.put("first",first);
+        conservations.put("number",page-1);
+        conservations.put("size",size);
+        conservations.put("totalElements",totalElements);
+        conservations.put("totalPages",totalPages);
+        return conservations;
     }
 }
