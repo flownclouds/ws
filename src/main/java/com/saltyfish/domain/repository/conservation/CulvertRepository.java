@@ -17,4 +17,7 @@ public interface CulvertRepository extends MongoRepository<CulvertEntity, String
     CulvertEntity findById(@Param("id") String projectId);
     List<CulvertEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                       @Param("townEntity") List<TownEntity> towns);
+
+    List<CulvertEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                    @Param("townEntity") TownEntity town);
 }

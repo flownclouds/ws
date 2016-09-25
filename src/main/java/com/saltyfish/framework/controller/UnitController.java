@@ -27,9 +27,6 @@ public class UnitController {
     private UnitService unitService;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private ResponseService responseService;
 
     @Autowired

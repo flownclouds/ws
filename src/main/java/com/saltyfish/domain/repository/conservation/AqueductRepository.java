@@ -18,4 +18,7 @@ public interface AqueductRepository extends MongoRepository<AqueductEntity, Stri
 
     List<AqueductEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                        @Param("townEntity") List<TownEntity> towns);
+
+    List<AqueductEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                     @Param("townEntity") TownEntity town);
 }

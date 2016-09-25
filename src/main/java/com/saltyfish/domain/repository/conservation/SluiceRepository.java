@@ -17,4 +17,7 @@ public interface SluiceRepository extends MongoRepository<SluiceEntity, String> 
     SluiceEntity findById(@Param("id") String projectId);
     List<SluiceEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                       @Param("townEntity") List<TownEntity> towns);
+
+    List<SluiceEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                   @Param("townEntity") TownEntity town);
 }

@@ -17,4 +17,7 @@ public interface PumpStationRepository extends MongoRepository<PumpStationEntity
     PumpStationEntity findById(@Param("id") String projectId);
     List<PumpStationEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                       @Param("townEntity") List<TownEntity> towns);
+
+    List<PumpStationEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                        @Param("townEntity") TownEntity town);
 }

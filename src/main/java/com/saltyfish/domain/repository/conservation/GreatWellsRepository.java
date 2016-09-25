@@ -17,4 +17,7 @@ public interface GreatWellsRepository extends MongoRepository<GreatWellsEntity, 
     GreatWellsEntity findById(@Param("id") String projectId);
     List<GreatWellsEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                       @Param("townEntity") List<TownEntity> towns);
+
+    List<GreatWellsEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                       @Param("townEntity") TownEntity town);
 }

@@ -17,4 +17,7 @@ public interface WaterWorksRepository extends MongoRepository<WaterWorksEntity, 
     WaterWorksEntity findById(@Param("id") String projectId);
     List<WaterWorksEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                       @Param("townEntity") List<TownEntity> towns);
+
+    List<WaterWorksEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                       @Param("townEntity") TownEntity town);
 }

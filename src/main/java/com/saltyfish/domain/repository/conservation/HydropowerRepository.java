@@ -17,4 +17,7 @@ public interface HydropowerRepository extends MongoRepository<HydropowerEntity, 
     HydropowerEntity findById(@Param("id") String projectId);
     List<HydropowerEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                       @Param("townEntity") List<TownEntity> towns);
+
+    List<HydropowerEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                       @Param("townEntity") TownEntity town);
 }

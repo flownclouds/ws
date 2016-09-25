@@ -17,4 +17,7 @@ public interface BridgeRepository extends MongoRepository<BridgeEntity, String> 
 
     List<BridgeEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                      @Param("townEntity") List<TownEntity> towns);
+
+    List<BridgeEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                   @Param("townEntity") TownEntity town);
 }

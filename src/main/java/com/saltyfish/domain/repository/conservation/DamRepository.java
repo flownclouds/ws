@@ -18,4 +18,7 @@ public interface DamRepository extends MongoRepository<DamEntity, String> {
     DamEntity findById(@Param("id") String projectId);
     List<DamEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                       @Param("townEntity") List<TownEntity> towns);
+
+    List<DamEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                @Param("town") TownEntity town);
 }

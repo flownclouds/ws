@@ -17,4 +17,7 @@ public interface ChannelRepository extends MongoRepository<ChannelEntity, String
 
     List<ChannelEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                       @Param("townEntity") List<TownEntity> towns);
+
+    List<ChannelEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                    @Param("townEntity") TownEntity town);
 }

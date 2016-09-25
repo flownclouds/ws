@@ -17,4 +17,7 @@ public interface DripIrrigationPipeRepository extends MongoRepository<DripIrriga
     DripIrrigationPipeEntity findById(@Param("id") String projectId);
     List<DripIrrigationPipeEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                       @Param("townEntity") List<TownEntity> towns);
+
+    List<DripIrrigationPipeEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                                 @Param("townEntity") TownEntity town);
 }

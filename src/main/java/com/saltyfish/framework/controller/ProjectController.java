@@ -1,5 +1,6 @@
 package com.saltyfish.framework.controller;
 
+import com.saltyfish.common.bean.ConservationSummary;
 import com.saltyfish.common.bean.Response;
 import com.saltyfish.domain.entity.conservation.*;
 import com.saltyfish.domain.repository.conservation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -79,6 +81,27 @@ public class ProjectController {
 
     @Autowired
     private WatercourseRepository watercourseRepository;
+
+
+    @RequestMapping("/summary")
+    public Response summary(@RequestParam("userId") Integer userId,
+                            @RequestParam("token") String token){
+        Response response = new Response();
+        try {
+            if (!authService.checkLogin(userId, token)) {
+                return responseService.notLogin(response);
+            }
+            List<ConservationSummary> summaries = projectService.summary(userId);
+            Map<String,Object> data = new HashMap<>();
+            data.put("summaries",summaries);
+            response.setCode(HttpStatus.OK.value());
+            response.setData(data);
+            return response;
+        }catch (Exception e){
+            e.printStackTrace();
+            return responseService.serverError(response);
+        }
+    }
 
 
     @RequestMapping("/queryConservations")
@@ -636,7 +659,7 @@ public class ProjectController {
                                @RequestParam(value = "crossCount", required = false, defaultValue = "") String crossCount,
                                @RequestParam(value = "sectionSize", required = false, defaultValue = "") String sectionSize,
                                @RequestParam(value = "structureAndMaterial", required = false, defaultValue = "") String structureAndMaterial,
-//                               @RequestParam(value = "image", required = false) MultipartFile image,
+                               @RequestParam(value = "image", required = false) MultipartFile image,
                                @RequestParam(value = "crossLength", required = false, defaultValue = "") String crossLength,
                                @RequestParam(value = "length", required = false, defaultValue = "") String length,
                                @RequestParam(value = "width", required = false, defaultValue = "") String width,
@@ -651,7 +674,7 @@ public class ProjectController {
                                @RequestParam(value = "sumLiningSectionSize", required = false, defaultValue = "") String sumLiningSectionSize,
                                @RequestParam(value = "sumSeepageCanalLength", required = false, defaultValue = "") String sumSeepageCanalLength,
                                @RequestParam(value = "sumSectionSize", required = false, defaultValue = "") String sumSectionSize,
-//                               @RequestParam(value = "planeSketch", required = false) MultipartFile planeSketch,
+                               @RequestParam(value = "planeSketch", required = false) MultipartFile planeSketch,
                                @RequestParam(value = "culvertModel", required = false, defaultValue = "") String culvertModel,
                                @RequestParam(value = "holeModel", required = false, defaultValue = "") String holeModel,
                                @RequestParam(value = "doorMaterial", required = false, defaultValue = "") String doorMaterial,
@@ -690,8 +713,8 @@ public class ProjectController {
                                @RequestParam(value = "affiliation", required = false, defaultValue = "") String affiliation,
                                @RequestParam(value = "sumElectricCapacity", required = false, defaultValue = "") String sumElectricCapacity,
                                @RequestParam(value = "averageCapacity", required = false, defaultValue = "") String averageCapacity,
-//                               @RequestParam(value = "internalImage", required = false) MultipartFile internalImage,
-//                               @RequestParam(value = "externalImage", required = false) MultipartFile externalImage,
+                               @RequestParam(value = "internalImage", required = false) MultipartFile internalImage,
+                               @RequestParam(value = "externalImage", required = false) MultipartFile externalImage,
                                @RequestParam(value = "problem", required = false, defaultValue = "") String problem,
                                @RequestParam(value = "lastDredgingTime", required = false, defaultValue = "") String lastDredgingTime,
                                @RequestParam(value = "waterArea", required = false, defaultValue = "") String waterArea,
@@ -714,14 +737,14 @@ public class ProjectController {
                                @RequestParam(value = "rightWidth", required = false, defaultValue = "") String rightWidth,
                                @RequestParam(value = "flowVillages", required = false, defaultValue = "") String flowVillages,
                                @RequestParam(value = "nature", required = false, defaultValue = "") String nature,
-//                               @RequestParam(value = "sectionImage", required = false) MultipartFile sectionImage,
+                               @RequestParam(value = "sectionImage", required = false) MultipartFile sectionImage,
                                @RequestParam(value = "longitude", required = false, defaultValue = "0.0") String longitude,
                                @RequestParam(value = "latitude", required = false, defaultValue = "0.0") String latitude,
                                @RequestParam(value = "endpointLongitude", required = false, defaultValue = "0.0") String endpointLongitude,
                                @RequestParam(value = "endpointLatitude", required = false, defaultValue = "0.0") String endpointLatitude,
-//                               @RequestParam(value = "startImage", required = false) MultipartFile startImage,
-//                               @RequestParam(value = "middleImage", required = false) MultipartFile middleImage,
-//                               @RequestParam(value = "endImage", required = false) MultipartFile endImage,
+                               @RequestParam(value = "startImage", required = false) MultipartFile startImage,
+                               @RequestParam(value = "middleImage", required = false) MultipartFile middleImage,
+                               @RequestParam(value = "endImage", required = false) MultipartFile endImage,
                                @RequestParam(value = "provideAmount", required = false, defaultValue = "") String provideAmount,
                                @RequestParam(value = "waterModel", required = false, defaultValue = "") String waterModel,
                                @RequestParam(value = "haveCleaner", required = false, defaultValue = "") String haveCleaner,
@@ -878,30 +901,30 @@ public class ProjectController {
             String startImagePath = "";
             String middleImagePath = "";
             String endImagePath = "";
-//            if (image != null&&!image.isEmpty()) {
-//                imagePath = fileService.saveFile(image, timeStamp);
-//            }
-//            if (planeSketch != null&&!planeSketch.isEmpty()) {
-//                planeSketchPath = fileService.saveFile(planeSketch, timeStamp);
-//            }
-//            if (sectionImage != null&&!sectionImage.isEmpty()) {
-//                sectionImagePath = fileService.saveFile(sectionImage, timeStamp);
-//            }
-//            if (startImage != null&&!startImage.isEmpty()) {
-//                startImagePath = fileService.saveFile(startImage, timeStamp);
-//            }
-//            if (middleImage != null&&!middleImage.isEmpty()) {
-//                middleImagePath = fileService.saveFile(middleImage, timeStamp);
-//            }
-//            if (endImage != null&&!endImage.isEmpty()) {
-//                endImagePath = fileService.saveFile(endImage, timeStamp);
-//            }
-//            if (internalImage != null&&!internalImage.isEmpty()) {
-//                internalImagePath = fileService.saveFile(internalImage, timeStamp);
-//            }
-//            if (externalImage != null&&!externalImage.isEmpty()) {
-//                externalImagePath = fileService.saveFile(externalImage, timeStamp);
-//            }
+            if (image != null&&!image.isEmpty()) {
+                imagePath = fileService.saveFile(image, timeStamp);
+            }
+            if (planeSketch != null&&!planeSketch.isEmpty()) {
+                planeSketchPath = fileService.saveFile(planeSketch, timeStamp);
+            }
+            if (sectionImage != null&&!sectionImage.isEmpty()) {
+                sectionImagePath = fileService.saveFile(sectionImage, timeStamp);
+            }
+            if (startImage != null&&!startImage.isEmpty()) {
+                startImagePath = fileService.saveFile(startImage, timeStamp);
+            }
+            if (middleImage != null&&!middleImage.isEmpty()) {
+                middleImagePath = fileService.saveFile(middleImage, timeStamp);
+            }
+            if (endImage != null&&!endImage.isEmpty()) {
+                endImagePath = fileService.saveFile(endImage, timeStamp);
+            }
+            if (internalImage != null&&!internalImage.isEmpty()) {
+                internalImagePath = fileService.saveFile(internalImage, timeStamp);
+            }
+            if (externalImage != null&&!externalImage.isEmpty()) {
+                externalImagePath = fileService.saveFile(externalImage, timeStamp);
+            }
             switch (category) {
                 case "渡槽":
                     AqueductEntity aqueductEntity = new AqueductEntity();
@@ -1025,9 +1048,9 @@ public class ProjectController {
             }
             return responseService.success(response);
         }
-//        catch (IOException e){
-//            return responseService.saveFileError(response);
-//        }
+        catch (IOException e){
+            return responseService.saveFileError(response);
+        }
         catch (Exception e) {
             e.printStackTrace();
             return responseService.serverError(response);

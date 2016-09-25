@@ -18,4 +18,7 @@ public interface PondRepository extends MongoRepository<PondEntity, String> {
     PondEntity findById(@Param("id") String projectId);
     List<PondEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                       @Param("townEntity") List<TownEntity> towns);
+
+    List<PondEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                 @Param("townEntity") TownEntity town);
 }

@@ -1,10 +1,12 @@
 package com.saltyfish.framework.service;
 
+import com.saltyfish.common.bean.ConservationSummary;
 import com.saltyfish.common.bean.device.*;
 import com.saltyfish.common.bean.division.Canal;
 import com.saltyfish.common.bean.division.Pipe;
 import com.saltyfish.domain.entity.conservation.*;
 import com.saltyfish.domain.entity.superbean.ConservationEntity;
+import com.saltyfish.domain.entity.unit.TownEntity;
 import com.saltyfish.domain.repository.ConservationRepository;
 import com.saltyfish.domain.repository.auth.UserRepository;
 import com.saltyfish.domain.repository.conservation.*;
@@ -743,5 +745,84 @@ public class ProjectService {
         conservations.put("totalElements",totalElements);
         conservations.put("totalPages",totalPages);
         return conservations;
+    }
+
+    public List<ConservationSummary> summary(Integer userId) {
+        List<ConservationSummary> summaries = new ArrayList<>();
+        List<TownEntity> towns = unitService.getAccessedTowns(userId);
+        for (TownEntity town:towns){
+            ConservationSummary summary = new ConservationSummary();
+
+            summary.setTown(town);
+
+            List<AqueductEntity> aqueducts = aqueductRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setAqueductCounts(aqueducts.size());
+
+            List<PumpStationEntity> pumpStations = pumpStationRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setPumpStationCounts(pumpStations.size());
+            Double sumPower = 0d;
+            for (PumpStationEntity pumpStation:pumpStations){
+                sumPower+=Double.valueOf(pumpStation.getTotalInstalledCapacity());
+            }
+            summary.setPumpStationPower(sumPower);
+
+            List<BridgeEntity> bridges = bridgeRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setBridgeCounts(bridges.size());
+
+            List<ChannelEntity> channels = channelRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setChannelCounts(channels.size());
+            Double sumChannelLength = 0d;
+            for (ChannelEntity channel:channels){
+                sumChannelLength+=Double.valueOf(channel.getLength());
+            }
+            summary.setChannelLength(sumChannelLength);
+
+            List<DamEntity> dams = damRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setDamCounts(dams.size());
+
+            List<CulvertEntity> culverts = culvertRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setCulvertCounts(culverts.size());
+
+            List<DeepWellsEntity> deepWells = deepWellsRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setDeepWellsCounts(deepWells.size());
+
+            List<DripIrrigationPipeEntity> dripIrrigationPipes = dripIrrigationPipeRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setDripIrrigationPipeCounts(dripIrrigationPipes.size());
+            Double dripIrrigationPipeLength = 0d;
+            for (DripIrrigationPipeEntity dripIrrigationPipe:dripIrrigationPipes){
+                dripIrrigationPipeLength+=Double.valueOf(dripIrrigationPipe.getLength());
+            }
+            summary.setDripIrrigationPipeLength(dripIrrigationPipeLength);
+
+            List<GreatWellsEntity> greatWells = greatWellsRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setGreatWellsCounts(greatWells.size());
+
+            List<HydropowerEntity> hydropowers = hydropowerRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setHydropowerCounts(hydropowers.size());
+            Double hydropowerElectricity = 0d;
+            for (HydropowerEntity hydropower:hydropowers){
+                hydropowerElectricity+=Double.valueOf(hydropower.getSumElectricCapacity());
+            }
+            summary.setHydropowerElectircity(hydropowerElectricity);
+
+            List<PondEntity> ponds = pondRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setPondCounts(ponds.size());
+
+            List<WatercourseEntity> watercourses = watercourseRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setWatercourseCounts(watercourses.size());
+            Double watercourseLength = 0d;
+            for (WatercourseEntity watercourse:watercourses){
+                watercourseLength+=Double.valueOf(watercourse.getLength());
+            }
+            summary.setWatercourseLength(watercourseLength);
+
+            List<SluiceEntity> sluices = sluiceRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setSluiceCounts(sluices.size());
+
+            List<WaterWorksEntity> waterWorks = waterworksRepository.findByIsDeleteAndTownEntity(0,town);
+            summary.setWaterWorksCounts(waterWorks.size());
+            summaries.add(summary);
+        }
+        return summaries;
     }
 }

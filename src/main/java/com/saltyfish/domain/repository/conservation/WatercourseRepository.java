@@ -17,4 +17,7 @@ public interface WatercourseRepository extends MongoRepository<WatercourseEntity
     WatercourseEntity findById(@Param("id") String projectId);
     List<WatercourseEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                       @Param("townEntity") List<TownEntity> towns);
+
+    List<WatercourseEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                        @Param("townEntity") TownEntity town);
 }

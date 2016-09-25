@@ -17,4 +17,7 @@ public interface DeepWellsRepository extends MongoRepository<DeepWellsEntity, St
     DeepWellsEntity findById(@Param("id") String projectId);
     List<DeepWellsEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
                                                       @Param("townEntity") List<TownEntity> towns);
+
+    List<DeepWellsEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
+                                                      @Param("townEntity") TownEntity town);
 }
