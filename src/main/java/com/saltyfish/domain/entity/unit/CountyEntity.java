@@ -1,10 +1,9 @@
 package com.saltyfish.domain.entity.unit;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.saltyfish.domain.entity.base.Unit;
-import com.saltyfish.domain.entity.location.LocationEntity;
+import com.saltyfish.domain.entity.superbean.UnitBean;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by weck on 16/8/29.
@@ -12,27 +11,31 @@ import javax.persistence.*;
  * 县
  */
 @Entity
-@Table(name = "county", catalog = "exciting")
-public class CountyEntity extends Unit {
+@Table(name = "county", catalog = "conservation")
+public class CountyEntity extends UnitBean {
 
     private static final Long serialVersionUID = -2394798907978590424L;
 
-    /*一个县对应一个定位,删除县的同时要删除其定位,县作为维护的一方*/
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "location_id", referencedColumnName = "id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private LocationEntity location;
+    private String longitude;
+    private String latitude;
 
     public static Long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public LocationEntity getLocation() {
-        return location;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setLocation(LocationEntity location) {
-        this.location = location;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
 }

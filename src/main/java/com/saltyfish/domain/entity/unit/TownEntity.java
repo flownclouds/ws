@@ -1,6 +1,6 @@
 package com.saltyfish.domain.entity.unit;
 
-import com.saltyfish.domain.entity.base.Unit;
+import com.saltyfish.domain.entity.superbean.UnitBean;
 
 import javax.persistence.*;
 
@@ -10,8 +10,8 @@ import javax.persistence.*;
  * 镇
  */
 @Entity
-@Table(name = "town", catalog = "exciting")
-public class TownEntity extends Unit {
+@Table(name = "town", catalog = "conservation")
+public class TownEntity extends UnitBean {
 
     private static final Long serialVersionUID = -8390098490395830424L;
 

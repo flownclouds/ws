@@ -1,7 +1,7 @@
 package com.saltyfish.framework.controller;
 
 import com.saltyfish.common.bean.Response;
-import com.saltyfish.domain.entity.other.NotificationEntity;
+import com.saltyfish.domain.entity.notification.NotificationEntity;
 import com.saltyfish.framework.service.AuthService;
 import com.saltyfish.framework.service.NotificationService;
 import com.saltyfish.framework.service.ResponseService;

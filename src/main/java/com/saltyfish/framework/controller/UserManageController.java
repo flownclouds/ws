@@ -122,7 +122,7 @@ public class UserManageController {
             } else if (!authService.checkAdmin(userId)) {
                 return responseService.noAccess(response);
             } else {
-                userService.modifyUser(targetUserId, password, phone, email, realName, isActive, timeStamp, roleId, townIds);
+                userService.modifyUser(name, targetUserId, password, phone, email, realName, isActive, timeStamp, roleId, townIds);
                 return responseService.success(response);
             }
         } catch (Exception e) {

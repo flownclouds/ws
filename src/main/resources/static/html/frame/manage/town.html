@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../../../vendor/css/bootstrap.min.css-v=3.3.5.css" rel="stylesheet">
+    <script src="../../../vendor/js/jquery.min.js-v=2.1.4.js"></script>
+    <script src="../../../vendor/js/plugins/treeview/bootstrap-treeview.js"></script>
+</head>
+<body>
+    <div id="tree">
+
+    </div>
+
+    <script>
+        $(function () {
+            var tree = {
+                towns: [],
+                townsId: [],
+                villages: [],
+                villagesId: [],
+                groups: [],
+                groupsId: [],
+                next: [],
+                nextTree: [],
+                nextTreeId: []
+            };
+            var getUserInfo = function () {
+                var info = {
+                    userId: window.sessionStorage.getItem('userId') || -1,
+                    userName: window.sessionStorage.getItem('userName') || null,
+                    token: window.sessionStorage.getItem('token') || 0,
+                    rolesId: window.sessionStorage.getItem('rolesId') || -1,
+                    rolesName: window.sessionStorage.getItem('rolesName') || -1,
+                };
+                return info;
+            }
+            var userInfo = getUserInfo();
+            var data = {
+                userId: userInfo.userId,
+                token: userInfo.token
+            };
+            var getAccessedTowns = function () {
+                $.get("/unit/getAccessedTowns", data, function (res) {
+                    if (typeof res == 'string') res = JSON.parse(res);
+                    if (res.code == 200) {
+                        townsList = res.data.towns;
+                        var towns = [];
+                        var townsId = [];
+                        var rootTree = [];
+                        townsList.map(function (item) {
+                            towns.push(item.name);
+                            townsId.push(item.id);
+                            rootTree.push({"text": item.name});
+                        })
+                        tree.towns = towns;
+                        tree.townsId = townsId;
+                        tree.root = rootTree;
+
+                        getVillage(tree.townsId);
+                        /*return rootTree;*/
+                    } else {
+                        console.error("error with code", res.code);
+                    }
+                })
+            };
+            var getVillage = function (townsId) {
+                tree.next = tree.root;
+                townsId.map(function (townId, index) {
+                    data.townId = townId;
+                    $.get("/unit/getVillagesByTown", data, function (res) {
+                        if (typeof res == 'string') res = JSON.parse(res);
+                        if (res.code == 200) {
+                            tree.next[index].nodes = []; // 第二层
+                            res.data.villages.map(function (village) {
+                                tree.villages.push(village.name);
+                                tree.villagesId.push(village.id);
+                                tree.next[index].nodes.push({text: village.name});
+
+                                tree.nextTree.push(tree.next[index].nodes);
+                                tree.nextTreeId.push(index);
+                            })
+
+                            getGroup(tree.villagesId);
+
+                        } else {
+                            console.error("error with code", code);
+                        }
+                    })
+                })
+            };
+            var getGroup = function (villagesId) {
+                villagesId.map(function (villagesId, index) {
+                    data.villagesId = villagesId;
+                    tree.nextTree[index].nodes = [];
+                    $.get("/unit/getGroupsByVillage", data, function (res) {
+                        if (typeof res == 'string') res = JSON.parse(res);
+                        if (res.code == 200) {
+                            res.data.groups.map(function (group) {
+                                tree.groups.push(group.name);
+                                tree.groupsId.push(group.id);
+                                tree.nextTree[index].nodes.push({text: group.name});
+                            })
+
+                            tree.nextTree.map(function (item, index) {
+                                var i = tree.nextTreeId[index];
+                                tree.root[i] = tree.nextTree[index];
+                            })
+                            window.root = tree.root;
+                            $("#tree").treeview({data: tree.root});
+                            return tree.root;
+                        } else {
+                            console.error("error with code", code);
+                        }
+                    })
+                })
+            }
+            getAccessedTowns();
+//            $("#tree").treeview({data: generateTree()});
+        })
+    </script>
+</body>
+</html>

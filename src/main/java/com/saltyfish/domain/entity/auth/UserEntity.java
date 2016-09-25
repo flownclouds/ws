@@ -1,6 +1,6 @@
 package com.saltyfish.domain.entity.auth;
 
-import com.saltyfish.domain.entity.base.BaseBean;
+import com.saltyfish.domain.entity.superbean.BaseBean;
 import com.saltyfish.domain.entity.unit.CountyEntity;
 import com.saltyfish.domain.entity.unit.TownEntity;
 
@@ -13,11 +13,13 @@ import java.util.List;
  * 用户账号
  */
 @Entity
-@Table(name = "user", catalog = "exciting")
+@Table(name = "user", catalog = "conservation")
 public class UserEntity extends BaseBean {
 
     private static final Long serialVersionUID = -6128783497515830424L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;             //自增id
     @Column(unique = true, nullable = false)
     private String name;        //用户名
 
@@ -153,5 +155,13 @@ public class UserEntity extends BaseBean {
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

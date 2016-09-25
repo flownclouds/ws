@@ -1,12 +1,11 @@
 package com.saltyfish.framework.service;
 
 import com.saltyfish.domain.entity.auth.UserEntity;
-import com.saltyfish.domain.entity.location.LocationEntity;
+import com.saltyfish.domain.entity.superbean.UnitBean;
 import com.saltyfish.domain.entity.unit.CountyEntity;
 import com.saltyfish.domain.entity.unit.GroupEntity;
 import com.saltyfish.domain.entity.unit.TownEntity;
 import com.saltyfish.domain.entity.unit.VillageEntity;
-import com.saltyfish.domain.repository.LocationRepository;
 import com.saltyfish.domain.repository.auth.UserRepository;
 import com.saltyfish.domain.repository.unit.CountyRepository;
 import com.saltyfish.domain.repository.unit.GroupRepository;
@@ -15,10 +14,10 @@ import com.saltyfish.domain.repository.unit.VillageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by weck on 16/9/4.
@@ -36,9 +35,6 @@ public class UnitService {
 
     @Autowired
     private CountyRepository countyRepository;
-
-    @Autowired
-    private LocationRepository locationRepository;
 
     @Autowired
     private VillageRepository villageRepository;
@@ -76,21 +72,14 @@ public class UnitService {
      * @param timeStamp  时间戳
      */
     public void addCounty(String countyName, String longitude, String latitude, Long timeStamp) {
-        Timestamp time = new Timestamp(timeStamp);
-        LocationEntity location = new LocationEntity();
-        location.setCreateTime(time);
-        location.setUpdateTime(time);
-        location.setIsDelete(0);
-        location.setLongitude(longitude);
-        location.setLatitude(latitude);
-        locationRepository.save(location);
         CountyEntity county = new CountyEntity();
-        county.setCreateTime(time);
+        county.setCreateTime(timeStamp);
         county.setIsDelete(0);
-        county.setUpdateTime(time);
+        county.setUpdateTime(timeStamp);
         county.setIsActive(1);
         county.setName(countyName);
-        county.setLocation(location);
+        county.setLatitude(latitude);
+        county.setLongitude(longitude);
         countyRepository.save(county);
     }
 
@@ -104,20 +93,10 @@ public class UnitService {
      * @param timeStamp  时间戳
      */
     public void updateCounty(Integer countyId, String countyName, String longitude, String latitude, Long timeStamp) {
-        Timestamp time = new Timestamp(timeStamp);
         CountyEntity county = countyRepository.findById(countyId);
-        if (!county.getLocation().getLatitude().equals(latitude) || !county.getLocation().getLongitude().equals(longitude)) {
-            locationRepository.delete(county.getLocation());
-            LocationEntity location = new LocationEntity();
-            location.setCreateTime(time);
-            location.setUpdateTime(time);
-            location.setIsDelete(0);
-            location.setLongitude(longitude);
-            location.setLatitude(latitude);
-            locationRepository.save(location);
-            county.setLocation(location);
-        }
-        county.setUpdateTime(time);
+        county.setLongitude(longitude);
+        county.setLatitude(latitude);
+        county.setUpdateTime(timeStamp);
         county.setName(countyName);
         countyRepository.save(county);
     }
@@ -170,10 +149,9 @@ public class UnitService {
      */
     public void addTown(Integer userId, String townName, Long timeStamp) {
         TownEntity town = new TownEntity();
-        Timestamp time = new Timestamp(timeStamp);
         town.setName(townName);
-        town.setCreateTime(time);
-        town.setUpdateTime(time);
+        town.setCreateTime(timeStamp);
+        town.setUpdateTime(timeStamp);
         town.setIsActive(1);
         town.setIsDelete(0);
         town.setCounty(userRepository.findById(userId).getCounty());
@@ -189,9 +167,8 @@ public class UnitService {
      */
     public void modifyTown(String townName, Integer townId, Long timeStamp) {
         TownEntity town = townRepository.findById(townId);
-        Timestamp time = new Timestamp(timeStamp);
         town.setName(townName);
-        town.setUpdateTime(time);
+        town.setUpdateTime(timeStamp);
         townRepository.save(town);
     }
 
@@ -207,14 +184,11 @@ public class UnitService {
         UserEntity user = userRepository.findById(userId);
         VillageEntity village = villageRepository.findById(villageId);
         GroupEntity group = new GroupEntity();
-        Timestamp time = new Timestamp(timeStamp);
         group.setName(groupName);
         group.setIsActive(1);
-        group.setCounty(user.getCounty());
-        group.setCreateTime(time);
-        group.setUpdateTime(time);
+        group.setCreateTime(timeStamp);
+        group.setUpdateTime(timeStamp);
         group.setIsDelete(0);
-        group.setTown(village.getTown());
         group.setVillage(village);
         groupRepository.save(group);
     }
@@ -230,13 +204,11 @@ public class UnitService {
     public void addVillage(Integer userId, Integer townId, String villageName, Long timeStamp) {
         UserEntity user = userRepository.findById(userId);
         VillageEntity village = new VillageEntity();
-        Timestamp time = new Timestamp(timeStamp);
-        village.setCounty(user.getCounty());
         village.setName(villageName);
         village.setTown(townRepository.findById(townId));
-        village.setUpdateTime(time);
+        village.setUpdateTime(timeStamp);
         village.setIsActive(1);
-        village.setCreateTime(time);
+        village.setCreateTime(timeStamp);
         village.setIsDelete(0);
         villageRepository.save(village);
     }
@@ -249,10 +221,9 @@ public class UnitService {
      * @param villageId   村庄id
      */
     public void modifyVillage(String villageName, Long timeStamp, Integer villageId) {
-        Timestamp time = new Timestamp(timeStamp);
         VillageEntity village = villageRepository.findById(villageId);
         village.setName(villageName);
-        village.setUpdateTime(time);
+        village.setUpdateTime(timeStamp);
         villageRepository.save(village);
     }
 
@@ -275,10 +246,10 @@ public class UnitService {
      * @param timeStamp 时间戳
      */
     public void modifyGroup(String groupName, Integer groupId, Long timeStamp) {
-        Timestamp time = new Timestamp(timeStamp);
+        Date time = new Date(timeStamp);
         GroupEntity group = groupRepository.findById(groupId);
         group.setName(groupName);
-        group.setUpdateTime(time);
+        group.setUpdateTime(timeStamp);
         groupRepository.save(group);
     }
 
@@ -289,12 +260,10 @@ public class UnitService {
      * @return 乡镇id集合
      */
     public List<Integer> getAccessedTownIds(Integer userId) {
-        List<TownEntity> towns = getAccessedTowns(userId);
+        UserEntity user = userRepository.findById(userId);
         List<Integer> townIds = new ArrayList<>();
-        Iterator<TownEntity> it = towns.iterator();
-        while (it.hasNext()) {
-            townIds.add(it.next().getId());
-        }
+        List<TownEntity> towns = user.getTowns();
+        townIds.addAll(towns.stream().map(UnitBean::getId).collect(Collectors.toList()));
         return townIds;
     }
 }

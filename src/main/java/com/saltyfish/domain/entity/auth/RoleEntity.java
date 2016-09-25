@@ -1,10 +1,8 @@
 package com.saltyfish.domain.entity.auth;
 
-import com.saltyfish.domain.entity.base.BaseBean;
+import com.saltyfish.domain.entity.superbean.BaseBean;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by weck on 16/8/27.
@@ -12,11 +10,13 @@ import javax.persistence.Table;
  * 角色
  */
 @Entity
-@Table(name = "role", catalog = "exciting")
+@Table(name = "role", catalog = "conservation")
 public class RoleEntity extends BaseBean {
 
     private static final Long serialVersionUID = -6122347374515830424L;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;             //自增id
     @Column(unique = true, nullable = false)
     private String name;        //guest只能查看权限范围内据,superGuest能查看全县所有乡镇的数据，admin能管理权限范围内的数据,countyManager能查看全县数据并管理县内用户,superAdmin能查看全市汇总并管理县级管理员
 
@@ -42,5 +42,13 @@ public class RoleEntity extends BaseBean {
 
     public void setIsActive(Integer isActive) {
         this.isActive = isActive;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

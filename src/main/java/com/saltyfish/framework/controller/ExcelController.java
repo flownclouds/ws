@@ -1,9 +1,13 @@
 package com.saltyfish.framework.controller;
 
 import com.saltyfish.common.bean.Response;
-import com.saltyfish.domain.entity.project.WaterConservationEntity;
-import com.saltyfish.domain.repository.project.WaterConservationRepository;
-import com.saltyfish.framework.service.*;
+import com.saltyfish.domain.entity.conservation.*;
+import com.saltyfish.domain.entity.superbean.ConservationEntity;
+import com.saltyfish.domain.repository.ConservationRepository;
+import com.saltyfish.framework.service.AuthService;
+import com.saltyfish.framework.service.ExcelService;
+import com.saltyfish.framework.service.ProjectService;
+import com.saltyfish.framework.service.ResponseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by weck on 16/9/19.
@@ -30,13 +33,10 @@ public class ExcelController {
     private ExcelService excelService;
 
     @Autowired
-    private WaterConservationRepository waterConservationRepository;
-
-    @Autowired
     private ProjectService projectService;
 
     @Autowired
-    private UnitService unitService;
+    private ConservationRepository conservationRepository;
 
 
     @RequestMapping("/exportSummary")
@@ -49,49 +49,48 @@ public class ExcelController {
             if (!authService.checkLogin(userId, token)) {
                 return responseService.notLogin(response);
             } else {
-                List<WaterConservationEntity> projects = projectService.getConservationsByCategory(unitService.getAccessedTownIds(userId), category);
                 switch (category) {
                     case "渡槽":
-                        excelService.exportAqueductSummary(httpServletResponse, projects);
+                        excelService.exportAqueductSummary(httpServletResponse, projectService.getAqueducts(userId));
                         break;
                     case "桥梁":
-                        excelService.exportBridgeSummary(httpServletResponse, projects);
+                        excelService.exportBridgeSummary(httpServletResponse, projectService.getBridges(userId));
                         break;
                     case "渠道":
-                        excelService.exportChannelSummary(httpServletResponse, projects);
+                        excelService.exportChannelSummary(httpServletResponse, projectService.getChannels(userId));
                         break;
                     case "涵洞":
-                        excelService.exportCulvertSummary(httpServletResponse, projects);
+                        excelService.exportCulvertSummary(httpServletResponse, projectService.getCulverts(userId));
                         break;
                     case "塘坝":
-                        excelService.exportDamSummary(httpServletResponse, projects);
+                        excelService.exportDamSummary(httpServletResponse, projectService.getDams(userId));
                         break;
                     case "深水井":
-                        excelService.exportDeepWellsSummary(httpServletResponse, projects);
+                        excelService.exportDeepWellsSummary(httpServletResponse, projectService.getDeepWells(userId));
                         break;
                     case "管滴灌":
-                        excelService.exportDripIrrigationPipeSummary(httpServletResponse, projects);
+                        excelService.exportDripIrrigationPipeSummary(httpServletResponse, projectService.getDripIrrigationPipe(userId));
                         break;
                     case "大口井":
-                        excelService.exportGreatWellsSummary(httpServletResponse, projects);
+                        excelService.exportGreatWellsSummary(httpServletResponse, projectService.getGreatWells(userId));
                         break;
                     case "水电站":
-                        excelService.exportHydropowerSummary(httpServletResponse, projects);
+                        excelService.exportHydropowerSummary(httpServletResponse, projectService.getHydropowers(userId));
                         break;
                     case "水塘":
-                        excelService.exportPondSummary(httpServletResponse, projects);
+                        excelService.exportPondSummary(httpServletResponse, projectService.getPonds(userId));
                         break;
                     case "泵站":
-                        excelService.exportPumpStationSummary(httpServletResponse, projects);
+                        excelService.exportPumpStationSummary(httpServletResponse, projectService.getPumpStations(userId));
                         break;
                     case "水闸":
-                        excelService.exportSluiceSummary(httpServletResponse, projects);
+                        excelService.exportSluiceSummary(httpServletResponse, projectService.getSluices(userId));
                         break;
                     case "河道":
-                        excelService.exportWatercourseSummary(httpServletResponse, projects);
+                        excelService.exportWatercourseSummary(httpServletResponse, projectService.getWatercourses(userId));
                         break;
                     case "水厂":
-                        excelService.exportWaterWorksSummary(httpServletResponse, projects);
+                        excelService.exportWaterWorksSummary(httpServletResponse, projectService.getWaterWorks(userId));
                         break;
                     default:
                         break;
@@ -116,61 +115,59 @@ public class ExcelController {
     @RequestMapping("/exportProject")
     public Response exportProject(@RequestParam("userId") Integer userId,
                                   @RequestParam("token") String token,
-                                  @RequestParam("projectId") Integer projectId,
+                                  @RequestParam("projectId") String projectId,
                                   HttpServletResponse httpServletResponse) {
         Response response = new Response();
         try {
             if (!authService.checkLogin(userId, token)) {
                 return responseService.notLogin(response);
-//                return "未登录";
             } else if (!authService.checkUserProjectTownAccess(userId, projectId)) {
                 return responseService.noAccess(response);
-//                return "没有权限";
             } else {
-                WaterConservationEntity waterConservationEntity = waterConservationRepository.findById(projectId);
-                String category = waterConservationEntity.getCategory();
+                ConservationEntity conservationEntity = conservationRepository.findById(projectId);
+                String category = conservationEntity.getCategory();
                 switch (category) {
                     case "渡槽":
-                        excelService.exportAqueduct(waterConservationEntity, httpServletResponse);
+                        excelService.exportAqueduct((AqueductEntity) conservationEntity, httpServletResponse);
                         break;
                     case "桥梁":
-                        excelService.exportBridge(waterConservationEntity, httpServletResponse);
+                        excelService.exportBridge((BridgeEntity) conservationEntity, httpServletResponse);
                         break;
                     case "渠道":
-                        excelService.exportChannel(waterConservationEntity, httpServletResponse);
+                        excelService.exportChannel((ChannelEntity) conservationEntity, httpServletResponse);
                         break;
                     case "涵洞":
-                        excelService.exportCulvert(waterConservationEntity, httpServletResponse);
+                        excelService.exportCulvert((CulvertEntity) conservationEntity, httpServletResponse);
                         break;
                     case "塘坝":
-                        excelService.exportDam(waterConservationEntity, httpServletResponse);
+                        excelService.exportDam((DamEntity) conservationEntity, httpServletResponse);
                         break;
                     case "深水井":
-                        excelService.exportDeepWells(waterConservationEntity, httpServletResponse);
+                        excelService.exportDeepWells((DeepWellsEntity) conservationEntity, httpServletResponse);
                         break;
                     case "管滴灌":
-                        excelService.exportDripIrrigationPipe(waterConservationEntity, httpServletResponse);
+                        excelService.exportDripIrrigationPipe((DripIrrigationPipeEntity) conservationEntity, httpServletResponse);
                         break;
                     case "大口井":
-                        excelService.exportGreateWells(waterConservationEntity, httpServletResponse);
+                        excelService.exportGreateWells((GreatWellsEntity) conservationEntity, httpServletResponse);
                         break;
                     case "水电站":
-                        excelService.exportHydropower(waterConservationEntity, httpServletResponse);
+                        excelService.exportHydropower((HydropowerEntity) conservationEntity, httpServletResponse);
                         break;
                     case "水塘":
-                        excelService.exportPond(waterConservationEntity, httpServletResponse);
+                        excelService.exportPond((PondEntity) conservationEntity, httpServletResponse);
                         break;
                     case "泵站":
-                        excelService.exportPumpStation(waterConservationEntity, httpServletResponse);
+                        excelService.exportPumpStation((PumpStationEntity) conservationEntity, httpServletResponse);
                         break;
                     case "水闸":
-                        excelService.exportSluice(waterConservationEntity, httpServletResponse);
+                        excelService.exportSluice((SluiceEntity) conservationEntity, httpServletResponse);
                         break;
                     case "河道":
-                        excelService.exportWatercourse(waterConservationEntity, httpServletResponse);
+                        excelService.exportWatercourse((WatercourseEntity) conservationEntity, httpServletResponse);
                         break;
                     case "水厂":
-                        excelService.exportWaterWorks(waterConservationEntity, httpServletResponse);
+                        excelService.exportWaterWorks((WaterWorksEntity) conservationEntity, httpServletResponse);
                         break;
                     default:
                         break;

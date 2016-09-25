@@ -160,8 +160,8 @@
             userId: window.sessionStorage.getItem('userId') || -1,
             userName: window.sessionStorage.getItem('userName') || null,
             token: window.sessionStorage.getItem('token') || 0,
-            roleId: window.sessionStorage.getItem('roleId') || -1,
-            roleName: window.sessionStorage.getItem('roleName') || -1,
+            rolesId: window.sessionStorage.getItem('rolesId') || -1,
+            rolesName: window.sessionStorage.getItem('rolesName') || -1,
         };
         return info;
     }
@@ -175,7 +175,7 @@
         contents.map(function(content){
             html  += '<tr class="rows"> ' +
                     '<td class="t_td" nowrap="true" align="center" style="width: 5px;"> ' +
-                    '<input type="checkbox" name="select" id="select" value="4895"> ' +
+                    '<input type="checkbox" name="select" id="select" value="'+ content.id +'"> ' +
                     '</td> ' +
                     '<td class="t_td" nowrap="true"> ' +
                     '<a href="../conditionsDetails/shenshuijin.html?projectId='+ content.id +'">' + content.code +  '</a>' +
@@ -301,5 +301,6 @@
         init('/project/getConservations',type);
     })
 </script>
+<script src="../../../js/conditionsToolButtons.js"></script>
 </body>
 </html>

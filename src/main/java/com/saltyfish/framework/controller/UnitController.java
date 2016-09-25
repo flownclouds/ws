@@ -272,7 +272,7 @@ public class UnitController {
             if (!authService.checkLogin(userId, token)) {
                 return responseService.notLogin(response);
             } else if (!authService.checkAdmin(userId) ||
-                    !authService.checkUserTownAccess(userId, unitService.getByGroupId(groupId).getTown().getId())) {
+                    !authService.checkUserTownAccess(userId, unitService.getByGroupId(groupId).getVillage().getTown().getId())) {
                 return responseService.noAccess(response);
             } else {
                 unitService.modifyGroup(groupName, groupId, timeStamp);

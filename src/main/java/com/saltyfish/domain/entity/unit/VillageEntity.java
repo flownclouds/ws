@@ -1,6 +1,6 @@
 package com.saltyfish.domain.entity.unit;
 
-import com.saltyfish.domain.entity.base.Unit;
+import com.saltyfish.domain.entity.superbean.UnitBean;
 
 import javax.persistence.*;
 
@@ -10,18 +10,14 @@ import javax.persistence.*;
  * 村
  */
 @Entity
-@Table(name = "village", catalog = "exciting")
-public class VillageEntity extends Unit {
+@Table(name = "village", catalog = "conservation")
+public class VillageEntity extends UnitBean {
 
     private static final Long serialVersionUID = -1283787394589098432L;
 
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "town_id", referencedColumnName = "id", nullable = false)
     private TownEntity town;
-
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "county_id", referencedColumnName = "id", nullable = false)
-    private CountyEntity county;
 
     public static Long getSerialVersionUID() {
         return serialVersionUID;
@@ -35,11 +31,4 @@ public class VillageEntity extends Unit {
         this.town = town;
     }
 
-    public CountyEntity getCounty() {
-        return county;
-    }
-
-    public void setCounty(CountyEntity county) {
-        this.county = county;
-    }
 }

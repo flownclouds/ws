@@ -3,7 +3,6 @@ package com.saltyfish.configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -15,11 +14,9 @@ import java.util.Date;
 @Component
 public class ScheduleTask {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-
     @Scheduled(fixedRate = 600000)
     public void reportCurrentTime() {
-        System.out.println("当前时间:" + dateFormat.format(new Date()) + ","
+        System.out.println("当前时间:" + new Date(System.currentTimeMillis()) + ","
                 + "时间戳：" + System.currentTimeMillis());
     }
 }

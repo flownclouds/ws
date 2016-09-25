@@ -1,77 +1,33 @@
 package com.saltyfish.framework.controller;
 
 import com.saltyfish.common.bean.Response;
-import com.saltyfish.common.utils.UUIDGenerator;
-import com.saltyfish.domain.entity.auth.UserEntity;
-import com.saltyfish.domain.repository.auth.UserRepository;
-import com.saltyfish.domain.repository.unit.TownRepository;
-import com.saltyfish.framework.service.AuthService;
-import com.saltyfish.framework.service.FileService;
-import com.saltyfish.framework.service.ResponseService;
-import org.json.JSONObject;
+import com.saltyfish.domain.repository.ConservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Created by weck on 16/9/2.
- * <p>
- * 测试controller
+ * Created by weck on 16/9/24.
  */
+
 @RestController
 @RequestMapping("/test")
 public class TestController {
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
-    private TownRepository townRepository;
+    private ConservationRepository conservationRepository;
 
-    @Autowired
-    private AuthService authService;
-
-    @Autowired
-    private ResponseService responseService;
-
-    @Autowired
-    private FileService fileService;
-
-    @RequestMapping("/test")
-    public UserEntity test() {
-        UserEntity userEntity = userRepository.findById(1);
-        userEntity.setToken(UUIDGenerator.getUUID());
-        userRepository.save(userEntity);
-        return userEntity;
-    }
-
-    @RequestMapping("/uploadFile")
-    public Response uploadFile(@RequestParam("userId") Integer userId,
-                               @RequestParam("token") String token,
-                               @RequestParam(value = "file", required = false) MultipartFile file,
-                               @RequestParam("timeStamp") Long timeStamp) {
+    @RequestMapping("/querySuper")
+    public Response querySuper() {
         Response response = new Response();
-        try {
-            if (!authService.checkLogin(userId, token)) {
-                return responseService.notLogin(response);
-            } else {
-                fileService.saveFile(file, timeStamp);
-                return responseService.success(response);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            return responseService.serverError(response);
-        }
-    }
-
-    @RequestMapping("/testMap")
-    public Response testMap(HttpServletRequest httpServletRequest){
-        JSONObject data = new JSONObject(httpServletRequest.getParameterMap());
-        System.out.println(data.toString());
-        return responseService.success(new Response());
+        Map<String, Object> data = new HashMap<>();
+        data.put("projects", conservationRepository.findAll());
+        response.setData(data);
+        response.setCode(HttpStatus.OK.value());
+        return response;
     }
 }

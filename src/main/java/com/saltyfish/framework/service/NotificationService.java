@@ -1,17 +1,15 @@
 package com.saltyfish.framework.service;
 
 import com.saltyfish.domain.entity.auth.UserEntity;
-import com.saltyfish.domain.entity.other.NotificationEntity;
+import com.saltyfish.domain.entity.notification.NotificationEntity;
 import com.saltyfish.domain.repository.auth.UserRepository;
-import com.saltyfish.domain.repository.other.NotificationRepository;
+import com.saltyfish.domain.repository.notification.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.sql.Timestamp;
 
 /**
  * Created by weck on 16/9/2.
@@ -65,8 +63,8 @@ public class NotificationService {
     public void addNotification(String title, String content, Long timeStamp, Integer userId, Integer category) {
         UserEntity userEntity = userRepository.findById(userId);
         NotificationEntity notificationEntity = new NotificationEntity();
-        notificationEntity.setCreateTime(new Timestamp(timeStamp));
-        notificationEntity.setUpdateTime(new Timestamp(timeStamp));
+        notificationEntity.setCreateTime(timeStamp);
+        notificationEntity.setUpdateTime(timeStamp);
         notificationEntity.setCategory(category);
         if (category == 2) {
             notificationEntity.setCounty(userEntity.getCounty());
@@ -92,7 +90,7 @@ public class NotificationService {
         NotificationEntity notification = notificationRepository.findById(id);
         notification.setTitle(title);
         notification.setContent(content);
-        notification.setUpdateTime(new Timestamp(timeStamp));
+        notification.setUpdateTime(timeStamp);
         notification.setUser(userEntity);
         notificationRepository.save(notification);
     }
@@ -109,7 +107,7 @@ public class NotificationService {
         UserEntity userEntity = userRepository.findById(userId);
         NotificationEntity notification = notificationRepository.findById(notificationId);
         notification.setIsDelete(1);
-        notification.setUpdateTime(new Timestamp(timeStamp));
+        notification.setUpdateTime(timeStamp);
         notification.setUser(userEntity);
         notificationRepository.save(notification);
     }

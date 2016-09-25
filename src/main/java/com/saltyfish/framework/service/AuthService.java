@@ -2,13 +2,12 @@ package com.saltyfish.framework.service;
 
 import com.saltyfish.common.utils.PasswordEncode;
 import com.saltyfish.domain.entity.auth.UserEntity;
-import com.saltyfish.domain.entity.other.NotificationEntity;
-import com.saltyfish.domain.entity.project.WaterConservationEntity;
+import com.saltyfish.domain.entity.notification.NotificationEntity;
+import com.saltyfish.domain.entity.superbean.ConservationEntity;
 import com.saltyfish.domain.entity.unit.TownEntity;
-import com.saltyfish.domain.repository.auth.RoleRepository;
+import com.saltyfish.domain.repository.ConservationRepository;
 import com.saltyfish.domain.repository.auth.UserRepository;
-import com.saltyfish.domain.repository.other.NotificationRepository;
-import com.saltyfish.domain.repository.project.WaterConservationRepository;
+import com.saltyfish.domain.repository.notification.NotificationRepository;
 import com.saltyfish.domain.repository.unit.GroupRepository;
 import com.saltyfish.domain.repository.unit.TownRepository;
 import com.saltyfish.domain.repository.unit.VillageRepository;
@@ -16,13 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by weck on 16/9/3.
- * <p>
- * authentication and authorization service
+ * Created by weck on 16/9/24.
  */
 @Service
 public class AuthService {
-
     @Autowired
     private UserRepository userRepository;
 
@@ -30,13 +26,7 @@ public class AuthService {
     private NotificationRepository notificationRepository;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private TownRepository townRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
 
     @Autowired
     private VillageRepository villageRepository;
@@ -45,8 +35,10 @@ public class AuthService {
     private GroupRepository groupRepository;
 
     @Autowired
-    private WaterConservationRepository waterConservationRepository;
+    private ConservationRepository conservationRepository;
 
+    @Autowired
+    private UnitService unitService;
 
     /**
      * 检测是否管理员
@@ -128,9 +120,6 @@ public class AuthService {
     public Boolean checkUserTownAccess(Integer userId, Integer townId) {
         UserEntity userEntity = userRepository.findById(userId);
         TownEntity townEntity = townRepository.findById(townId);
-        if (checkAdmin(userId)) {
-            return userEntity.getCounty().getId().equals(townEntity.getCounty().getId());
-        }
         return userEntity.getTowns().contains(townEntity);
     }
 
@@ -159,19 +148,8 @@ public class AuthService {
         return villageRepository.findById(villageId).getTown().getId().equals(townId);
     }
 
-    /**
-     * 检测工程所在乡镇用户是否有权限
-     *
-     * @param userId
-     * @param projectId
-     * @return
-     */
-    public boolean checkUserProjectTownAccess(Integer userId, Integer projectId) {
-        UserEntity user = userRepository.findById(userId);
-        WaterConservationEntity project = waterConservationRepository.findById(projectId);
-        if (checkAdmin(userId)) {
-            return user.getCounty().getId().equals(project.getTown().getCounty().getId());
-        }
-        return user.getTowns().contains(project.getTown());
+    public boolean checkUserProjectTownAccess(Integer userId, String projectId) {
+        ConservationEntity project = conservationRepository.findById(projectId);
+        return unitService.getAccessedTownIds(userId).contains(project.getTownEntity().getId());
     }
 }

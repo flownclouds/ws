@@ -16,19 +16,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by weck on 16/9/2.
- * <p>
- * 用户操作
+ * Created by weck on 16/9/24.
  */
 @Service
 public class UserService {
-
     @Autowired
     private UserRepository userRepository;
 
@@ -58,7 +54,7 @@ public class UserService {
      */
     public void setToken(UserEntity userEntity) {
         userEntity.setToken(UUIDGenerator.getUUID());
-        userEntity.setUpdateTime(new Timestamp(System.currentTimeMillis()));
+        userEntity.setUpdateTime(System.currentTimeMillis());
         userRepository.save(userEntity);
     }
 
@@ -80,24 +76,22 @@ public class UserService {
         Iterator<Integer> it = townIds.iterator();
         while (it.hasNext()) {
             TownEntity town = townRepository.findById(it.next());
-            towns.add(town);
+            String salt = PasswordEncode.generateSalt();
+            user.setSalt(salt);
+            user.setCounty(userRepository.findById(userId).getCounty());
+            user.setName(name);
+            user.setIsActive(isActive);
+            user.setCreateTime(timeStamp);
+            user.setUpdateTime(timeStamp);
+            user.setEmail(email);
+            user.setPassword(PasswordEncode.getHashedPassword(password, salt));
+            user.setPhone(phone);
+            user.setRealName(realName);
+            user.setRole(roleRepository.findById(roleId));
+            user.setIsDelete(0);
+            user.setTowns(towns);
+            userRepository.save(user);
         }
-        Timestamp time = new Timestamp(timeStamp);
-        String salt = PasswordEncode.generateSalt();
-        user.setSalt(salt);
-        user.setCounty(userRepository.findById(userId).getCounty());
-        user.setName(name);
-        user.setIsActive(isActive);
-        user.setCreateTime(time);
-        user.setUpdateTime(time);
-        user.setEmail(email);
-        user.setPassword(PasswordEncode.getHashedPassword(password, salt));
-        user.setPhone(phone);
-        user.setRealName(realName);
-        user.setRole(roleRepository.findById(roleId));
-        user.setIsDelete(0);
-        user.setTowns(towns);
-        userRepository.save(user);
     }
 
     /**
@@ -115,7 +109,6 @@ public class UserService {
     public void addAdmin(String name, String password, String phone, String email, String realName, Integer isActive, Long timeStamp, Integer countyId) {
         UserEntity user = new UserEntity();
         CountyEntity county = countyRepository.findById(countyId);
-        Timestamp time = new Timestamp(timeStamp);
         String salt = PasswordEncode.generateSalt();
         user.setSalt(salt);
         user.setPassword(PasswordEncode.getHashedPassword(password, salt));
@@ -126,8 +119,8 @@ public class UserService {
         user.setIsDelete(0);
         user.setIsActive(isActive);
         user.setCounty(county);
-        user.setCreateTime(time);
-        user.setUpdateTime(time);
+        user.setCreateTime(timeStamp);
+        user.setUpdateTime(timeStamp);
         user.setRole(roleRepository.findByName("admin"));
         userRepository.save(user);
     }
@@ -140,9 +133,8 @@ public class UserService {
      * @param roleId       用户id
      * @param townIds      乡镇id
      */
-    public void modifyUser(Integer targetUserId, String password, String phone, String email, String realName, Integer isActive, Long timeStamp, Integer roleId, List<Integer> townIds) {
+    public void modifyUser(String name, Integer targetUserId, String password, String phone, String email, String realName, Integer isActive, Long timeStamp, Integer roleId, List<Integer> townIds) {
         UserEntity user = userRepository.findById(targetUserId);
-        Timestamp time = new Timestamp(timeStamp);
         List<TownEntity> towns = new ArrayList<>();
         Iterator<Integer> it = townIds.iterator();
         while (it.hasNext()) {
@@ -154,9 +146,10 @@ public class UserService {
         user.setPhone(phone);
         user.setEmail(email);
         user.setRealName(realName);
+        user.setName(name);
         user.setIsActive(isActive);
         user.setTowns(towns);
-        user.setUpdateTime(time);
+        user.setUpdateTime(timeStamp);
         userRepository.save(user);
     }
 
@@ -172,7 +165,7 @@ public class UserService {
         String salt = PasswordEncode.generateSalt();
         user.setSalt(salt);
         user.setPassword(PasswordEncode.getHashedPassword(password, salt));
-        user.setUpdateTime(new Timestamp(timeStamp));
+        user.setUpdateTime(timeStamp);
         userRepository.save(user);
     }
 
@@ -199,7 +192,7 @@ public class UserService {
     public void deleteUser(Integer targetUserId, Long timeStamp) {
         UserEntity user = userRepository.findById(targetUserId);
         user.setIsDelete(1);
-        user.setUpdateTime(new Timestamp(timeStamp));
+        user.setUpdateTime(timeStamp);
         userRepository.save(user);
     }
 
@@ -211,7 +204,7 @@ public class UserService {
     public void logout(Integer userId, Long timeStamp) {
         UserEntity user = userRepository.findById(userId);
         user.setToken("");
-        user.setUpdateTime(new Timestamp(timeStamp));
+        user.setUpdateTime(timeStamp);
         userRepository.save(user);
     }
 
@@ -227,12 +220,11 @@ public class UserService {
      */
     public void modifyUserInfo(Integer userId, String name, String realName, String email, String phone, Long timeStamp) {
         UserEntity user = userRepository.findById(userId);
-        Timestamp time = new Timestamp(timeStamp);
         user.setRealName(realName);
         user.setName(name);
         user.setPhone(phone);
         user.setEmail(email);
-        user.setUpdateTime(time);
+        user.setUpdateTime(timeStamp);
         userRepository.save(user);
     }
 }
