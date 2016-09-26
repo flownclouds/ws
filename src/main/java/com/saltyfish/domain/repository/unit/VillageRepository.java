@@ -17,4 +17,6 @@ public interface VillageRepository extends JpaRepository<VillageEntity, Integer>
     List<VillageEntity> findByTownId(@Param("town_id") Integer townId);
 
     VillageEntity findById(@Param("id") Integer villageId);
+
+    VillageEntity findByName(@Param("name") String villageName);
 }

@@ -17,4 +17,6 @@ public interface GroupRepository extends JpaRepository<GroupEntity, Integer> {
     List<GroupEntity> findByVillageId(@Param("villageId") Integer villageId);
 
     GroupEntity findById(@Param("id") Integer groupId);
+
+    GroupEntity findByName(@Param("name") String name);
 }

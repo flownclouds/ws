@@ -4,10 +4,17 @@ import com.saltyfish.common.bean.device.*;
 import com.saltyfish.common.bean.division.Canal;
 import com.saltyfish.common.bean.division.Pipe;
 import com.saltyfish.domain.entity.conservation.*;
+import com.saltyfish.domain.entity.unit.GroupEntity;
+import com.saltyfish.domain.entity.unit.TownEntity;
+import com.saltyfish.domain.entity.unit.VillageEntity;
+import com.saltyfish.domain.repository.unit.GroupRepository;
+import com.saltyfish.domain.repository.unit.TownRepository;
+import com.saltyfish.domain.repository.unit.VillageRepository;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -49,6 +56,55 @@ public class ExcelService {
     private static String sluiceSummaryModelFilePath = "file/水闸汇总表.xls";
     private static String watercourseSummaryModelFilePath = "file/河道汇总表.xls";
     private static String waterWorksSummaryModelFilePath = "file/水厂汇总表.xls";
+
+    @Autowired
+    private TownRepository townRepository;
+
+    @Autowired
+    private VillageRepository villageRepository;
+
+    @Autowired
+    private GroupRepository groupRepository;
+
+    @Autowired
+    private AuthService authService;
+
+    @Autowired
+    private ProjectService projectService;
+
+    public void importData(Integer userId, File f, String category, Long timeStamp) throws IOException {
+        InputStream inputStream = new FileInputStream(f);
+        HSSFWorkbook hssfWorkbook = new HSSFWorkbook(inputStream);
+        HSSFSheet sheet1 = hssfWorkbook.getSheetAt(0);
+        for (int i = 6; i < sheet1.getLastRowNum() + 1; i++) {
+            HSSFRow row = sheet1.getRow(i);
+            String townName = row.getCell(1).getStringCellValue();
+            String villageName = row.getCell(2).getStringCellValue();
+            TownEntity town = townRepository.findByName(townName);
+            VillageEntity village = villageRepository.findByName(villageName);
+            GroupEntity group = groupRepository.findByName("");
+            if (town == null || !authService.checkUserTownAccess(userId, town.getId())) {
+                return;
+            }
+            switch (category) {
+                case "渡槽":
+                    AqueductEntity aqueduct = new AqueductEntity();
+                    projectService.setCommonProperty(aqueduct, userId, category, row.getCell(20).getStringCellValue(),
+                            row.getCell(3).getStringCellValue(), "", row.getCell(16).getStringCellValue(), town.getId(),
+                            village.getId(), group.getId(), "", row.getCell(10).getStringCellValue(), row.getCell(9).getStringCellValue(),
+                            row.getCell(13).getStringCellValue() + "#" + row.getCell(14).getStringCellValue() + "#" + row.getCell(15).getStringCellValue(),
+                            row.getCell(17).getStringCellValue() + "#" + row.getCell(18).getStringCellValue() + "#" + row.getCell(19).getStringCellValue(),
+                            row.getCell(11).getStringCellValue(), row.getCell(12).getStringCellValue(), timeStamp);
+                    projectService.saveAqueduct(aqueduct, row.getCell(4).getStringCellValue(), row.getCell(5).getStringCellValue(),
+                            row.getCell(7).getStringCellValue(), row.getCell(8).getStringCellValue(), row.getCell(6).getStringCellValue(), "");
+                    break;
+                case "渠道":
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 
 
     /**
@@ -2584,4 +2640,5 @@ public class ExcelService {
         }
         writeOut(response, hssfWorkbook, "shuichanghuizong");
     }
+
 }

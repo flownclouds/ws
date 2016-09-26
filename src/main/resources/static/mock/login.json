@@ -24,7 +24,7 @@
         "name": "河道"
       }
     ],
-   "user": {
+    "user": {
       "id": 1,
       "createTime": "2016-08-15 10:37:11",
       "updateTime": "2016-09-02 09:48:20",
@@ -33,7 +33,7 @@
       "password": "AJakUTAHq+04GQOEqBCR/Zz8sFAQyX1u1iL4GRBE5qd4YFEc+A7dB9hUuWpZHm/l3vjicEVb4s5zJd9EjmPDRxM=",
       "salt": "ADftHJvI/VIGgUIlTER7SqAvDvCazQopk2oELqgj0Ao=",
       "token": "c2b349b42ebf429d8bc2b90ced7b1dcc",
-     "county": {
+      "county": {
         "id": 1,
         "createTime": "2016-08-15 10:37:11",
         "updateTime": "2016-08-15 10:37:11",
@@ -42,7 +42,7 @@
         "isActive": 1,
         "location": null
       },
-     "roles": [
+      "roles": [
         {
           "id": 1,
           "createTime": "2016-08-15 10:37:11",

@@ -4,7 +4,6 @@ import com.saltyfish.common.bean.Response;
 import com.saltyfish.framework.service.AuthService;
 import com.saltyfish.framework.service.ResponseService;
 import com.saltyfish.framework.service.UnitService;
-import com.saltyfish.framework.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +53,27 @@ public class UnitController {
                 response.setCode(HttpStatus.OK.value());
                 Map<String, Object> data = new HashMap<>();
                 data.put("villages", unitService.getVillagesByTown(townId));
+                response.setData(data);
+                return response;
+            }
+        } catch (Exception e) {
+            return responseService.serverError(response);
+        }
+    }
+
+    @RequestMapping("/getTowns")
+    public Response getTowns(@RequestParam("userId") Integer userId,
+                             @RequestParam("token") String token) {
+        Response response = new Response();
+        try {
+            if (!authService.checkLogin(userId, token)) {
+                return responseService.notLogin(response);
+            } else if (!authService.checkAdmin(userId)) {
+                return responseService.noAccess(response);
+            } else {
+                response.setCode(HttpStatus.OK.value());
+                Map<String, Object> data = new HashMap<>();
+                data.put("towns", unitService.getTowns(userId));
                 response.setData(data);
                 return response;
             }

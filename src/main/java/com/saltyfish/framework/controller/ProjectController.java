@@ -85,19 +85,19 @@ public class ProjectController {
 
     @RequestMapping("/summary")
     public Response summary(@RequestParam("userId") Integer userId,
-                            @RequestParam("token") String token){
+                            @RequestParam("token") String token) {
         Response response = new Response();
         try {
             if (!authService.checkLogin(userId, token)) {
                 return responseService.notLogin(response);
             }
             List<ConservationSummary> summaries = projectService.summary(userId);
-            Map<String,Object> data = new HashMap<>();
-            data.put("summaries",summaries);
+            Map<String, Object> data = new HashMap<>();
+            data.put("summaries", summaries);
             response.setCode(HttpStatus.OK.value());
             response.setData(data);
             return response;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return responseService.serverError(response);
         }
@@ -110,35 +110,33 @@ public class ProjectController {
                                        @RequestParam(value = "category", required = false) String category,
                                        @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
                                        @RequestParam(value = "size", required = false, defaultValue = "10") Integer size,
-                                       @RequestParam(value = "name",required = false) String name,
-                                       @RequestParam(value = "code",required = false) String code,
-                                       @RequestParam(value = "startTime",required = false) Long startTime,
-                                       @RequestParam(value = "endTime",required = false) Long endTime,
-                                       @RequestParam(value = "manageModel",required = false) String manageModel,
-                                       @RequestParam(value = "townId",required = false) Integer townId,
-                                       @RequestParam(value = "villageId",required = false) Integer villageId,
-                                       @RequestParam(value = "groupId",required = false) Integer groupId){
+                                       @RequestParam(value = "name", required = false) String name,
+                                       @RequestParam(value = "code", required = false) String code,
+                                       @RequestParam(value = "startTime", required = false) Long startTime,
+                                       @RequestParam(value = "endTime", required = false) Long endTime,
+                                       @RequestParam(value = "manageModel", required = false) String manageModel,
+                                       @RequestParam(value = "townId", required = false) Integer townId,
+                                       @RequestParam(value = "villageId", required = false) Integer villageId,
+                                       @RequestParam(value = "groupId", required = false) Integer groupId) {
         Response response = new Response();
         try {
             if (!authService.checkLogin(userId, token)) {
                 return responseService.notLogin(response);
-            }
-            else {
-                if (townId!=null){
-                    if (!authService.checkUserTownAccess(userId,townId)){
+            } else {
+                if (townId != null) {
+                    if (!authService.checkUserTownAccess(userId, townId)) {
                         return responseService.noAccess(response);
-                    }
-                    else if (villageId!=null&&!authService.unitContainingCheck(townId,villageId,groupId)){
+                    } else if (villageId != null && !authService.unitContainingCheck(townId, villageId, groupId)) {
                         return responseService.noAccess(response);
                     }
                 }
-                Map<String,Object> data = new HashMap<>();
-                data.put("conservations",projectService.queryConservations(userId,category,page,size,name,code,startTime,endTime,manageModel,townId,villageId,groupId));
+                Map<String, Object> data = new HashMap<>();
+                data.put("conservations", projectService.queryConservations(userId, category, page, size, name, code, startTime, endTime, manageModel, townId, villageId, groupId));
                 response.setData(data);
                 response.setCode(HttpStatus.OK.value());
                 return response;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return responseService.serverError(response);
         }
@@ -484,28 +482,28 @@ public class ProjectController {
             String middleImagePath = "";
             String endImagePath = "";
             if (image != null && !image.isEmpty()) {
-                imagePath = fileService.saveFile(image, timeStamp);
+                imagePath = fileService.saveFileToMongoDB(image, timeStamp);
             }
             if (planeSketch != null && !planeSketch.isEmpty()) {
-                planeSketchPath = fileService.saveFile(planeSketch, timeStamp);
+                planeSketchPath = fileService.saveFileToMongoDB(planeSketch, timeStamp);
             }
             if (sectionImage != null && !sectionImage.isEmpty()) {
-                sectionImagePath = fileService.saveFile(sectionImage, timeStamp);
+                sectionImagePath = fileService.saveFileToMongoDB(sectionImage, timeStamp);
             }
             if (startImage != null && !startImage.isEmpty()) {
-                startImagePath = fileService.saveFile(startImage, timeStamp);
+                startImagePath = fileService.saveFileToMongoDB(startImage, timeStamp);
             }
             if (middleImage != null && !middleImage.isEmpty()) {
-                middleImagePath = fileService.saveFile(middleImage, timeStamp);
+                middleImagePath = fileService.saveFileToMongoDB(middleImage, timeStamp);
             }
             if (endImage != null && !endImage.isEmpty()) {
-                endImagePath = fileService.saveFile(endImage, timeStamp);
+                endImagePath = fileService.saveFileToMongoDB(endImage, timeStamp);
             }
             if (internalImage != null && !internalImage.isEmpty()) {
-                internalImagePath = fileService.saveFile(internalImage, timeStamp);
+                internalImagePath = fileService.saveFileToMongoDB(internalImage, timeStamp);
             }
             if (externalImage != null && !externalImage.isEmpty()) {
-                externalImagePath = fileService.saveFile(externalImage, timeStamp);
+                externalImagePath = fileService.saveFileToMongoDB(externalImage, timeStamp);
             }
             switch (category) {
                 case "渡槽":
@@ -901,29 +899,29 @@ public class ProjectController {
             String startImagePath = "";
             String middleImagePath = "";
             String endImagePath = "";
-            if (image != null&&!image.isEmpty()) {
-                imagePath = fileService.saveFile(image, timeStamp);
+            if (image != null && !image.isEmpty()) {
+                imagePath = fileService.saveFileToMongoDB(image, timeStamp);
             }
-            if (planeSketch != null&&!planeSketch.isEmpty()) {
-                planeSketchPath = fileService.saveFile(planeSketch, timeStamp);
+            if (planeSketch != null && !planeSketch.isEmpty()) {
+                planeSketchPath = fileService.saveFileToMongoDB(planeSketch, timeStamp);
             }
-            if (sectionImage != null&&!sectionImage.isEmpty()) {
-                sectionImagePath = fileService.saveFile(sectionImage, timeStamp);
+            if (sectionImage != null && !sectionImage.isEmpty()) {
+                sectionImagePath = fileService.saveFileToMongoDB(sectionImage, timeStamp);
             }
-            if (startImage != null&&!startImage.isEmpty()) {
-                startImagePath = fileService.saveFile(startImage, timeStamp);
+            if (startImage != null && !startImage.isEmpty()) {
+                startImagePath = fileService.saveFileToMongoDB(startImage, timeStamp);
             }
-            if (middleImage != null&&!middleImage.isEmpty()) {
-                middleImagePath = fileService.saveFile(middleImage, timeStamp);
+            if (middleImage != null && !middleImage.isEmpty()) {
+                middleImagePath = fileService.saveFileToMongoDB(middleImage, timeStamp);
             }
-            if (endImage != null&&!endImage.isEmpty()) {
-                endImagePath = fileService.saveFile(endImage, timeStamp);
+            if (endImage != null && !endImage.isEmpty()) {
+                endImagePath = fileService.saveFileToMongoDB(endImage, timeStamp);
             }
-            if (internalImage != null&&!internalImage.isEmpty()) {
-                internalImagePath = fileService.saveFile(internalImage, timeStamp);
+            if (internalImage != null && !internalImage.isEmpty()) {
+                internalImagePath = fileService.saveFileToMongoDB(internalImage, timeStamp);
             }
-            if (externalImage != null&&!externalImage.isEmpty()) {
-                externalImagePath = fileService.saveFile(externalImage, timeStamp);
+            if (externalImage != null && !externalImage.isEmpty()) {
+                externalImagePath = fileService.saveFileToMongoDB(externalImage, timeStamp);
             }
             switch (category) {
                 case "渡槽":
@@ -1047,11 +1045,9 @@ public class ProjectController {
                     break;
             }
             return responseService.success(response);
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             return responseService.saveFileError(response);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return responseService.serverError(response);
         }

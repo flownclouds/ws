@@ -266,4 +266,8 @@ public class UnitService {
         townIds.addAll(towns.stream().map(UnitBean::getId).collect(Collectors.toList()));
         return townIds;
     }
+
+    public List<TownEntity> getTowns(Integer userId) {
+        return townRepository.findByCountyId(userRepository.findById(userId).getCounty().getId());
+    }
 }

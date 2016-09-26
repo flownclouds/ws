@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../../vendor/js/jquery.min.js-v=2.1.4.js"></script>
+    <link rel="stylesheet" href="../../../vendor/css/style.min.css-v=4.0.0.css">
+    <link href="../../../vendor/css/bootstrap.min.css-v=3.3.5.css" rel="stylesheet">
+    <style>
+        .right {
+            float: right;
+        }
+    </style>
+</head>
+
+<body class="gray-bg">
+<div id="tree" class="wrapper wrapper-content row">
+    <div class="col-sm-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                所有县
+                <button class="btn btn-xs btn-info right" id="add">添加</button>
+            </div>
+            <div class="panel-body">
+                <div class="list-group " id="list">
+                    <a href="#" class="list-group-item"> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                添加或修改
+                <small class="right"></small>
+            </div>
+            <div class="panel-body" id="formContainer">
+                <form class="form-horizontal" action="/unit/addCounty" role="form" id="addCounty">
+                    <fieldset>
+                        <legend class="add">添加县</legend>
+                        <div class="form-group">
+                            <label for="countyName" class="col-sm-2 control-label">县名: </label>
+                            <div class="col-sm-10">
+                                <input id="countyName" class="form-control" name="countyName" type="text"
+                                       placeholder="请输入县名"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="longitude" class="col-sm-2 control-label">经度: </label>
+                            <div class="col-sm-10">
+                                <input id="longitude" class="form-control" name="longitude" type="text"
+                                       placeholder="请输入经度"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="latitude" class="col-sm-2 control-label">纬度: </label>
+                            <div class="col-sm-10">
+                                <input id="latitude" class="form-control" name="latitude" type="text"
+                                       placeholder="请输入纬度"/>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary col-sm-offset-2" type="submit">提交</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        var getUserInfo = function () {
+            var info = {
+                userId: window.sessionStorage.getItem('userId') || -1,
+                userName: window.sessionStorage.getItem('userName') || null,
+                token: window.sessionStorage.getItem('token') || 0,
+                rolesId: window.sessionStorage.getItem('rolesId') || -1,
+                rolesName: window.sessionStorage.getItem('rolesName') || -1,
+            };
+            return info;
+        }
+        var userInfo = getUserInfo();
+        var data = {
+            userId: userInfo.userId,
+            token: userInfo.token
+        };
+
+        var renderList = function () {
+            var html = '';
+            $.get("/unit/getCounties", data, function (res) {
+                if (typeof res == 'string') res = JSON.parse(res);
+                if (res.code == 200) {
+                    var html = '';
+                    res.data.counties.map(function (item) {
+                        html += '<a class="list-group-item btn-toolbar" data-id="' + item.id + '" ' +
+                                'data-longitude="' + item.location.longitude + '"' +
+                                'data-latitude="' + item.location.latitude + '" ' +
+                                'data-name="' + item.name + '">' +
+                                item.name +
+                                '<button class="btn btn-xs btn-primary modify" style="float: right;z-index: 10;">修改</button>' +
+                                '</a>';
+                    });
+                    $("#list").html(html);
+
+                    modifyBtnBind();
+                } else {
+                    console.error("error with code", res.code);
+                }
+
+            })
+
+
+        }
+
+        var modifyBtnBind = function () {
+            $(".modify").click(function (e) {
+                e.preventDefault();
+                console.log("modify");
+                $(".add").removeClass("add").addClass("modifying");
+                var origin = $(this).parent("a");
+                origin.addClass("active").siblings().removeClass("active");
+                $("#formContainer")
+                        .find('legend')
+                        .html("修改县信息")
+                        .end()
+                        .find("#countyName")
+                        .val(origin.data("name"))
+                        .end()
+                        .find("#longitude")
+                        .val(origin.data("longitude"))
+                        .end()
+                        .find("#latitude")
+                        .val(origin.data("latitude"))
+            })
+        }
+
+        var addBtnBind = function () {
+            $("#add").click(function (e) {
+                e.preventDefault();
+                $(".modifying").removeClass("modifying").addClass("add");
+                $(".active").removeClass("active");
+                $("#formContainer legend").html("添加新的县信息");
+                console.log("add");
+
+            })
+        }
+
+        var formBind = function () {
+            $("form").submit(function (e) {
+                e.preventDefault();
+
+                var formData = $("form").serialize();
+
+                formData = JSON.parse('{"' + formData.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
+                        function (key, value) {
+                            return key === "" ? value : decodeURIComponent(value)
+                        });
+
+                $.extend(true, formData, data);
+                formData.timeStamp = +new Date();
+                $(".modifying").length !== 0 ? formData.countyId = $(".active").data("id") : '';
+
+                var url = $(".modifying").length !== 0 ? "/unit/modifyCounty" : "/unit/addCounty";
+
+                $.get(url, formData, function (res) {
+                    if (typeof res == 'string') res = JSON.parse(res);
+                    if (res.code == 200) {
+
+                    } else {
+                        console.error("error with code", code);
+                    }
+                })
+            })
+        }
+        renderList();
+        addBtnBind();
+        formBind();
+    })
+</script>
+</body>
+
+</html>

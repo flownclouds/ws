@@ -63,8 +63,8 @@ public class TestMain {
             HSSFRow row12 = sheet.getRow(11);
 //            System.out.println(cell.getRichStringCellValue());
 //            System.out.println(cell1.getRichStringCellValue());
-            System.out.println(row3.getCell(7).getRichStringCellValue());
-            System.out.println(row12.getCell(6).getRichStringCellValue());
+            System.out.println(row3.getCell(7).getStringCellValue());
+            System.out.println(row12.getCell(6).getStringCellValue());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

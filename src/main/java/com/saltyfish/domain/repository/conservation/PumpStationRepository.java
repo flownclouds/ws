@@ -1,6 +1,5 @@
 package com.saltyfish.domain.repository.conservation;
 
-import com.saltyfish.domain.entity.conservation.ChannelEntity;
 import com.saltyfish.domain.entity.conservation.PumpStationEntity;
 import com.saltyfish.domain.entity.unit.TownEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -15,8 +14,9 @@ import java.util.List;
 @Repository
 public interface PumpStationRepository extends MongoRepository<PumpStationEntity, String> {
     PumpStationEntity findById(@Param("id") String projectId);
+
     List<PumpStationEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
-                                                      @Param("townEntity") List<TownEntity> towns);
+                                                          @Param("townEntity") List<TownEntity> towns);
 
     List<PumpStationEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
                                                         @Param("townEntity") TownEntity town);

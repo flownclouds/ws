@@ -12,8 +12,14 @@
     <link href="../../../vendor/css/style.min.css-v=4.0.0.css" rel="stylesheet">
     <link type="text/css" href="../../../vendor/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet">
     <style>
-        .panel-body .row{margin-bottom: 2px;}
-        #detail th{background-color:#1cc09f; color: #fff;}
+        .panel-body .row {
+            margin-bottom: 2px;
+        }
+
+        #detail th {
+            background-color: #1cc09f;
+            color: #fff;
+        }
     </style>
 </head>
 
@@ -146,7 +152,10 @@
     <nav>
         <ul class="pager">
             <li><a href="#" id="prev">上一页</a></li>
-            <li><form id="pageNav" style="display: inline;"><input type="text" style="width: 45px;text-align: center" id="page" placeholder="1" /></form></li>
+            <li>
+                <form id="pageNav" style="display: inline;"><input type="text" style="width: 45px;text-align: center"
+                                                                   id="page" placeholder="1"/></form>
+            </li>
             <li><a href="#" id="next">下一页</a></li>
         </ul>
     </nav>
@@ -171,13 +180,13 @@
         }
         var container = $("#detail").find('tbody');
         var html = '';
-        contents.map(function(content){
-            html  += '<tr class="rows"> ' +
+        contents.map(function (content) {
+            html += '<tr class="rows"> ' +
                     '<td class="t_td" nowrap="true" align="center" style="width: 5px;"> ' +
-                    '<input type="checkbox" name="select" id="select" value="'+ content.id +'"> ' +
+                    '<input type="checkbox" name="select" id="select" value="' + content.id + '"> ' +
                     '</td> ' +
                     '<td class="t_td" nowrap="true"> ' +
-                    '<a href="../conditionsDetails/ducao.html?projectId='+ content.id +'">' + content.code +  '</a>' +
+                    '<a href="../conditionsDetails/ducao.html?projectId=' + content.id + '">' + content.code + '</a>' +
                     '</td> ' +
                     '<td class="t_td" nowrap="true">' + content.town.name + '</td>' +
                     '<td class="t_td" nowrap="true">' + content.village.name + '</td> ' +
@@ -210,7 +219,7 @@
             if (res.code == 200) {
                 var content = res.data.conservations.content;
                 window.pageLength = res.data.conservations.totalPages;
-                $("#page").attr("placeholder", page+"/"+window.pageLength);
+                $("#page").attr("placeholder", page + "/" + window.pageLength);
                 render(content);
             } else {
                 alert("数据加载失败,请重试！");
@@ -218,7 +227,7 @@
         });
     };
     var refresh = function (type, page) {
-        init('/project/getConservations',type, page);
+        init('/project/getConservations', type, page);
     }
     $(function () {
         var type = $("#type").html();
@@ -227,11 +236,15 @@
         var search = function (e) {
             e.preventDefault();
 
-            if (this == e.target) {page = 1;}
+            if (this == e.target) {
+                page = 1;
+            }
             var params = $("#search").serialize();
 
-            params = params ? JSON.parse('{"' + params.replace(/&/g, '","').replace(/=/g,'":"') + '"}',
-                    function (key, value) { return key===""?value:decodeURIComponent(value) })
+            params = params ? JSON.parse('{"' + params.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
+                    function (key, value) {
+                        return key === "" ? value : decodeURIComponent(value)
+                    })
                     : {};
             $.each(params, function (key, val) {
                 if (!val) delete params[key];
@@ -252,7 +265,7 @@
                     fromSearch = true;
                     window.pageLength = res.data.conservations.totalPages;
                     console.log(window.pageLength, "legth");
-                    $("#page").attr("placeholder", page+"/"+window.pageLength);
+                    $("#page").attr("placeholder", page + "/" + window.pageLength);
                     render(res.data.conservations.content);
                 } else {
                     alert("出错了!");
@@ -267,37 +280,37 @@
         var $prev = $("#prev");
         $next.on("click", function (e) {
             e.preventDefault();
-            console.log("before next clicked: ",page);
+            console.log("before next clicked: ", page);
             console.log("pageLength: ", window.pageLength);
             page += 1;
             if (page > window.pageLength) {
                 $(this).parent("li").addClass("disabled");
                 page -= 1;
                 return;
-            }else {
+            } else {
                 $prev.parent("li").removeClass("disabled");
             }
             if (fromSearch) search(e);
             else refresh(type, page);
-            console.log("after next clicked: ",page);
+            console.log("after next clicked: ", page);
         });
         $prev.on("click", function (e) {
             e.preventDefault();
-            console.log("before prev clicked: ",page);
+            console.log("before prev clicked: ", page);
             page -= 1;
             if (page < 1) {
                 $(this).parent("li").addClass("disabled");
                 page += 1;
                 return;
-            }else {
+            } else {
                 $next.parent("li").removeClass("disabled");
             }
             if (fromSearch) search(e);
             else refresh(type, page);
-            console.log("after prev clicked: ",page);
+            console.log("after prev clicked: ", page);
         })
 
-        init('/project/getConservations',type);
+        init('/project/getConservations', type);
     })
 </script>
 <script src="../../../js/conditionsToolButtons.js"></script>

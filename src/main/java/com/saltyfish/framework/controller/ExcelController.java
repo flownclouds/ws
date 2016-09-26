@@ -4,16 +4,15 @@ import com.saltyfish.common.bean.Response;
 import com.saltyfish.domain.entity.conservation.*;
 import com.saltyfish.domain.entity.superbean.ConservationEntity;
 import com.saltyfish.domain.repository.ConservationRepository;
-import com.saltyfish.framework.service.AuthService;
-import com.saltyfish.framework.service.ExcelService;
-import com.saltyfish.framework.service.ProjectService;
-import com.saltyfish.framework.service.ResponseService;
+import com.saltyfish.framework.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -38,6 +37,32 @@ public class ExcelController {
     @Autowired
     private ConservationRepository conservationRepository;
 
+    @Autowired
+    private FileService fileService;
+
+    @RequestMapping("/import")
+    public Response importProject(@RequestParam("userId") Integer userId,
+                                  @RequestParam("token") String token,
+                                  @RequestParam("file") MultipartFile file,
+                                  @RequestParam("timeStamp") Long timeStamp,
+                                  @RequestParam("category") String category) {
+        Response response = new Response();
+        try {
+            if (!authService.checkLogin(userId, token)) {
+                return responseService.notLogin(response);
+            } else {
+                File f = fileService.saveFile(file, timeStamp);
+                excelService.importData(userId, f, category, timeStamp);
+                return responseService.success(response);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return responseService.saveFileError(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return responseService.serverError(response);
+        }
+    }
 
     @RequestMapping("/exportSummary")
     public Response exportSummary(@RequestParam("userId") Integer userId,

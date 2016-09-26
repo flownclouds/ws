@@ -90,6 +90,7 @@ public class ConservationSummary {
     public void setDeepWellsCounts(Integer deepWellsCounts) {
         this.deepWellsCounts = deepWellsCounts;
     }
+
     public Integer getGreatWellsCounts() {
         return greatWellsCounts;
     }

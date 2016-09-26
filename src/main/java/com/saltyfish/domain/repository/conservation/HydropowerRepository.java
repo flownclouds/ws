@@ -1,6 +1,5 @@
 package com.saltyfish.domain.repository.conservation;
 
-import com.saltyfish.domain.entity.conservation.ChannelEntity;
 import com.saltyfish.domain.entity.conservation.HydropowerEntity;
 import com.saltyfish.domain.entity.unit.TownEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -15,8 +14,9 @@ import java.util.List;
 @Repository
 public interface HydropowerRepository extends MongoRepository<HydropowerEntity, String> {
     HydropowerEntity findById(@Param("id") String projectId);
+
     List<HydropowerEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
-                                                      @Param("townEntity") List<TownEntity> towns);
+                                                         @Param("townEntity") List<TownEntity> towns);
 
     List<HydropowerEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
                                                        @Param("townEntity") TownEntity town);

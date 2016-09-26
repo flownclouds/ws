@@ -106,16 +106,16 @@
     function _buildControls() {
         // Open and add the progress and seek elements
         var html = [
-        '<div class="player-controls">',
+            '<div class="player-controls">',
             '<div class="player-progress">',
-                '<label for="seek{id}" class="sr-only">Seek</label>',
-                '<input id="seek{id}" class="player-progress-seek" type="range" min="0" max="100" step="0.5" value="0" data-player="seek">',
-                '<progress class="player-progress-played" max="100" value="0">',
-                    '<span>0</span>% ' + config.i18n.played,
-                '</progress>',
-                '<progress class="player-progress-buffer" max="100" value="0">',
-                    '<span>0</span>% ' + config.i18n.buffered,
-                '</progress>',
+            '<label for="seek{id}" class="sr-only">Seek</label>',
+            '<input id="seek{id}" class="player-progress-seek" type="range" min="0" max="100" step="0.5" value="0" data-player="seek">',
+            '<progress class="player-progress-played" max="100" value="0">',
+            '<span>0</span>% ' + config.i18n.played,
+            '</progress>',
+            '<progress class="player-progress-buffer" max="100" value="0">',
+            '<span>0</span>% ' + config.i18n.buffered,
+            '</progress>',
             '</div>',
             '<span class="player-controls-left">'];
 
@@ -326,12 +326,12 @@
         if (player.type == 'video') {
             // Check type
             switch (mimeType) {
-            case 'video/webm':
-                return !!(media.canPlayType && media.canPlayType('video/webm; codecs="vp8, vorbis"').replace(/no/, ''));
-            case 'video/mp4':
-                return !!(media.canPlayType && media.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"').replace(/no/, ''));
-            case 'video/ogg':
-                return !!(media.canPlayType && media.canPlayType('video/ogg; codecs="theora"').replace(/no/, ''));
+                case 'video/webm':
+                    return !!(media.canPlayType && media.canPlayType('video/webm; codecs="vp8, vorbis"').replace(/no/, ''));
+                case 'video/mp4':
+                    return !!(media.canPlayType && media.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"').replace(/no/, ''));
+                case 'video/ogg':
+                    return !!(media.canPlayType && media.canPlayType('video/ogg; codecs="theora"').replace(/no/, ''));
             }
         }
 
@@ -339,12 +339,12 @@
         else if (player.type == 'audio') {
             // Check type
             switch (mimeType) {
-            case 'audio/mpeg':
-                return !!(media.canPlayType && media.canPlayType('audio/mpeg;').replace(/no/, ''));
-            case 'audio/ogg':
-                return !!(media.canPlayType && media.canPlayType('audio/ogg; codecs="vorbis"').replace(/no/, ''));
-            case 'audio/wav':
-                return !!(media.canPlayType && media.canPlayType('audio/wav; codecs="1"').replace(/no/, ''));
+                case 'audio/mpeg':
+                    return !!(media.canPlayType && media.canPlayType('audio/mpeg;').replace(/no/, ''));
+                case 'audio/ogg':
+                    return !!(media.canPlayType && media.canPlayType('audio/ogg; codecs="vorbis"').replace(/no/, ''));
+                case 'audio/wav':
+                    return !!(media.canPlayType && media.canPlayType('audio/wav; codecs="1"').replace(/no/, ''));
             }
         }
 
@@ -537,8 +537,10 @@
                 isFullScreen: function () {
                     return false;
                 },
-                requestFullScreen: function () {},
-                cancelFullScreen: function () {},
+                requestFullScreen: function () {
+                },
+                cancelFullScreen: function () {
+                },
                 fullScreenEventName: '',
                 element: null,
                 prefix: ''
@@ -577,12 +579,12 @@
                     element = document.body;
                 }
                 switch (this.prefix) {
-                case '':
-                    return document.fullscreenElement == element;
-                case 'moz':
-                    return document.mozFullScreenElement == element;
-                default:
-                    return document[this.prefix + 'FullscreenElement'] == element;
+                    case '':
+                        return document.fullscreenElement == element;
+                    case 'moz':
+                        return document.mozFullScreenElement == element;
+                    default:
+                        return document[this.prefix + 'FullscreenElement'] == element;
                 }
             };
             fullscreen.requestFullScreen = function (element) {
@@ -1016,29 +1018,29 @@
                         // 3    Buffering
                         // 5    Video cued
                         switch (event.data) {
-                        case 0:
-                            player.media.paused = true;
-                            _triggerEvent(player.media, 'ended');
-                            break;
+                            case 0:
+                                player.media.paused = true;
+                                _triggerEvent(player.media, 'ended');
+                                break;
 
-                        case 1:
-                            player.media.paused = false;
-                            _triggerEvent(player.media, 'play');
+                            case 1:
+                                player.media.paused = false;
+                                _triggerEvent(player.media, 'play');
 
-                            // Poll to get playback progress
-                            player.timer.playing = window.setInterval(function () {
-                                // Set the current time
-                                player.media.currentTime = instance.getCurrentTime();
+                                // Poll to get playback progress
+                                player.timer.playing = window.setInterval(function () {
+                                    // Set the current time
+                                    player.media.currentTime = instance.getCurrentTime();
 
-                                // Trigger timeupdate
-                                _triggerEvent(player.media, 'timeupdate');
-                            }, 200);
+                                    // Trigger timeupdate
+                                    _triggerEvent(player.media, 'timeupdate');
+                                }, 200);
 
-                            break;
+                                break;
 
-                        case 2:
-                            player.media.paused = true;
-                            _triggerEvent(player.media, 'pause');
+                            case 2:
+                                player.media.paused = true;
+                                _triggerEvent(player.media, 'pause');
                         }
                     }
                 }
@@ -1288,7 +1290,8 @@
             // Try/catch incase the media isn't set and we're calling seek() from source() and IE moans
             try {
                 player.media.currentTime = targetTime.toFixed(1);
-            } catch (e) {}
+            } catch (e) {
+            }
 
             // YouTube
             if (player.type == 'youtube') {
@@ -1525,43 +1528,43 @@
             if (event) {
                 switch (event.type) {
                     // Video playing
-                case 'timeupdate':
-                case 'seeking':
-                    value = _getPercentage(player.media.currentTime, player.media.duration);
+                    case 'timeupdate':
+                    case 'seeking':
+                        value = _getPercentage(player.media.currentTime, player.media.duration);
 
-                    // Set seek range value only if it's a 'natural' time event
-                    if (event.type == 'timeupdate' && player.buttons.seek) {
-                        player.buttons.seek.value = value;
-                    }
+                        // Set seek range value only if it's a 'natural' time event
+                        if (event.type == 'timeupdate' && player.buttons.seek) {
+                            player.buttons.seek.value = value;
+                        }
 
-                    break;
+                        break;
 
                     // Events from seek range
-                case 'change':
-                case 'input':
-                    value = event.target.value;
-                    break;
+                    case 'change':
+                    case 'input':
+                        value = event.target.value;
+                        break;
 
 
                     // Check buffer status
-                case 'playing':
-                case 'progress':
-                    progress = player.progress.buffer.bar;
-                    text = player.progress.buffer.text;
-                    value = (function () {
-                        var buffered = player.media.buffered;
+                    case 'playing':
+                    case 'progress':
+                        progress = player.progress.buffer.bar;
+                        text = player.progress.buffer.text;
+                        value = (function () {
+                            var buffered = player.media.buffered;
 
-                        // HTML5
-                        if (buffered && buffered.length) {
-                            return _getPercentage(buffered.end(0), player.media.duration);
-                        }
-                        // YouTube returns between 0 and 1
-                        else if (typeof buffered === 'number') {
-                            return (buffered * 100);
-                        }
+                            // HTML5
+                            if (buffered && buffered.length) {
+                                return _getPercentage(buffered.end(0), player.media.duration);
+                            }
+                            // YouTube returns between 0 and 1
+                            else if (typeof buffered === 'number') {
+                                return (buffered * 100);
+                            }
 
-                        return 0;
-                    })();
+                            return 0;
+                        })();
                 }
             }
 
@@ -1736,6 +1739,7 @@
                     _toggleClass(element, 'tab-focus', (element === focused));
                 }
             }
+
             _on(window, 'keyup', function (event) {
                 var code = (event.keyCode ? event.keyCode : event.which);
 
@@ -2019,24 +2023,24 @@
             basic, full;
 
         switch (type) {
-        case 'video':
-            basic = video;
-            full = (basic && (!oldIE && !iPhone));
-            break;
+            case 'video':
+                basic = video;
+                full = (basic && (!oldIE && !iPhone));
+                break;
 
-        case 'audio':
-            basic = audio;
-            full = (basic && !oldIE);
-            break;
+            case 'audio':
+                basic = audio;
+                full = (basic && !oldIE);
+                break;
 
-        case 'youtube':
-            basic = true;
-            full = (!oldIE && !iPhone);
-            break;
+            case 'youtube':
+                basic = true;
+                full = (!oldIE && !iPhone);
+                break;
 
-        default:
-            basic = (audio && video);
-            full = (basic && !oldIE);
+            default:
+                basic = (audio && video);
+                full = (basic && !oldIE);
         }
 
         return {

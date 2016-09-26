@@ -643,56 +643,56 @@ public class ProjectService {
     }
 
     public List<ChannelEntity> getChannels(Integer userId) {
-        return channelRepository.findByIsDeleteAndTownEntityIn(0,userRepository.findById(userId).getTowns());
+        return channelRepository.findByIsDeleteAndTownEntityIn(0, userRepository.findById(userId).getTowns());
     }
 
     public List<CulvertEntity> getCulverts(Integer userId) {
-        return culvertRepository.findByIsDeleteAndTownEntityIn(0,userRepository.findById(userId).getTowns());
+        return culvertRepository.findByIsDeleteAndTownEntityIn(0, userRepository.findById(userId).getTowns());
     }
 
     public List<DamEntity> getDams(Integer userId) {
-        return damRepository.findByIsDeleteAndTownEntityIn(0,userRepository.findById(userId).getTowns());
+        return damRepository.findByIsDeleteAndTownEntityIn(0, userRepository.findById(userId).getTowns());
     }
 
     public List<DeepWellsEntity> getDeepWells(Integer userId) {
-        return deepWellsRepository.findByIsDeleteAndTownEntityIn(0,userRepository.findById(userId).getTowns());
+        return deepWellsRepository.findByIsDeleteAndTownEntityIn(0, userRepository.findById(userId).getTowns());
     }
 
     public List<DripIrrigationPipeEntity> getDripIrrigationPipe(Integer userId) {
-        return dripIrrigationPipeRepository.findByIsDeleteAndTownEntityIn(0,userRepository.findById(userId).getTowns());
+        return dripIrrigationPipeRepository.findByIsDeleteAndTownEntityIn(0, userRepository.findById(userId).getTowns());
     }
 
     public List<GreatWellsEntity> getGreatWells(Integer userId) {
-        return greatWellsRepository.findByIsDeleteAndTownEntityIn(0,userRepository.findById(userId).getTowns());
+        return greatWellsRepository.findByIsDeleteAndTownEntityIn(0, userRepository.findById(userId).getTowns());
     }
 
     public List<HydropowerEntity> getHydropowers(Integer userId) {
-        return hydropowerRepository.findByIsDeleteAndTownEntityIn(0,userRepository.findById(userId).getTowns());
+        return hydropowerRepository.findByIsDeleteAndTownEntityIn(0, userRepository.findById(userId).getTowns());
     }
 
     public List<PondEntity> getPonds(Integer userId) {
-        return pondRepository.findByIsDeleteAndTownEntityIn(0,userRepository.findById(userId).getTowns());
+        return pondRepository.findByIsDeleteAndTownEntityIn(0, userRepository.findById(userId).getTowns());
     }
 
     public List<PumpStationEntity> getPumpStations(Integer userId) {
-        return pumpStationRepository.findByIsDeleteAndTownEntityIn(0,userRepository.findById(userId).getTowns());
+        return pumpStationRepository.findByIsDeleteAndTownEntityIn(0, userRepository.findById(userId).getTowns());
     }
 
     public List<SluiceEntity> getSluices(Integer userId) {
-        return sluiceRepository.findByIsDeleteAndTownEntityIn(0,userRepository.findById(userId).getTowns());
+        return sluiceRepository.findByIsDeleteAndTownEntityIn(0, userRepository.findById(userId).getTowns());
     }
 
     public List<WatercourseEntity> getWatercourses(Integer userId) {
-        return watercourseRepository.findByIsDeleteAndTownEntityIn(0,userRepository.findById(userId).getTowns());
+        return watercourseRepository.findByIsDeleteAndTownEntityIn(0, userRepository.findById(userId).getTowns());
     }
 
     public List<WaterWorksEntity> getWaterWorks(Integer userId) {
-        return waterworksRepository.findByIsDeleteAndTownEntityIn(0,userRepository.findById(userId).getTowns());
+        return waterworksRepository.findByIsDeleteAndTownEntityIn(0, userRepository.findById(userId).getTowns());
     }
 
-    public Map<String, Object> queryConservations(Integer userId,String category, Integer page, Integer size, String name, String code,
-                                                  Long startTime,Long endTime,String manageModel,Integer townId,
-                                                  Integer villageId,Integer groupId) {
+    public Map<String, Object> queryConservations(Integer userId, String category, Integer page, Integer size, String name, String code,
+                                                  Long startTime, Long endTime, String manageModel, Integer townId,
+                                                  Integer villageId, Integer groupId) {
         Query query = new Query();
 //        query.limit(size);
 //        query.skip((page-1)*size);
@@ -700,126 +700,126 @@ public class ProjectService {
         Pageable pageable = new PageRequest(page - 1, size, sort);
         query.with(pageable);
         query.addCriteria(Criteria.where("townEntity").in(unitService.getAccessedTowns(userId)));
-        if (category!=null){
+        if (category != null) {
             query.addCriteria(Criteria.where("category").regex(category));
         }
-        if (name!=null){
+        if (name != null) {
             query.addCriteria(Criteria.where("name").regex(name));
         }
-        if (code!=null){
+        if (code != null) {
             query.addCriteria(Criteria.where("code").regex(code));
         }
-        if (manageModel!=null){
+        if (manageModel != null) {
             query.addCriteria(Criteria.where("manageModel").regex(manageModel));
         }
-        if (startTime!=null&&endTime!=null){
+        if (startTime != null && endTime != null) {
             query.addCriteria(Criteria.where("createTime").gte(startTime));
             query.addCriteria(Criteria.where("createTime").lte(endTime));
         }
-        if (townId!=null){
+        if (townId != null) {
             query.addCriteria(Criteria.where("townEntity").is(townRepository.findById(townId)));
         }
-        if (villageId!=null){
+        if (villageId != null) {
             query.addCriteria(Criteria.where("villageEntity").is(villageRepository.findById(villageId)));
         }
-        if (groupId!=null){
+        if (groupId != null) {
             query.addCriteria(Criteria.where("groupEntity").is(groupRepository.findById(groupId)));
         }
 
-        long totalElements = mongoTemplate.count(query,ConservationEntity.class);
-        int totalPages = (int) (totalElements/size+1);
+        long totalElements = mongoTemplate.count(query, ConservationEntity.class);
+        int totalPages = (int) (totalElements / size + 1);
         Boolean first = true;
         Boolean last = true;
-        if (page!=1){
+        if (page != 1) {
             first = false;
         }
-        if (page!=totalPages){
-            last=false;
+        if (page != totalPages) {
+            last = false;
         }
-        Map<String,Object> conservations = new HashMap<>();
-        conservations.put("content",mongoTemplate.find(query,ConservationEntity.class));
-        conservations.put("last",last);
-        conservations.put("first",first);
-        conservations.put("number",page-1);
-        conservations.put("size",size);
-        conservations.put("totalElements",totalElements);
-        conservations.put("totalPages",totalPages);
+        Map<String, Object> conservations = new HashMap<>();
+        conservations.put("content", mongoTemplate.find(query, ConservationEntity.class));
+        conservations.put("last", last);
+        conservations.put("first", first);
+        conservations.put("number", page - 1);
+        conservations.put("size", size);
+        conservations.put("totalElements", totalElements);
+        conservations.put("totalPages", totalPages);
         return conservations;
     }
 
     public List<ConservationSummary> summary(Integer userId) {
         List<ConservationSummary> summaries = new ArrayList<>();
         List<TownEntity> towns = unitService.getAccessedTowns(userId);
-        for (TownEntity town:towns){
+        for (TownEntity town : towns) {
             ConservationSummary summary = new ConservationSummary();
 
             summary.setTown(town);
 
-            List<AqueductEntity> aqueducts = aqueductRepository.findByIsDeleteAndTownEntity(0,town);
+            List<AqueductEntity> aqueducts = aqueductRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setAqueductCounts(aqueducts.size());
 
-            List<PumpStationEntity> pumpStations = pumpStationRepository.findByIsDeleteAndTownEntity(0,town);
+            List<PumpStationEntity> pumpStations = pumpStationRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setPumpStationCounts(pumpStations.size());
             Double sumPower = 0d;
-            for (PumpStationEntity pumpStation:pumpStations){
-                sumPower+=Double.valueOf(pumpStation.getTotalInstalledCapacity());
+            for (PumpStationEntity pumpStation : pumpStations) {
+                sumPower += Double.valueOf(pumpStation.getTotalInstalledCapacity());
             }
             summary.setPumpStationPower(sumPower);
 
-            List<BridgeEntity> bridges = bridgeRepository.findByIsDeleteAndTownEntity(0,town);
+            List<BridgeEntity> bridges = bridgeRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setBridgeCounts(bridges.size());
 
-            List<ChannelEntity> channels = channelRepository.findByIsDeleteAndTownEntity(0,town);
+            List<ChannelEntity> channels = channelRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setChannelCounts(channels.size());
             Double sumChannelLength = 0d;
-            for (ChannelEntity channel:channels){
-                sumChannelLength+=Double.valueOf(channel.getLength());
+            for (ChannelEntity channel : channels) {
+                sumChannelLength += Double.valueOf(channel.getLength());
             }
             summary.setChannelLength(sumChannelLength);
 
-            List<DamEntity> dams = damRepository.findByIsDeleteAndTownEntity(0,town);
+            List<DamEntity> dams = damRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setDamCounts(dams.size());
 
-            List<CulvertEntity> culverts = culvertRepository.findByIsDeleteAndTownEntity(0,town);
+            List<CulvertEntity> culverts = culvertRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setCulvertCounts(culverts.size());
 
-            List<DeepWellsEntity> deepWells = deepWellsRepository.findByIsDeleteAndTownEntity(0,town);
+            List<DeepWellsEntity> deepWells = deepWellsRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setDeepWellsCounts(deepWells.size());
 
-            List<DripIrrigationPipeEntity> dripIrrigationPipes = dripIrrigationPipeRepository.findByIsDeleteAndTownEntity(0,town);
+            List<DripIrrigationPipeEntity> dripIrrigationPipes = dripIrrigationPipeRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setDripIrrigationPipeCounts(dripIrrigationPipes.size());
             Double dripIrrigationPipeLength = 0d;
-            for (DripIrrigationPipeEntity dripIrrigationPipe:dripIrrigationPipes){
-                dripIrrigationPipeLength+=Double.valueOf(dripIrrigationPipe.getLength());
+            for (DripIrrigationPipeEntity dripIrrigationPipe : dripIrrigationPipes) {
+                dripIrrigationPipeLength += Double.valueOf(dripIrrigationPipe.getLength());
             }
             summary.setDripIrrigationPipeLength(dripIrrigationPipeLength);
 
-            List<GreatWellsEntity> greatWells = greatWellsRepository.findByIsDeleteAndTownEntity(0,town);
+            List<GreatWellsEntity> greatWells = greatWellsRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setGreatWellsCounts(greatWells.size());
 
-            List<HydropowerEntity> hydropowers = hydropowerRepository.findByIsDeleteAndTownEntity(0,town);
+            List<HydropowerEntity> hydropowers = hydropowerRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setHydropowerCounts(hydropowers.size());
             Double hydropowerElectricity = 0d;
-            for (HydropowerEntity hydropower:hydropowers){
-                hydropowerElectricity+=Double.valueOf(hydropower.getSumElectricCapacity());
+            for (HydropowerEntity hydropower : hydropowers) {
+                hydropowerElectricity += Double.valueOf(hydropower.getSumElectricCapacity());
             }
             summary.setHydropowerElectircity(hydropowerElectricity);
 
-            List<PondEntity> ponds = pondRepository.findByIsDeleteAndTownEntity(0,town);
+            List<PondEntity> ponds = pondRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setPondCounts(ponds.size());
 
-            List<WatercourseEntity> watercourses = watercourseRepository.findByIsDeleteAndTownEntity(0,town);
+            List<WatercourseEntity> watercourses = watercourseRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setWatercourseCounts(watercourses.size());
             Double watercourseLength = 0d;
-            for (WatercourseEntity watercourse:watercourses){
-                watercourseLength+=Double.valueOf(watercourse.getLength());
+            for (WatercourseEntity watercourse : watercourses) {
+                watercourseLength += Double.valueOf(watercourse.getLength());
             }
             summary.setWatercourseLength(watercourseLength);
 
-            List<SluiceEntity> sluices = sluiceRepository.findByIsDeleteAndTownEntity(0,town);
+            List<SluiceEntity> sluices = sluiceRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setSluiceCounts(sluices.size());
 
-            List<WaterWorksEntity> waterWorks = waterworksRepository.findByIsDeleteAndTownEntity(0,town);
+            List<WaterWorksEntity> waterWorks = waterworksRepository.findByIsDeleteAndTownEntity(0, town);
             summary.setWaterWorksCounts(waterWorks.size());
             summaries.add(summary);
         }

@@ -15,7 +15,7 @@
         .text-center {
             text-align: center
         }
-        
+
         table td {
             border-spacing: 0;
         }
@@ -23,154 +23,159 @@
 </head>
 
 <body class="gray-bg">
-    <div class="wrapper wrapper-content">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>公告查询</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="row">
-                            <div class="panel-body">
-                                <form class="form-horizontal" role="form" id="search">
-                                    <div class="row">
-                                        <div class="form-group-sm">
-                                            <label for="beginTime" class="col-sm-2 control-label">公告标题: </label>
-                                            <div class="col-sm-1">
-                                                <input type="text" class="form-control" name="beginTime" id="beginTime">
-                                            </div>
-                                            <label for="endTime" class="col-sm-2 control-label">栏目: </label>
-                                            <div class="col-sm-1">
-                                                <select name="" id=""></select>
-                                            </div>
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>公告查询</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="panel-body">
+                            <form class="form-horizontal" role="form" id="search">
+                                <div class="row">
+                                    <div class="form-group-sm">
+                                        <label for="beginTime" class="col-sm-2 control-label">公告标题: </label>
+                                        <div class="col-sm-1">
+                                            <input type="text" class="form-control" name="beginTime" id="beginTime">
+                                        </div>
+                                        <label for="endTime" class="col-sm-2 control-label">栏目: </label>
+                                        <div class="col-sm-1">
+                                            <select name="" id=""></select>
                                         </div>
                                     </div>
-                            </div>
-                            <div class="form-group-sm">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default btn-sm">查询</button>
                                 </div>
-                            </div>
-                            </form>
                         </div>
+                        <div class="form-group-sm">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default btn-sm">查询</button>
+                            </div>
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <button class="btn btn-primary btn-sm">添加</button>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-primary btn-sm">添加</button>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>历史公告</h5>
-                    </div>
-                    <div class="ibox-content">
-                        <div class="row">
-                            <div class="col-sm-10">
-                                <table class="table table-hover margin bottom" id="news">
-                                    <thead style="background-color: #30cca0; color: #fff;">
-                                    <tr>
-                                        <th style="width: 5%" class="text-center">序号</th>
-                                        <th style="width: 60%;text-align: left">标题</th>
-                                        <th style="width: 10%;" class="text-center">发布日期</th>
-                                        <!--<th style="width: 10%;" class="text-center">发布人</th>-->
-                                        <!--<th style="width: 10%;" class="text-center">栏目</th>-->
-                                        <th style="width: 25%;" class="text-center">操作</th>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>历史公告</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-sm-10">
+                            <table class="table table-hover margin bottom" id="news">
+                                <thead style="background-color: #30cca0; color: #fff;">
+                                <tr>
+                                    <th style="width: 5%" class="text-center">序号</th>
+                                    <th style="width: 60%;text-align: left">标题</th>
+                                    <th style="width: 10%;" class="text-center">发布日期</th>
+                                    <!--<th style="width: 10%;" class="text-center">发布人</th>-->
+                                    <!--<th style="width: 10%;" class="text-center">栏目</th>-->
+                                    <th style="width: 25%;" class="text-center">操作</th>
 
-                                    </tr>
-                                    </thead>
-                                    <tbody id="newsBody">
-                                    <!--template-->
-                                    </tbody>
-                                </table>
-                                <nav>
-                                    <ul class="pager">
-                                        <li><a href="#" id="prev">上一页</a></li>
-                                        <li><form id="pageNav" style="display: inline;"><input type="text" style="width: 45px;text-align: center" id="page" placeholder="1" /></form></li>
-                                        <li><a href="#" id="next">下一页</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                            <div class="col-sm-2">
-                                <div id="world-map" style="height: 300px;"></div>
-                            </div>
+                                </tr>
+                                </thead>
+                                <tbody id="newsBody">
+                                <!--template-->
+                                </tbody>
+                            </table>
+                            <nav>
+                                <ul class="pager">
+                                    <li><a href="#" id="prev">上一页</a></li>
+                                    <li>
+                                        <form id="pageNav" style="display: inline;"><input type="text"
+                                                                                           style="width: 45px;text-align: center"
+                                                                                           id="page" placeholder="1"/>
+                                        </form>
+                                    </li>
+                                    <li><a href="#" id="next">下一页</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="col-sm-2">
+                            <div id="world-map" style="height: 300px;"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    <script src="../../../vendor/js/jquery.min.js-v=2.1.4.js"></script>
-    <script>
-        window.homeNewsPage = 1;
-        var pageNav = function() {
+</div>
+</div>
+<script src="../../../vendor/js/jquery.min.js-v=2.1.4.js"></script>
+<script>
+    window.homeNewsPage = 1;
+    var pageNav = function () {
+        if (window.homeNewsPage <= 1) {
+            $("#prev").parent("li").addClass("disabled");
+            window.homeNewsPage = 1;
+        } else {
+            $("#prev").parent("li").removeClass("disabled");
+        }
+
+        $("#pageNav").on("submit", function (e) {
+            e.preventDefault();
+            if (!/^[1-9]\d*$/.test($("#page").val())) {
+                alert("请输入数字");
+                $("#page").val("");
+            } else {
+                $("#page").attr("placeholder", $("#page").val() + "/" + window.totalHomeNews);
+                $("#page").val($("#page").val() + "/" + window.totalHomeNews);
+                $("#page").blur();
+                saveNews('/notification/countyNotifications2', renderNews);
+            }
+
             if (window.homeNewsPage <= 1) {
                 $("#prev").parent("li").addClass("disabled");
                 window.homeNewsPage = 1;
+            } else $("#prev").parent("li").removeClass("disabled");
+
+            if (window.homeNewsPage >= window.totalHomeNews) {
+                $("#next").parent("li").addClass("disabled");
+                window.homeNewsPage = window.totalHomeNews;
+            } else $("#next").parent("li").removeClass("disabled");
+        });
+        $("#page").on("click", function (e) {
+            e.stopPropagation();
+            $(this).attr("placeholder", $(this).val());
+            $(this).val("");
+        });
+        $("#prev").on("click", function (e) {
+            e.stopPropagation();
+            if (window.homeNewsPage > 1) {
+                $("#next").parent("li").removeClass("disabled");
+                saveNews('/notification/countyNotifications', renderNews, --window.homeNewsPage);
             } else {
-                $("#prev").parent("li").removeClass("disabled");
+                $("#prev").parent("li").addClass("disabled");
             }
-
-            $("#pageNav").on("submit", function(e) {
-                e.preventDefault();
-                if (!/^[1-9]\d*$/.test($("#page").val())) {
-                    alert("请输入数字");
-                    $("#page").val("");
-                } else {
-                    $("#page").attr("placeholder", $("#page").val() + "/" + window.totalHomeNews);
-                    $("#page").val($("#page").val() + "/" + window.totalHomeNews);
-                    $("#page").blur();
-                    saveNews('/notification/countyNotifications2', renderNews);
-                }
-
-                if (window.homeNewsPage <= 1) {
-                    $("#prev").parent("li").addClass("disabled");
-                    window.homeNewsPage = 1;
-                } else $("#prev").parent("li").removeClass("disabled");
-
-                if (window.homeNewsPage >= window.totalHomeNews) {
-                    $("#next").parent("li").addClass("disabled");
-                    window.homeNewsPage = window.totalHomeNews;
-                } else $("#next").parent("li").removeClass("disabled");
-            });
-            $("#page").on("click", function(e) {
-                e.stopPropagation();
-                $(this).attr("placeholder", $(this).val());
-                $(this).val("");
-            });
-            $("#prev").on("click", function(e) {
-                e.stopPropagation();
-                if (window.homeNewsPage > 1) {
-                    $("#next").parent("li").removeClass("disabled");
-                    saveNews('/notification/countyNotifications', renderNews, --window.homeNewsPage);
-                } else {
-                    $("#prev").parent("li").addClass("disabled");
-                }
-            });
-            $("#next").on("click", function(e) {
-                e.stopPropagation();
-                if (window.homeNewsPage < window.totalHomeNews) {
-                    $("#prev").parent("li").removeClass("disabled");
-                    saveNews('/notification/countyNotifications', renderNews, ++window.homeNewsPage);
-                } else {
-                    $("#next").parent("li").addClass("disabled");
-                }
-            });
-        }
-        var renderNews = function(content) {
-            console.log('render homepage news');
-            if (content.length > 0) {
-                var container = $("#newsBody");
-                var html = '';
-                for (var item in content) {
-                    console.log(content[item].title)
-                    html += "<tr> " +
+        });
+        $("#next").on("click", function (e) {
+            e.stopPropagation();
+            if (window.homeNewsPage < window.totalHomeNews) {
+                $("#prev").parent("li").removeClass("disabled");
+                saveNews('/notification/countyNotifications', renderNews, ++window.homeNewsPage);
+            } else {
+                $("#next").parent("li").addClass("disabled");
+            }
+        });
+    }
+    var renderNews = function (content) {
+        console.log('render homepage news');
+        if (content.length > 0) {
+            var container = $("#newsBody");
+            var html = '';
+            for (var item in content) {
+                console.log(content[item].title)
+                html += "<tr> " +
                         "<td class='text-center id'>" +
                         content[item].id +
                         "</td> " +
@@ -183,102 +188,102 @@
                         content[item].createTime +
                         "</td>" +
                         "<td class='btn-toolbar'>" +
-                            "<button class='btn btn-danger btn-sm delete'>删除</button>" +
-                            "<a href='../modifyNews.html?pageId=" +
-                            content[item].id +
-                            "' class='btn btn-warning btn-sm modify'>修改</a>"
-                        "</td>" +
-                        "</tr>";
+                        "<button class='btn btn-danger btn-sm delete'>删除</button>" +
+                        "<a href='../modifyNews.html?pageId=" +
+                        content[item].id +
+                        "' class='btn btn-warning btn-sm modify'>修改</a>"
+                "</td>" +
+                "</tr>";
 
-                }
-                container.html(html);
-                deleteNews();
-            } else {
-                console.log("empty news");
             }
+            container.html(html);
+            deleteNews();
+        } else {
+            console.log("empty news");
         }
-        var getUserInfo = function() {
-            //        TODO : getUserInfo
-            var info = {
-                userId: window.sessionStorage.getItem('userId') || -1,
-                userName: window.sessionStorage.getItem('userName') || null,
-                token: window.sessionStorage.getItem('token') || 0,
-                rolesId: window.sessionStorage.getItem('rolesId') || -1,
-                rolesName: window.sessionStorage.getItem('rolesName') || -1,
-            };
-            return info;
-        }
-        var saveNews = function(url, callback, page) {
+    }
+    var getUserInfo = function () {
+        //        TODO : getUserInfo
+        var info = {
+            userId: window.sessionStorage.getItem('userId') || -1,
+            userName: window.sessionStorage.getItem('userName') || null,
+            token: window.sessionStorage.getItem('token') || 0,
+            rolesId: window.sessionStorage.getItem('rolesId') || -1,
+            rolesName: window.sessionStorage.getItem('rolesName') || -1,
+        };
+        return info;
+    }
+    var saveNews = function (url, callback, page) {
+        var userInfo = getUserInfo();
+        var data = {
+            userId: userInfo.userId,
+            token: userInfo.token,
+            page: page || 1,
+            size: 5
+        };
+
+        $.ajax({
+            url: url,
+            data: data,
+            success: function (res) {
+                console.log("homepage news load success!");
+                if (typeof res == 'string') {
+                    res = JSON.parse(res);
+                }
+                if (res.code == 200) {
+                    var contents = res.data.notifications.content;
+                    var totalPage = res.data.notifications.totalPages;
+                    console.info(window.homeNewsPage);
+
+                    window.totalHomeNews = totalPage;
+                    $("#page").attr("placeholder", data.page + "/" + totalPage);
+                    if (contents.length > 0) {
+                        for (var item in contents) {
+                            sessionStorage.setItem(contents[item].id, JSON.stringify(contents[item]));
+                        }
+                        callback(contents);
+                    }
+
+                } else {
+                    console.error('get news error with error code : ', res.code);
+                }
+            },
+            fail: function (err) {
+                console.error("cannot connect to server", err.responseText);
+            }
+        })
+    }
+    var deleteNews = function () {
+        $(".delete").on("click", function (e) {
+
+            var td = e.target.parentNode;
+            var id = $(td).parents().find(".id").html();
             var userInfo = getUserInfo();
             var data = {
-                userId: userInfo.userId,
-                token: userInfo.token,
-                page: page || 1,
-                size: 5
+                timeStamp: +new Date(),
+                notificationId: id
             };
-
-            $.ajax({
-                url: url,
-                data: data,
-                success: function(res) {
-                    console.log("homepage news load success!");
-                    if (typeof res == 'string') {
-                        res = JSON.parse(res);
-                    }
-                    if (res.code == 200) {
-                        var contents = res.data.notifications.content;
-                        var totalPage = res.data.notifications.totalPages;
-                        console.info(window.homeNewsPage);
-
-                        window.totalHomeNews = totalPage;
-                        $("#page").attr("placeholder", data.page + "/" + totalPage);
-                        if (contents.length > 0) {
-                            for (var item in contents) {
-                                sessionStorage.setItem(contents[item].id, JSON.stringify(contents[item]));
-                            }
-                            callback(contents);
-                        }
-
-                    } else {
-                        console.error('get news error with error code : ', res.code);
-                    }
-                },
-                fail: function(err) {
-                    console.error("cannot connect to server", err.responseText);
+            $.extend(data, userInfo);
+            $this = $(this);
+            $.post("/notification/deleteNotification", data, function (res) {
+                if (typeof res == 'string') res = JSON.parse(res);
+                if (res.code == 200) {
+                    $this.removeClass("btn-danger").addClass("disabled").html("已删除");
+                    return true;
+                } else {
+                    console.error("error with code", code);
                 }
+
             })
-        }
-        var deleteNews = function () {
-            $(".delete").on("click", function (e) {
-
-                var td = e.target.parentNode;
-                var id = $(td).parents().find(".id").html();
-                var userInfo = getUserInfo();
-                var data = {
-                    timeStamp: +new Date(),
-                    notificationId: id
-                };
-                $.extend(data, userInfo);
-                $this = $(this);
-                $.post("/notification/deleteNotification", data, function (res) {
-                    if (typeof res == 'string') res = JSON.parse(res);
-                    if (res.code == 200) {
-                        $this.removeClass("btn-danger").addClass("disabled").html("已删除");
-                        return true;
-                    } else {
-                        console.error("error with code", code);
-                    }
-
-                })
-            })
-        }
-        $(function() {
-            pageNav();
-            saveNews('/notification/countyNotifications', renderNews);
-            console.log("homepage");
-
         })
-    </script>
+    }
+    $(function () {
+        pageNav();
+        saveNews('/notification/countyNotifications', renderNews);
+        console.log("homepage");
+
+    })
+</script>
 </body>
 
 </html>

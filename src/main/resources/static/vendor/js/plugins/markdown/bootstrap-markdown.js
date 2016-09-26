@@ -17,7 +17,7 @@
  * limitations under the License.
  * ========================================================== */
 
-! function ($) {
+!function ($) {
 
     "use strict"; // jshint ;_;
 
@@ -321,7 +321,7 @@
                     }),
                     createFooter = false,
                     footer = ''
-                    // Create the footer if savable
+                // Create the footer if savable
                 if (options.savable) {
                     createFooter = true;
                     var saveHandler = 'cmdSave'
@@ -766,52 +766,52 @@
         keyup: function (e) {
             var blocked = false
             switch (e.keyCode) {
-            case 40: // down arrow
-            case 38: // up arrow
-            case 16: // shift
-            case 17: // ctrl
-            case 18: // alt
-                break
+                case 40: // down arrow
+                case 38: // up arrow
+                case 16: // shift
+                case 17: // ctrl
+                case 18: // alt
+                    break
 
-            case 9: // tab
-                var nextTab
-                if (nextTab = this.getNextTab(), nextTab != null) {
-                    // Get the nextTab if exists
-                    var that = this
-                    setTimeout(function () {
-                        that.setSelection(nextTab.start, nextTab.end)
-                    }, 500)
-
-                    blocked = true
-                } else {
-                    // The next tab memory contains nothing...
-                    // check the cursor position to determine tab action
-                    var cursor = this.getSelection()
-
-                    if (cursor.start == cursor.end && cursor.end == this.getContent().length) {
-                        // The cursor already reach the end of the content
-                        blocked = false
-
-                    } else {
-                        // Put the cursor to the end
-                        this.setSelection(this.getContent().length, this.getContent().length)
+                case 9: // tab
+                    var nextTab
+                    if (nextTab = this.getNextTab(), nextTab != null) {
+                        // Get the nextTab if exists
+                        var that = this
+                        setTimeout(function () {
+                            that.setSelection(nextTab.start, nextTab.end)
+                        }, 500)
 
                         blocked = true
+                    } else {
+                        // The next tab memory contains nothing...
+                        // check the cursor position to determine tab action
+                        var cursor = this.getSelection()
+
+                        if (cursor.start == cursor.end && cursor.end == this.getContent().length) {
+                            // The cursor already reach the end of the content
+                            blocked = false
+
+                        } else {
+                            // Put the cursor to the end
+                            this.setSelection(this.getContent().length, this.getContent().length)
+
+                            blocked = true
+                        }
                     }
-                }
 
-                break
+                    break
 
-            case 13: // enter
-                blocked = false
-                break
-            case 27: // escape
-                if (this.$isFullscreen) this.setFullscreen(false)
-                blocked = false
-                break
+                case 13: // enter
+                    blocked = false
+                    break
+                case 27: // escape
+                    if (this.$isFullscreen) this.setFullscreen(false)
+                    blocked = false
+                    break
 
-            default:
-                blocked = false
+                default:
+                    blocked = false
             }
 
             if (blocked) {
@@ -930,7 +930,7 @@
 
         /* Buttons Properties */
         buttons: [
-      [{
+            [{
                 name: 'groupFont',
                 data: [{
                     name: 'cmdBold',
@@ -966,7 +966,7 @@
                         // Set the cursor
                         e.setSelection(cursor, cursor + chunk.length)
                     }
-        }, {
+                }, {
                     name: 'cmdItalic',
                     title: 'Italic',
                     hotkey: 'Ctrl+I',
@@ -1000,7 +1000,7 @@
                         // Set the cursor
                         e.setSelection(cursor, cursor + chunk.length)
                     }
-        }, {
+                }, {
                     name: 'cmdHeading',
                     title: 'Heading',
                     hotkey: 'Ctrl+H',
@@ -1039,8 +1039,8 @@
                         // Set the cursor
                         e.setSelection(cursor, cursor + chunk.length)
                     }
-        }]
-      }, {
+                }]
+            }, {
                 name: 'groupLink',
                 data: [{
                     name: 'cmdUrl',
@@ -1077,7 +1077,7 @@
                             e.setSelection(cursor, cursor + chunk.length)
                         }
                     }
-        }, {
+                }, {
                     name: 'cmdImage',
                     title: 'Image',
                     hotkey: 'Ctrl+G',
@@ -1115,61 +1115,61 @@
                             e.setSelection(cursor, cursor + chunk.length)
                         }
                     }
-        }]
-      }, {
+                }]
+            }, {
                 name: 'groupMisc',
                 data: [{
-                        name: 'cmdList',
-                        hotkey: 'Ctrl+U',
-                        title: 'Unordered List',
-                        icon: {
-                            glyph: 'glyphicon glyphicon-list',
-                            fa: 'fa fa-list',
-                            'fa-3': 'icon-list-ul'
-                        },
-                        callback: function (e) {
-                            // Prepend/Give - surround the selection
-                            var chunk, cursor, selected = e.getSelection(),
-                                content = e.getContent()
+                    name: 'cmdList',
+                    hotkey: 'Ctrl+U',
+                    title: 'Unordered List',
+                    icon: {
+                        glyph: 'glyphicon glyphicon-list',
+                        fa: 'fa fa-list',
+                        'fa-3': 'icon-list-ul'
+                    },
+                    callback: function (e) {
+                        // Prepend/Give - surround the selection
+                        var chunk, cursor, selected = e.getSelection(),
+                            content = e.getContent()
 
-                            // transform selection and set the cursor into chunked text
-                            if (selected.length == 0) {
-                                // Give extra word
-                                chunk = e.__localize('list text here')
+                        // transform selection and set the cursor into chunked text
+                        if (selected.length == 0) {
+                            // Give extra word
+                            chunk = e.__localize('list text here')
+
+                            e.replaceSelection('- ' + chunk)
+                            // Set the cursor
+                            cursor = selected.start + 2
+
+                        } else {
+                            if (selected.text.indexOf('\n') < 0) {
+                                chunk = selected.text
 
                                 e.replaceSelection('- ' + chunk)
+
                                 // Set the cursor
                                 cursor = selected.start + 2
-
                             } else {
-                                if (selected.text.indexOf('\n') < 0) {
-                                    chunk = selected.text
+                                var list = []
 
-                                    e.replaceSelection('- ' + chunk)
+                                list = selected.text.split('\n')
+                                chunk = list[0]
 
-                                    // Set the cursor
-                                    cursor = selected.start + 2
-                                } else {
-                                    var list = []
+                                $.each(list, function (k, v) {
+                                    list[k] = '- ' + v
+                                })
 
-                                    list = selected.text.split('\n')
-                                    chunk = list[0]
+                                e.replaceSelection('\n\n' + list.join('\n'))
 
-                                    $.each(list, function (k, v) {
-                                        list[k] = '- ' + v
-                                    })
-
-                                    e.replaceSelection('\n\n' + list.join('\n'))
-
-                                    // Set the cursor
-                                    cursor = selected.start + 4
-                                }
+                                // Set the cursor
+                                cursor = selected.start + 4
                             }
-
-                            // Set the cursor
-                            e.setSelection(cursor, cursor + chunk.length)
                         }
-        },
+
+                        // Set the cursor
+                        e.setSelection(cursor, cursor + chunk.length)
+                    }
+                },
                     {
                         name: 'cmdListO',
                         hotkey: 'Ctrl+O',
@@ -1221,7 +1221,7 @@
                             // Set the cursor
                             e.setSelection(cursor, cursor + chunk.length)
                         }
-        },
+                    },
                     {
                         name: 'cmdCode',
                         hotkey: 'Ctrl+K',
@@ -1257,7 +1257,7 @@
                             // Set the cursor
                             e.setSelection(cursor, cursor + chunk.length)
                         }
-        },
+                    },
                     {
                         name: 'cmdQuote',
                         hotkey: 'Ctrl+Q',
@@ -1308,8 +1308,8 @@
                             // Set the cursor
                             e.setSelection(cursor, cursor + chunk.length)
                         }
-        }]
-      }, {
+                    }]
+            }, {
                 name: 'groupUtil',
                 data: [{
                     name: 'cmdPreview',
@@ -1335,9 +1335,9 @@
                             e.hidePreview()
                         }
                     }
-        }]
-      }]
-    ],
+                }]
+            }]
+        ],
         additionalButtons: [], // Place to hook more buttons by code
         reorderButtonGroups: [],
         hiddenButtons: [], // Default hidden buttons
@@ -1360,13 +1360,20 @@
         },
 
         /* Events hook */
-        onShow: function (e) {},
-        onPreview: function (e) {},
-        onSave: function (e) {},
-        onBlur: function (e) {},
-        onFocus: function (e) {},
-        onChange: function (e) {},
-        onFullscreen: function (e) {}
+        onShow: function (e) {
+        },
+        onPreview: function (e) {
+        },
+        onSave: function (e) {
+        },
+        onBlur: function (e) {
+        },
+        onFocus: function (e) {
+        },
+        onChange: function (e) {
+        },
+        onFullscreen: function (e) {
+        }
     }
 
     $.fn.markdown.Constructor = Markdown
@@ -1401,7 +1408,7 @@
             var $this = $(this),
                 focused = $activeElement.closest('.md-editor')[0] === this,
                 attachedMarkdown = $this.find('textarea').data('markdown') ||
-                $this.find('div[data-provider="markdown-preview"]').data('markdown')
+                    $this.find('div[data-provider="markdown-preview"]').data('markdown')
 
             if (attachedMarkdown && !focused) {
                 attachedMarkdown.blur()

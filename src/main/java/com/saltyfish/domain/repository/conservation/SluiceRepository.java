@@ -1,6 +1,5 @@
 package com.saltyfish.domain.repository.conservation;
 
-import com.saltyfish.domain.entity.conservation.ChannelEntity;
 import com.saltyfish.domain.entity.conservation.SluiceEntity;
 import com.saltyfish.domain.entity.unit.TownEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -15,8 +14,9 @@ import java.util.List;
 @Repository
 public interface SluiceRepository extends MongoRepository<SluiceEntity, String> {
     SluiceEntity findById(@Param("id") String projectId);
+
     List<SluiceEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
-                                                      @Param("townEntity") List<TownEntity> towns);
+                                                     @Param("townEntity") List<TownEntity> towns);
 
     List<SluiceEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
                                                    @Param("townEntity") TownEntity town);

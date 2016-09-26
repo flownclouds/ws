@@ -1,197 +1,459 @@
 <!DOCTYPE html>
 <html lang="zh_CN">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="../../../vendor/js/jquery.min.js-v=2.1.4.js"></script>
     <link rel="stylesheet" href="../../../vendor/css/style.min.css-v=4.0.0.css">
     <link href="../../../vendor/css/bootstrap.min.css-v=3.3.5.css" rel="stylesheet">
-    <style>.right{ float: right;</style>
+    <style>
+        .right {
+            float: right;
+    </style>
 </head>
+
 <body class="gray-bg">
-    <div id="tree" class="wrapper wrapper-content row" >
-
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    选择镇/村/组
-                    <button class="btn btn-xs btn-info right" id="back">返回上一级</button>
-                </div>
-                <div class="panel-body">
-
-                    <div class="list-group " id="list">
-                        <a href="#" class="list-group-item"> </a>
-                    </div>
-                </div>
+<div id="tree" class="wrapper wrapper-content row">
+    <div class="col-sm-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                选择乡(镇)/村/组
+                <button class="btn btn-xs btn-info right" id="back">返回上一级</button>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    添加或修改
-                    <small class="right"></small>
-                </div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form">
-                        <fieldset>
-                            <legend contenteditable="true">添加县</legend>
-
-                            <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">县名: </label>
-                                <div class="col-sm-10">
-                                    <input id="name" class="form-control" name="name" type="text" placeholder="请输入县名" />
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="lat" class="col-sm-2 control-label">经度: </label>
-                                <div class="col-sm-10">
-                                    <input id="lat" class="form-control" name="lat" type="text" placeholder="请输入经度" />
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">纬度: </label>
-                                <div class="col-sm-10">
-                                    <input id="lon" class="form-control" name="lon" type="text" placeholder="请输入纬度" />
-                                </div>
-                            </div>
-
-                            <button class="btn btn-primary col-sm-offset-2" type="submit">提交</button>
-                        </fieldset>
-                    </form>
+            <div class="panel-body">
+                <div class="list-group " id="list">
+                    <a href="#" class="list-group-item"> </a>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-sm-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                添加或修改
+                <small class="right"></small>
+            </div>
+            <div class="panel-body" id="formContainer"></div>
+        </div>
+    </div>
+</div>
+<script id="tplAddTown" type="text/html">
+    <form class="form-horizontal" action="/unit/addTown" role="form" id="addCounty">
+        <fieldset>
+            <legend>添加镇</legend>
+            <div class="form-group">
+                <label for="townName" class="col-sm-2 control-label">镇名: </label>
+                <div class="col-sm-10">
+                    <input id="townName" class="form-control" name="townName" type="text" placeholder="请输入镇名"/>
+                </div>
+            </div>
+            <button class="btn btn-primary col-sm-offset-2" type="submit">提交</button>
+        </fieldset>
+    </form>
+</script>
+<script id="tplAddVillage" type="text/html">
+    <form class="form-horizontal" action="/unit/addVillage" role="form" id="addVillage">
+        <fieldset>
+            <legend contenteditable="true">添加村庄</legend>
+            <div class="form-group">
+                <label for="villageName" class="col-sm-3 control-label">村庄名: </label>
+                <div class="col-sm-9">
+                    <input id="villageName" class="form-control" name="villageName" type="text" placeholder="请输入村庄名"/>
+                </div>
+            </div>
+            <button class="btn btn-primary col-sm-offset-3" type="submit">提交</button>
+        </fieldset>
+    </form>
+</script>
+<script id="tplAddGroup" type="text/html">
+    <form class="form-horizontal" action="/unit/addGroup" role="form" id="addGroup">
+        <fieldset>
+            <legend contenteditable="true">添加组</legend>
+            <div class="form-group">
+                <label for="groupName" class="col-sm-3 control-label">组名: </label>
+                <div class="col-sm-9">
+                    <input id="groupName" class="form-control" name="groupName" type="text" placeholder="请输入组名"/>
+                </div>
+            </div>
+            <button class="btn btn-primary col-sm-offset-3" type="submit">提交</button>
+        </fieldset>
+    </form>
+</script>
+<script id="tplModifyTown" type="text/html">
+    <form class="form-horizontal" action="/unit/modifyCounty" role="form" id="modifyCounty">
+        <fieldset>
+            <legend contenteditable="true">修改镇</legend>
+            <div class="form-group">
+                <label for="townName" class="col-sm-2 control-label">镇名: </label>
+                <div class="col-sm-10">
+                    <input id="townName" class="form-control" name="townName" type="text" placeholder="请输入镇名"/>
+                </div>
+            </div>
 
-    <script>
-        $(function () {
-            var tree = {
-                towns: [],
-                villages: [],
-                groups: [],
-                current: '',
-                history: []
+            <button class="btn btn-primary col-sm-offset-2" type="submit">提交</button>
+        </fieldset>
+    </form>
+</script>
+<script id="tplModifyVillage" type="text/html">
+    <form class="form-horizontal" action="/unit/modifyVillage" role="form" id="modifyVillage">
+        <fieldset>
+            <legend contenteditable="true">修改村庄</legend>
+            <div class="form-group">
+                <label for="villageName" class="col-sm-3 control-label">村庄名: </label>
+                <div class="col-sm-9">
+                    <input id="villageName" class="form-control" name="villageName" type="text" placeholder="请输入村庄名"/>
+                </div>
+            </div>
+            <button class="btn btn-primary col-sm-offset-3" type="submit">提交</button>
+        </fieldset>
+    </form>
+</script>
+<script id="tplModifyGroup" type="text/html">
+    <form class="form-horizontal" action="/unit/modifyGroup" role="form" id="modifyGroup">
+        <fieldset>
+            <legend contenteditable="true">修改组</legend>
+            <div class="form-group">
+                <label for="groupName" class="col-sm-3 control-label">组名: </label>
+                <div class="col-sm-9">
+                    <input id="groupName" class="form-control" name="groupName" type="text" placeholder="请输入组名"/>
+                </div>
+            </div>
+            <button class="btn btn-primary col-sm-offset-3" type="submit">提交</button>
+        </fieldset>
+    </form>
+</script>
+<script>
+    $(function () {
+        var tree = {
+            towns: [],
+            villages: [],
+            groups: [],
+            current: '',
+            history: [],
+            prevId: null,
+            idStack: []
+        };
+        var url = {
+            towns: "/unit/getVillagesByTown",
+            villages: "/unit/getGroupsByVillage"
+        };
+        var getUserInfo = function () {
+            var info = {
+                userId: window.sessionStorage.getItem('userId') || -1,
+                userName: window.sessionStorage.getItem('userName') || null,
+                token: window.sessionStorage.getItem('token') || 0,
+                rolesId: window.sessionStorage.getItem('rolesId') || -1,
+                rolesName: window.sessionStorage.getItem('rolesName') || -1,
             };
-            var url = {
-                towns: "/unit/getVillagesByTown",
-                villages: "/unit/getGroupsByVillage"
-            };
-            var getUserInfo = function () {
-                var info = {
-                    userId: window.sessionStorage.getItem('userId') || -1,
-                    userName: window.sessionStorage.getItem('userName') || null,
-                    token: window.sessionStorage.getItem('token') || 0,
-                    rolesId: window.sessionStorage.getItem('rolesId') || -1,
-                    rolesName: window.sessionStorage.getItem('rolesName') || -1,
-                };
-                return info;
-            }
-            var userInfo = getUserInfo();
-            var data = {
-                userId: userInfo.userId,
-                token: userInfo.token
-            };
+            return info;
+        }
+        var userInfo = getUserInfo();
+        var data = {
+            userId: userInfo.userId,
+            token: userInfo.token
+        };
 
-            var renderList = function () {
-                var data = tree[tree.current];
-                var html = '';
-                var extra = '<button class="btn btn-xs btn-info add" style="float: right;z-index: 10;">添加</button>' ;
-                data.map(function (item) {
-                    if (tree.current == 'groups') extra = '';
-                    html += '<a class="list-group-item btn-toolbar" data-id="'+item.id+'">' +
-                                item.name + extra +
-                                '<button class="btn btn-xs btn-primary modify" style="float: right;z-index: 10;">修改</button>' +
-                            '</a>';
-                })
-                tree.history.push($("#list").html() + '');
-                $("#list").html(html);
+        var renderList = function () {
+            var data = tree[tree.current];
+            var html = '';
+            var extra = '<button class="btn btn-xs btn-info add" style="float: right;z-index: 10;">添加</button>';
+            data.map(function (item) {
+                if (tree.current == 'groups') extra = '';
+                html += '<a class="list-group-item btn-toolbar" data-id="' + item.id + '">' +
+                        item.name + extra +
+                        '<button class="btn btn-xs btn-primary modify" style="float: right;z-index: 10;">修改</button>' +
+                        '</a>';
+            })
+            tree.history.push($("#list").html() + '');
+            $("#list").html(html);
 
-                eventBind();
-            }
-            var eventBind = function () {
-                var type = tree.current;
-                var $list = $(".list-group-item");
-                $list.click(function (e) {
-                    e.preventDefault();
-                    console.log(e.target);
-                    if (tree.current === 'groups') return false;
-                    var id = $(this).attr('id');
-                    data[type.substr(0, type.length-1)] = id;
-                    if (type == 'towns') tree.current = 'villages';
-                    else tree.current = 'groups';
-                    tree[tree.current] = [];
-                    $.get(url[type], data, function (res) {
-                        if (typeof res == 'string') res = JSON.parse(res);
-                        if (res.code == 200) {
-                            res.data[tree.current].map(function (item) {
-                                tree[tree.current].push({
-                                    name: item.name,
-                                    id: item.id
-                                })
-                            })
-                            renderList();
-                        } else {
-                            console.error("error with code", code);
-                        }
-                    })
-                })
+            listBind();
+            toolBtnBind();
+        }
+        var listBind = function () {
+            var type = tree.current;
+            var $list = $(".list-group-item");
+            $list.click(function (e) {
+                e.preventDefault();
+                console.log(e.target);
+                if (tree.current === 'groups') return false;
+                var id = $(this).data('id');
+                tree.prevId = id;
+                tree.idStack.push(id);
 
-                var $add = $(".add");
-                var $modify = $(".modify");
-                $add.click(function (e) {
-                    e.preventDefault();
-                    // 添加 下一级
-                    return false;
-                })
-                $modify.click(function (e) {
-                    e.preventDefault();
-                    // 修改 当前内容
-                    return false;
-                })
-            }
-            var getAccessedTowns = function () {
-                $.get("/unit/getAccessedTowns", data, function (res) {
+                var formData = {};
+                $.extend(true, formData, data);
+                formData[type.substr(0, type.length - 1)] = id;
+
+                if (type == 'towns') {
+                    tree.current = 'villages';
+                    addVillage()
+                }
+                else if (type == 'villages') {
+                    tree.current = 'groups';
+                    addGroup();
+                } else {
+                    addGroup();
+                }
+                tree[tree.current] = [];
+                $.get(url[type], formData, function (res) {
                     if (typeof res == 'string') res = JSON.parse(res);
                     if (res.code == 200) {
-                        var townsList = res.data.towns;
-                        townsList.map(function (item) {
-                            tree.towns.push({
+                        res.data[tree.current].map(function (item) {
+                            tree[tree.current].push({
                                 name: item.name,
                                 id: item.id
-                            });
+                            })
                         })
-
-                        tree.current = 'towns';
                         renderList();
-                        /*return rootTree;*/
+                    } else {
+                        console.error("error with code", code);
+                    }
+                })
+            })
+        }
+        var toolBtnBind = function () {
+            var $add = $(".add");
+            var $modify = $(".modify");
+            $add.click(function (e) {
+                e.preventDefault();
+                $(".active").removeClass("active");
+                $(this).parent().addClass("active");
+                // 添加 下一级
+                if (tree.current == 'towns') addVillage();
+                else if (tree.current == 'villages') addGroup();
+
+                return false;
+            })
+            $modify.click(function (e) {
+                e.preventDefault();
+                $(".active").removeClass("active");
+                $(this).parent().addClass("active");
+                // 修改 当前内容
+                if (tree.current == 'towns') modifyTown();
+                else if (tree.current == 'villages') modifyVillage();
+                else modifyGroup();
+                return false;
+            })
+        }
+        var getAccessedTowns = function () {
+            $.get("/unit/getAccessedTowns", data, function (res) {
+                if (typeof res == 'string') res = JSON.parse(res);
+                if (res.code == 200) {
+                    var townsList = res.data.towns;
+                    tree.towns = [];
+                    townsList.map(function (item) {
+                        tree.towns.push({
+                            name: item.name,
+                            id: item.id
+                        });
+                    })
+
+                    tree.current = 'towns';
+                    renderList();
+                    /*return rootTree;*/
+                } else {
+                    console.error("error with code", res.code);
+                }
+            })
+        };
+
+        var back = function () {
+            $("#back").click(function (e) {
+                e.preventDefault();
+                console.log('back');
+                if (!tree.current || tree.current == 'towns')
+                    return false;
+                else {
+                    if (tree.history.length > 0) {
+                        if (tree.current == 'groups') {
+                            tree.current = 'villages';
+                            addVillage();
+                        }
+                        else {
+                            tree.current = 'towns';
+                            addCounty();
+                        }
+                        var history = tree.history.pop();
+                        $("#list").html(history);
+                        tree.prevId = tree.idStack.pop();
+                        listBind();
+                    }
+                }
+            })
+        }
+
+        var addTown = function () {
+            console.log("添加 县");
+            $("#formContainer").html($("#tplAddTown").html());
+            $("form#addTown").submit(function (e) {
+                e.preventDefault();
+
+                var postData = {};
+
+                $.extend(true, postData, data);
+
+                var formData = $("#addTown").serialize();
+
+                formData = JSON.parse('{"' + formData.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
+                        function (key, value) {
+                            return key === "" ? value : decodeURIComponent(value)
+                        });
+
+                $.extend(postData, formData);
+
+                postData.timeStamp = +new Date();
+
+                $.post("/unit/addTown", postData, function (res) {
+                    if (typeof res == 'string') res = JSON.parse(res);
+                    if (res.code == 200) {
+                        getAccessedTowns();
                     } else {
                         console.error("error with code", res.code);
                     }
                 })
-            };
-            var back = function () {
-                $("#back").click(function (e) {
-                    e.preventDefault();
-                    console.log('back');
-                    if (!tree.current || tree.current == 'towns')
-                        return false;
-                    else {
-                        if (tree.history.length > 0){
-                            if (tree.current == 'groups') tree.current = 'villages';
-                            else  tree.current = 'towns';
-                            var history = tree.history.pop();
-                            $("#list").html(history);
 
-                            eventBind();
-                        }
+                console.log(postData);
+            })
+        }
+
+        var addVillage = function () {
+            console.log("添加 村");
+            $("#formContainer").html($("#tplAddVillage").html());
+            $("form#addVillage").submit(function (e) {
+                e.preventDefault();
+
+                var postData = {};
+
+                $.extend(true, postData, data);
+
+                var formData = $("#addVillage").serialize();
+
+                formData = JSON.parse('{"' + formData.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
+                        function (key, value) {
+                            return key === "" ? value : decodeURIComponent(value)
+                        });
+
+                $.extend(postData, formData);
+
+                postData.timeStamp = +new Date();
+
+                postData.townId = tree.prevId;
+
+                console.log(postData);
+            })
+        }
+
+        var addGroup = function () {
+            console.log("添加组");
+            $("#formContainer").html($("#tplAddGroup").html());
+            $("form#addGroup").submit(function (e) {
+                e.preventDefault();
+
+                var postData = {};
+
+                $.extend(true, postData, data);
+
+                var formData = $("#addGroup").serialize();
+
+                formData = JSON.parse('{"' + formData.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
+                        function (key, value) {
+                            return key === "" ? value : decodeURIComponent(value)
+                        });
+
+                $.extend(postData, formData);
+
+                postData.timeStamp = +new Date();
+
+                postData.townId = tree.prevId;
+
+                console.log(postData);
+            })
+        }
+
+        var modifyTown = function () {
+            $("#formContainer").html($("#tplModifyTown").html());
+            $("form#modifyCounty").submit(function (e) {
+                e.preventDefault();
+                console.log("modify town");
+                var formData = $("form#modifyCounty").serialize();
+                formData = JSON.parse('{"' + formData.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
+                        function (key, value) {
+                            return key === "" ? value : decodeURIComponent(value)
+                        });
+                $.extend(formData, data);
+                formData.timeStamp = +new Date();
+                formData.townId = $(".active").data('id');
+
+                $.post("/unit/modifyCounty", formData, function (res) {
+                    if (typeof res == 'string') res = JSON.parse(res);
+                    if (res.code == 200) {
+                        console.log("modifyCounty success");
+                    } else {
+                        console.error("error with code", code);
                     }
                 })
-            }
+            })
+        }
 
-            getAccessedTowns();
-            back();
-        })
-    </script>
+        var modifyVillage = function () {
+            $("#formContainer").html($("#tplModifyVillage").html());
+            $("form#modifyVillage").submit(function (e) {
+                e.preventDefault();
+                console.log("modify village");
+                var formData = $("form#modifyVillage").serialize();
+                formData = JSON.parse('{"' + formData.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
+                        function (key, value) {
+                            return key === "" ? value : decodeURIComponent(value)
+                        });
+                $.extend(formData, data);
+                formData.timeStamp = +new Date();
+                formData.villageId = $(".active").data('id');
+
+                $.post("/unit/modifyVillage", formData, function (res) {
+                    if (typeof res == 'string') res = JSON.parse(res);
+                    if (res.code == 200) {
+                        console.log("modifyVillage success");
+                    } else {
+                        console.error("error with code", code);
+                    }
+                })
+            })
+        }
+
+        var modifyGroup = function () {
+            $("#formContainer").html($("#tplModifyGroup").html());
+            $("form#modifyGroup").submit(function (e) {
+                e.preventDefault();
+                console.log("modify group");
+                var formData = $("form#modifyGroup").serialize();
+                formData = JSON.parse('{"' + formData.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
+                        function (key, value) {
+                            return key === "" ? value : decodeURIComponent(value)
+                        });
+                $.extend(formData, data);
+                formData.timeStamp = +new Date();
+                formData.groupId = $(".active").data('id');
+
+                $.post("/unit/modifyGroup", formData, function (res) {
+                    if (typeof res == 'string') res = JSON.parse(res);
+                    if (res.code == 200) {
+                        console.log("modifyGroup success");
+                    } else {
+                        console.error("error with code", code);
+                    }
+                })
+            })
+        }
+        var formBind = function () {
+            addTown();
+        }
+        getAccessedTowns();
+        back();
+        formBind();
+    })
+</script>
 </body>
+
 </html>

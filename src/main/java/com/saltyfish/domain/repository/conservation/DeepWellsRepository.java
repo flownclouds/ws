@@ -1,6 +1,5 @@
 package com.saltyfish.domain.repository.conservation;
 
-import com.saltyfish.domain.entity.conservation.ChannelEntity;
 import com.saltyfish.domain.entity.conservation.DeepWellsEntity;
 import com.saltyfish.domain.entity.unit.TownEntity;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -15,8 +14,9 @@ import java.util.List;
 @Repository
 public interface DeepWellsRepository extends MongoRepository<DeepWellsEntity, String> {
     DeepWellsEntity findById(@Param("id") String projectId);
+
     List<DeepWellsEntity> findByIsDeleteAndTownEntityIn(@Param("is_delete") int isDelete,
-                                                      @Param("townEntity") List<TownEntity> towns);
+                                                        @Param("townEntity") List<TownEntity> towns);
 
     List<DeepWellsEntity> findByIsDeleteAndTownEntity(@Param("is_delete") int isDelete,
                                                       @Param("townEntity") TownEntity town);

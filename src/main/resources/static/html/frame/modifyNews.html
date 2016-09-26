@@ -2,85 +2,103 @@
 <html lang="zh_CN">
 
 <head>
-  <meta charset="UTF-8">
-  <title>公告详情</title>
-  <script src="../../vendor/js/jquery.min.js-v=2.1.4.js"></script>
-  <style>
-    .return:hover { color: #1cc09f; cursor: pointer; }
-    .content { width: 100% }
-    h1, p { text-align: center }
-    .detail { background-color: rgb(243, 243, 244); width: 100%; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; min-height: 800px; padding:10px; }
-  </style>
+    <meta charset="UTF-8">
+    <title>公告详情</title>
+    <script src="../../vendor/js/jquery.min.js-v=2.1.4.js"></script>
+    <style>
+        .return:hover {
+            color: #1cc09f;
+            cursor: pointer;
+        }
+
+        .content {
+            width: 100%
+        }
+
+        h1, p {
+            text-align: center
+        }
+
+        .detail {
+            background-color: rgb(243, 243, 244);
+            width: 100%;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            min-height: 800px;
+            padding: 10px;
+        }
+    </style>
 </head>
 
 <body>
-  <a class="return" onclick="window.history.back()">&lt&lt返回上一页</a>
-  <button class="btn btn-primary" id="save">保存</button>
-  <div class="content">
+<a class="return" onclick="window.history.back()">&lt&lt返回上一页</a>
+<button class="btn btn-primary" id="save">保存</button>
+<div class="content">
     <!--<h1>收工拉</h1>
     <p>作者: <span></span> 时间: <span></span></p>
     <div class="detail">
 
     </div>-->
-  </div>
-  <script>
-    $.getQuery = function() {
-      var search = window.location.search;
-      var queryObj = {};
-      if (search.indexOf('?') != -1) {
-        var queryString = search.substr(1);
-        var query = queryString.split('&');
-        for (var item in query) {
-          queryObj[query[item].split('=')[0]] = query[item].split('=')[1];
+</div>
+<script>
+    $.getQuery = function () {
+        var search = window.location.search;
+        var queryObj = {};
+        if (search.indexOf('?') != -1) {
+            var queryString = search.substr(1);
+            var query = queryString.split('&');
+            for (var item in query) {
+                queryObj[query[item].split('=')[0]] = query[item].split('=')[1];
+            }
         }
-      }
-      return queryObj;
+        return queryObj;
     }
-    var renderNewsDetail = function(content) {
-      var container = $('.content');
-      var html = '<h1 contenteditable="true" id="title">'+ content.title +'</h1>' +
-        '<p>作者: <span contenteditable="true" id="userName">' + content.user.name +'</span> 时间: <span id="time">'+ content.updateTime +'</span></p>' +
-        '<div class="detail" contenteditable="true" id="content"> ' + content.content + '</div>';
-      container.html(html);
+    var renderNewsDetail = function (content) {
+        var container = $('.content');
+        var html = '<h1 contenteditable="true" id="title">' + content.title + '</h1>' +
+                '<p>作者: <span contenteditable="true" id="userName">' + content.user.name + '</span> 时间: <span id="time">' + content.updateTime + '</span></p>' +
+                '<div class="detail" contenteditable="true" id="content"> ' + content.content + '</div>';
+        container.html(html);
     }
-    var getUserInfo = function() {
-      //        TODO : getUserInfo
-      var info = {
-        userId: window.sessionStorage.getItem('userId') || -1,
-        userName: window.sessionStorage.getItem('userName') || null,
-        token: window.sessionStorage.getItem('token') || 0,
-        rolesId: window.sessionStorage.getItem('rolesId') || -1,
-        rolesName: window.sessionStorage.getItem('rolesName') || -1,
-      };
-      return info;
-    }
-    $(function() {
-      var pageId = $.getQuery().pageId;
-      var content = JSON.parse(sessionStorage.getItem(pageId));
-      var userInfo = getUserInfo();
-      console.log(content);
-      renderNewsDetail(content);
-      $("#save").on("click", function (e) {
-        e.preventDefault();
-        var data = {
-          title: $("#title").html(),
-          content: $("#content").html(),
-          timeStamp: +new Date(),
-          notificationId: $.getQuery().pageId,
+    var getUserInfo = function () {
+        //        TODO : getUserInfo
+        var info = {
+            userId: window.sessionStorage.getItem('userId') || -1,
+            userName: window.sessionStorage.getItem('userName') || null,
+            token: window.sessionStorage.getItem('token') || 0,
+            rolesId: window.sessionStorage.getItem('rolesId') || -1,
+            rolesName: window.sessionStorage.getItem('rolesName') || -1,
         };
-        $.extend(data, userInfo);
-        $.post("/notification/updateNotification", data, function (res) {
-          if (typeof res == 'string') res = JSON.parse(res);
-          if (res.code == 200) {
-              return true;
-          } else {
-              console.error("error with code", code);
-          }
-          
+        return info;
+    }
+    $(function () {
+        var pageId = $.getQuery().pageId;
+        var content = JSON.parse(sessionStorage.getItem(pageId));
+        var userInfo = getUserInfo();
+        console.log(content);
+        renderNewsDetail(content);
+        $("#save").on("click", function (e) {
+            e.preventDefault();
+            var data = {
+                title: $("#title").html(),
+                content: $("#content").html(),
+                timeStamp: +new Date(),
+                notificationId: $.getQuery().pageId,
+            };
+            $.extend(data, userInfo);
+            $.post("/notification/updateNotification", data, function (res) {
+                if (typeof res == 'string') res = JSON.parse(res);
+                if (res.code == 200) {
+                    return true;
+                } else {
+                    console.error("error with code", code);
+                }
+
+            })
         })
-      })
     })
-  </script>
+</script>
 </body>
 
 </html>
