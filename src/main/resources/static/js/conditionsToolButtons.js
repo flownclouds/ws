@@ -19,7 +19,7 @@ $(function () {
     "塘坝": "tangba"
   };
   var category = $("#type").html();
-  if (userInfo.rolesId == 2 || userInfo.rolesId == 3) {
+  if (userInfo.rolesId == 2 || userInfo.rolesId == 1) {
     buttons.unshift("添加", "删除");
   }
   console.log(buttons);
