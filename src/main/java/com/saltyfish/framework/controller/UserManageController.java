@@ -91,6 +91,31 @@ public class UserManageController {
         }
     }
 
+    @RequestMapping("/getUserInfo")
+    public Response getUserInfo(@RequestParam("userId") Integer userId,
+                                @RequestParam("token") String token,
+                                @RequestParam("targetUserId") Integer targetUserId){
+        Response response = new Response();
+        try {
+            if (!authService.checkLogin(userId, token)) {
+                return responseService.notLogin(response);
+            }
+            else if (!authService.checkAdmin(userId)){
+                return responseService.noAccess(response);
+            }
+            else {
+                Map<String,Object> data = new HashMap<>();
+                data.put("userInfo",userService.getUserInfo(targetUserId));
+                response.setData(data);
+                response.setCode(HttpStatus.OK.value());
+                return response;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return responseService.serverError(response);
+        }
+    }
+
     /**
      * 管理员修改用户信息
      *

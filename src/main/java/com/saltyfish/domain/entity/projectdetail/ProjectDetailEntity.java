@@ -1,6 +1,7 @@
 package com.saltyfish.domain.entity.projectdetail;
 
 import com.saltyfish.domain.entity.superbean.BaseBean;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -10,6 +11,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "projectDetail")
 public class ProjectDetailEntity extends BaseBean {
+
+    @Id
+    private String id;
 
     private static final Long serialVersionUID = -3838574890528525370L;
 
@@ -355,5 +359,13 @@ public class ProjectDetailEntity extends BaseBean {
 
     public void setCountyFactInvestment(String countyFactInvestment) {
         this.countyFactInvestment = countyFactInvestment;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

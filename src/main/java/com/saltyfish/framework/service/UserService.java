@@ -227,4 +227,8 @@ public class UserService {
         user.setUpdateTime(timeStamp);
         userRepository.save(user);
     }
+
+    public UserEntity getUserInfo(Integer targetUserId) {
+        return userRepository.findById(targetUserId);
+    }
 }
