@@ -14,8 +14,8 @@
       },
       "role": {
         "id": 1,
-        "name": "admin",
-        "isActive": 1
+          "name": "admin",
+          "isActive": 1
       },
       "phone": null,
       "isActive": 1,

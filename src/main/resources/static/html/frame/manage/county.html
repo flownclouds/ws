@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="../../../vendor/css/style.min.css-v=4.0.0.css">
     <link href="../../../vendor/css/bootstrap.min.css-v=3.3.5.css" rel="stylesheet">
     <style>
-        .right {
-            float: right;
-        }
+        .right { float: right;}
     </style>
 </head>
 
@@ -42,22 +40,19 @@
                         <div class="form-group">
                             <label for="countyName" class="col-sm-2 control-label">县名: </label>
                             <div class="col-sm-10">
-                                <input id="countyName" class="form-control" name="countyName" type="text"
-                                       placeholder="请输入县名"/>
+                                <input id="countyName" class="form-control" name="countyName" type="text" placeholder="请输入县名" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="longitude" class="col-sm-2 control-label">经度: </label>
                             <div class="col-sm-10">
-                                <input id="longitude" class="form-control" name="longitude" type="text"
-                                       placeholder="请输入经度"/>
+                                <input id="longitude" class="form-control" name="longitude" type="text" placeholder="请输入经度" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="latitude" class="col-sm-2 control-label">纬度: </label>
                             <div class="col-sm-10">
-                                <input id="latitude" class="form-control" name="latitude" type="text"
-                                       placeholder="请输入纬度"/>
+                                <input id="latitude" class="form-control" name="latitude" type="text" placeholder="请输入纬度" />
                             </div>
                         </div>
                         <button class="btn btn-primary col-sm-offset-2" type="submit">提交</button>
@@ -68,9 +63,9 @@
     </div>
 </div>
 <script>
-    $(function () {
+    $(function() {
 
-        var getUserInfo = function () {
+        var getUserInfo = function() {
             var info = {
                 userId: window.sessionStorage.getItem('userId') || -1,
                 userName: window.sessionStorage.getItem('userName') || null,
@@ -86,17 +81,17 @@
             token: userInfo.token
         };
 
-        var renderList = function () {
+        var renderList = function() {
             var html = '';
-            $.get("/unit/getCounties", data, function (res) {
+            $.get("/unit/getCounties", data , function (res) {
                 if (typeof res == 'string') res = JSON.parse(res);
                 if (res.code == 200) {
-                    var html = '';
-                    res.data.counties.map(function (item) {
+                    var  html = '';
+                    res.data.counties.map(function(item) {
                         html += '<a class="list-group-item btn-toolbar" data-id="' + item.id + '" ' +
-                                'data-longitude="' + item.location.longitude + '"' +
-                                'data-latitude="' + item.location.latitude + '" ' +
-                                'data-name="' + item.name + '">' +
+                                'data-longitude="'+ item.location.longitude +'"' +
+                                'data-latitude="' + item.location.latitude +'" ' +
+                                'data-name="'+ item.name +'">' +
                                 item.name +
                                 '<button class="btn btn-xs btn-primary modify" style="float: right;z-index: 10;">修改</button>' +
                                 '</a>';
@@ -107,7 +102,7 @@
                 } else {
                     console.error("error with code", res.code);
                 }
-
+                
             })
 
 
@@ -153,7 +148,7 @@
                 var formData = $("form").serialize();
 
                 formData = JSON.parse('{"' + formData.replace(/&/g, '","').replace(/=/g, '":"') + '"}',
-                        function (key, value) {
+                        function(key, value) {
                             return key === "" ? value : decodeURIComponent(value)
                         });
 

@@ -2,8 +2,7 @@
   "code": 200,
   "data": {
     "counties": [
-      {
-        "id": 1,
+      { "id": 1,
         "createTime": "2016-09-09 16:00:00",
         "updateTime": "2016-09-09 16:00:00",
         "isDelete": 0,
@@ -14,8 +13,7 @@
           "latitude": 123
         }
       },
-      {
-        "id": 2,
+      { "id": 2,
         "createTime": "2016-09-09 16:00:00",
         "updateTime": "2016-09-09 16:00:00",
         "isDelete": 0,

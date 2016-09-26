@@ -207,8 +207,7 @@
             "realName": "weck"
           }
         },
-        {
-          "id": 10,
+        { "id": 10,
           "createTime": "1970-01-18 01:07:14",
           "updateTime": "2016-09-02 17:01:15",
           "isDelete": 0,

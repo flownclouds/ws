@@ -1,0 +1,77 @@
+{
+  "code": 200,
+  "data": {
+    "userInfo": {
+      "createTime": 1474706352371,
+      "updateTime": 1474801136562,
+      "isDelete": 0,
+      "id": 1,
+      "name": "weck",
+      "password": "AEw8/HWJ4q39RI8Y3VUCVzUSn7M1mwh1dNrVvs2H+HK8iz3SNy22jcBid2DARij5xbMhCzuUkc+QQ5VzNq53Ua4=",
+      "salt": "ci6Yl0pXZTr7Ikw2sFEyy4MjQgdyZpSGeKi+VZnIVJ0=",
+      "token": "fe96d24dd84f48ddb793145bb9b2f3f9",
+      "isSuperAdmin": 1,
+      "county": {
+        "createTime": 1474706352371,
+        "updateTime": 1474706352371,
+        "isDelete": 0,
+        "id": 1,
+        "name": "东海县",
+        "isActive": 1,
+        "longitude": "134.0",
+        "latitude": "123.0"
+      },
+      "role": {
+        "createTime": 1474706352371,
+        "updateTime": 1474706352371,
+        "isDelete": 0,
+        "id": 1,
+        "name": "admin",
+        "isActive": 1
+      },
+      "towns": [
+        {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "唐江镇",
+          "isActive": 1,
+          "county": {
+            "createTime": 1474706352371,
+            "updateTime": 1474706352371,
+            "isDelete": 0,
+            "id": 1,
+            "name": "东海县",
+            "isActive": 1,
+            "longitude": "134.0",
+            "latitude": "123.0"
+          }
+        },
+        {
+          "createTime": 1474780497886,
+          "updateTime": 1474780497886,
+          "isDelete": 0,
+          "id": 2,
+          "name": "河边街",
+          "isActive": 1,
+          "county": {
+            "createTime": 1474706352371,
+            "updateTime": 1474706352371,
+            "isDelete": 0,
+            "id": 1,
+            "name": "东海县",
+            "isActive": 1,
+            "longitude": "134.0",
+            "latitude": "123.0"
+          }
+        }
+      ],
+      "phone": 18270891241,
+      "isActive": 0,
+      "email": "izayl@163.com",
+      "realName": "weck"
+    }
+  },
+  "error": null
+}

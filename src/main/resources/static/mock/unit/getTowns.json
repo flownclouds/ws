@@ -1,0 +1,440 @@
+{
+  "code": 200,
+  "data": {
+    "towns": [
+      {
+        "createTime": 1474706352371,
+        "updateTime": 1474706352371,
+        "isDelete": 0,
+        "id": 1,
+        "name": "唐江镇",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 2,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 3,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 4,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 5,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 6,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 7,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 8,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 9,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 10,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 11,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 12,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 13,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 14,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 2,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 2,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 2,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 2,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 2,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 2,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 2,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 2,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 2,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      },
+      {
+        "createTime": 1474780497886,
+        "updateTime": 1474780497886,
+        "isDelete": 0,
+        "id": 2,
+        "name": "河边街",
+        "isActive": 1,
+        "county": {
+          "createTime": 1474706352371,
+          "updateTime": 1474706352371,
+          "isDelete": 0,
+          "id": 1,
+          "name": "东海县",
+          "isActive": 1,
+          "longitude": "134.0",
+          "latitude": "123.0"
+        }
+      }
+    ]
+  },
+  "error": null
+}
